@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IUserData } from "../types/authTypes";
+import { IUserData,IUserLoginData } from "../types/authTypes";
 import authServices from "../services/authService";
 
 export async function signUp(req:Request, res:Response){
@@ -14,4 +14,16 @@ export async function signUp(req:Request, res:Response){
     await authServices.signUp(user);
 
     res.sendStatus(201);
+};
+
+export async function signIn(req:Request, res:Response){
+
+    const user:IUserLoginData = {
+        email: req.body.email,
+        password: req.body.password
+    };
+
+    const token = await authServices.signIn(user);
+
+    res.status(200).send(token);
 };
