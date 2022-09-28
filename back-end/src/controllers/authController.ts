@@ -6,7 +6,8 @@ export async function signUp(req:Request, res:Response){
 
     const user:IUserData = {
         name:req.body.name,
-        address: req.body.address,
+        cep: req.body.cep,
+        houseNumber: req.body.houseNumber,
         email: req.body.email,
         password: req.body.password
     };

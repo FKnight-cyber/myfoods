@@ -23,7 +23,8 @@ async function signIn(user:IUserLoginData) {
         id:checkUser!.id,
         email:checkUser!.email,
         name:checkUser!.name,
-        address:checkUser!.address
+        cep:checkUser!.cep,
+        houseNumber:checkUser!.houseNumber
    };
 
    const token = generateUserToken(userInfo);
