@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/pizza.png";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from 'sweetalert2';
 
 export default function Register(){
     const [name,setName] = useState('');
@@ -9,18 +11,50 @@ export default function Register(){
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
+    const navigate = useNavigate();
+
     function signUp(event){
         event.preventDefault();
 
-        const user = {
+        const body = {
             name,
             address,
             email,
             password
         };
 
-        console.log(user)
-    }
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
+
+        promise.then(res => {
+            navigate("/sign-in");
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+            title: 'Error!',
+            icon: 'error',
+            html: `${Error.response.data}`,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+                }, 100);
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            })
+        });
+    };
+
     return(
         <RegisterContainer>
             <header>

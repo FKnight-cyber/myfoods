@@ -17,8 +17,8 @@ export function generateUserToken(data:IUserInfo){
 
 export function encrypt(password:string){
     return bcrypt.hashSync(password,10);
-}
+};
 
 export function decrypt(password:string, hashPassword:string){
     return bcrypt.compareSync(password, hashPassword);
-}
+};
