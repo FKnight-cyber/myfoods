@@ -10,7 +10,7 @@ export default function Product({image,name,price,description,category}){
         <Container>
             <img src={image} alt={category} srcset="" />
             <h1>{name}</h1>
-            <h1>{`R$ ${price}`}</h1>
+            <h1>{price}</h1>
             <h3>{description}</h3>
             <div className="buttons">
                 <div className="order">

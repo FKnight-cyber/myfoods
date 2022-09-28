@@ -3,13 +3,23 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Product from "./Product";
 import axios from "axios";
 import { useEffect,useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import Swal from "sweetalert2";
 
 export default function Products({category}){
 
-    const { token } = useContext(UserContext);
+    const { token,setToken } = useContext(UserContext);
     const [products, setProducts] = useState([]);
+
+    const navigate = useNavigate();
+
+    function formatPrice(price){
+        return (price).toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          });
+    }
 
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products?category=${category}`,{
@@ -40,7 +50,11 @@ export default function Products({category}){
             }
             }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
-                    return;
+                    if(Error.response.status === 401){
+                        localStorage.setItem("authToken", "")
+                        setToken("");
+                        navigate("/");
+                    }
                 }
             })
         });
@@ -55,7 +69,7 @@ export default function Products({category}){
                         <Product 
                         image={product.imageURL} 
                         name={product.name}
-                        price={product.price}
+                        price={formatPrice(product.price)}
                         description={product.description}
                         category={category} />
                     </SwiperSlide>
