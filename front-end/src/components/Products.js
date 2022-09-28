@@ -53,7 +53,7 @@ export default function Products({category}){
                 products.map((product,index) => 
                     <SwiperSlide key={index}>
                         <Product 
-                        image={product.image} 
+                        image={product.imageURL} 
                         name={product.name}
                         price={product.price}
                         description={product.description}
