@@ -7,30 +7,75 @@ import Swal from 'sweetalert2';
 
 export default function Register(){
     const [name,setName] = useState('');
-    const [address,setAddress] = useState('');
+    const [cep,setCep] = useState('');
+    const [houseNumber,setHouseNumber] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const navigate = useNavigate();
 
-    function signUp(event){
+    async function signUp(event){
         event.preventDefault();
 
-        const body = {
-            name,
-            address,
-            email,
-            password
-        };
+        const promise2 = axios.get(`https://viacep.com.br/ws/${cep}/json/`);
 
-        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
+        promise2.then(res => {
+            if(res.data.localidade === "Fortaleza"){
+                if(res.data.bairro !== "Parangaba"){
+                    Swal.fire({
+                        title: 'Error!',
+                        icon: 'error',
+                        html: "Desculpe, não entregamos na sua localidade ;(",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        }).then((result) => {
+                            return;
+                        })
+                    }else{
+                        const body = {
+                            name,
+                            cep,
+                            houseNumber,
+                            email,
+                            password
+                        };
+                
+                        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
+                
+                        promise.then(res => {
+                            navigate("/");
+                        });
+                
+                        promise.catch(Error => {
+                            let timerInterval
+                            Swal.fire({
+                            title: 'Error!',
+                            icon: 'error',
+                            html: `${Error.response.data}`,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                b.textContent = Swal.getTimerLeft()
+                                }, 100);
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    return;
+                                }
+                            })
+                        });
+                    }
+                }
+            });
 
-        promise.then(res => {
-            navigate("/");
-        });
-
-        promise.catch(Error => {
-            let timerInterval
+        promise2.catch(Error => {
+            let timerInterval;
             Swal.fire({
             title: 'Error!',
             icon: 'error',
@@ -62,24 +107,31 @@ export default function Register(){
             </header>
             <form onSubmit={signUp}>
                 <input type="text"
-                placeholder="Nome"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                    placeholder="Nome"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
                  />
-                <input type="text"
-                placeholder="Endereço"
-                value={address}
-                onChange={e => setAddress(e.target.value)}
+                <input type="number"
+                    placeholder="CEP"
+                    maxLength={8}
+                    value={cep}
+                    onChange={e => setCep(e.target.value)}
+                 />
+                 <input type="number"
+                    placeholder="Número da casa"
+                    maxLength={10}
+                    value={houseNumber}
+                    onChange={e => setHouseNumber(e.target.value)}
                  />
                 <input type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                  />
                 <input type="password"
-                placeholder="Senha"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                    placeholder="Senha"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                  />
                 <button type="submit">Register</button>
             </form>
@@ -166,6 +218,7 @@ export const RegisterContainer = styled.div`
             font-weight: 700;
             font-size: 20px;
             border: none;
+            margin-bottom: 20px;
         }
     }
 
