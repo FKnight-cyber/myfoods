@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import { IUserInfo } from "../types/authTypes";
 
@@ -13,3 +14,11 @@ export function generateUserToken(data:IUserInfo){
           }, secret)
     );
 };
+
+export function encrypt(password:string){
+    return bcrypt.hashSync(password,10);
+}
+
+export function decrypt(password:string, hashPassword:string){
+    return bcrypt.compareSync(password, hashPassword);
+}
