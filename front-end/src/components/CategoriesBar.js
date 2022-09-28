@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { FaBars,FaShoppingCart } from "react-icons/fa";
 
-export default function CategoriesBar({category}){
+export default function CategoriesBar({category,setCategory, setOpenMenu, openMenu}){
     return(
         <Container>
             <div className="categorySelector">
-                <FaBars size={30} color="#ffffff" />
+                <FaBars 
+                size={30} 
+                color="#ffffff"
+                onClick={() => setOpenMenu(!openMenu)}
+                />
                 <h2>{category}</h2>
             </div>
             <FaShoppingCart size={30} color="#ffffff" />

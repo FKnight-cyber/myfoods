@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import Swal from "sweetalert2";
 
-export default function Products({category}){
+export default function Products({category,openMenu}){
 
     const { token,setToken } = useContext(UserContext);
     const [products, setProducts] = useState([]);
@@ -58,20 +58,21 @@ export default function Products({category}){
                 }
             })
         });
-    },[]);
+    },[category]);
 
     return(
-        <Container>
+        <Container openMenu={openMenu}>
             <Swiper>
                 {
                 products.map((product,index) => 
                     <SwiperSlide key={index}>
                         <Product 
-                        image={product.imageURL} 
-                        name={product.name}
-                        price={formatPrice(product.price)}
-                        description={product.description}
-                        category={category} />
+                            image={product.imageURL} 
+                            name={product.name}
+                            price={formatPrice(product.price)}
+                            description={product.description}
+                            category={category} 
+                        />
                     </SwiperSlide>
                 )}
             </Swiper>
@@ -80,6 +81,7 @@ export default function Products({category}){
 }
 
 const Container = styled.div`
+    display: ${props => props.openMenu ? "none" : "value"};
     width: 94%;
     height: 346px;
     background-color: #ffffff;
