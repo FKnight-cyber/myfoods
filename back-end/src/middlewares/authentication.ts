@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { checkError } from "./errorHandler";
 
 export default async function authentication(req:Request, res:Response, next:NextFunction) {
-    const token:any = req.headers['x-access-token']!.toString();
+    const token:string = req.headers['x-access-token']!.toString();
 
     if(!token) throw checkError(401, "Você precisa enviar o token de autorização!");
 
@@ -12,7 +12,7 @@ export default async function authentication(req:Request, res:Response, next:Nex
     try {
         jwt.verify(token, secret);
 
-        const data = jwt.decode(token, {complete: true})
+        const data = jwt.decode(token, { complete: true });
 
         res.locals.userInfo = data?.payload;
         

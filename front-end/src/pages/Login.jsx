@@ -1,4 +1,4 @@
-import { useState,useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 import logo from "../assets/pizza.png";
 import { Link,useNavigate } from "react-router-dom";
@@ -12,7 +12,13 @@ export default function Login(){
 
     const navigate = useNavigate();
 
-    const { setToken } = useContext(UserContext);
+    const { setToken,token } = useContext(UserContext);
+
+    useEffect(()=>{
+        if(token !== ''){
+            navigate('/initialpage');
+        };
+    },[]);
 
     function signIn(event){
         event.preventDefault();

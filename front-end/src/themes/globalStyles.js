@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "swiper/css/bundle";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -64,6 +65,26 @@ table {
 		font-family: 'Lato', sans-serif;
 	}
 }
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+}
+
+.swiper-slide {
+  background: #fff;
+  font-style: italic;
+  color: #000;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 `;
 
 export default GlobalStyle;
