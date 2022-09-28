@@ -26,7 +26,7 @@ export default function Register(){
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
 
         promise.then(res => {
-            navigate("/sign-in");
+            navigate("/");
         });
 
         promise.catch(Error => {
@@ -83,10 +83,10 @@ export default function Register(){
                  />
                 <button type="submit">Register</button>
             </form>
-            <Link to="/sign-in" style={{textDecoration:"none"}}>
+            <Link to="/" style={{textDecoration:"none"}}>
                 <h6>Já possui uma conta?</h6>
             </Link>
-            <Link to="/sign-in" style={{textDecoration:"none"}}>
+            <Link to="/" style={{textDecoration:"none"}}>
                 <h6>Clique aqui e faça seu login!</h6> 
             </Link>   
         </RegisterContainer>

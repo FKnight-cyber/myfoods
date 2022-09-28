@@ -19,8 +19,8 @@ export default function App(){
             <GlobalStyle />
             <UserContext.Provider value={userContext}>
                 <Routes>
-                    <Route path="/" element={<InitialPage />} />
-                    <Route path="/sign-in" element={<Login />} />
+                    <Route path="/initialpage" element={<InitialPage />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/sign-up" element={<Register />} />
                 </Routes>
             </UserContext.Provider>
