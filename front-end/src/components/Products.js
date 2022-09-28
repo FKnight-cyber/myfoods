@@ -12,7 +12,7 @@ export default function Products({category}){
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/sign-in`,{
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products?category=${category}`,{
             headers:{'x-access-token': `${token}` }
         });
 
