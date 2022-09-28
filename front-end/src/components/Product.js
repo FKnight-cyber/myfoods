@@ -6,11 +6,22 @@ export default function Product({image,name,price,description,category}){
     const [quantity, setQuantity] = useState(0);
     const [selected, setSelected] = useState(false);
 
+    function formatPrice(price){
+        return (price/100).toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          });
+    }
+
     return(
         <Container>
             <img src={image} alt={category} srcset="" />
             <h1>{name}</h1>
-            <h1>{price}</h1>
+            <h1>
+                {
+                    quantity <= 1 ? formatPrice(price) : formatPrice(price * Number(quantity))
+                }
+            </h1>
             <h3>{description}</h3>
             <div className="buttons">
                 <div className="order">

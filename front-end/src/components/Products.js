@@ -14,13 +14,6 @@ export default function Products({category,openMenu}){
 
     const navigate = useNavigate();
 
-    function formatPrice(price){
-        return (price).toLocaleString('pt-br', {
-            style: 'currency',
-            currency: 'BRL',
-          });
-    }
-
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products?category=${category}`,{
             headers:{'x-access-token': `${token}` }
@@ -69,7 +62,7 @@ export default function Products({category,openMenu}){
                         <Product 
                             image={product.imageURL} 
                             name={product.name}
-                            price={formatPrice(product.price)}
+                            price={product.price}
                             description={product.description}
                             category={category} 
                         />
