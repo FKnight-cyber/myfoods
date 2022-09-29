@@ -4,7 +4,7 @@ import logo from "../assets/pizza.png";
 import CategoriesBar from "../components/CategoriesBar";
 import CategoriesMenu from "../components/CategoriesMenu";
 import Products from "../components/Products";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt,FaUserAlt } from "react-icons/fa";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -19,15 +19,20 @@ export default function InitialPage(){
         <InitialPageContainer>
             <header>
                 <FaSignOutAlt 
-                size={30} 
-                color="#ffffff"
-                onClick={()=>{
-                    localStorage.setItem("authToken", "");
-                    setToken("");
-                    navigate("/");
-                }} 
+                    size={30} 
+                    color="#ffffff"
+                    onClick={()=>{
+                        localStorage.setItem("authToken", "");
+                        setToken("");
+                        navigate("/");
+                    }} 
                 />
                 <img src={logo} alt="pizza" srcset="" />
+                <FaUserAlt
+                    size={30}
+                    color="#ffffff"
+                    onClick={() => navigate("/user")} 
+                />
             </header>
             <CategoriesBar 
                 category={category}
@@ -75,6 +80,12 @@ const InitialPageContainer = styled.div`
                 position: absolute;
                 top: 14px;
                 left: 14px;
+            }
+
+            &:last-child {
+                position: absolute;
+                top: 14px;
+                right: 14px;
             }
         }
     }

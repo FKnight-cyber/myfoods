@@ -3,7 +3,11 @@ import jwt from "jsonwebtoken";
 import { checkError } from "./errorHandler";
 
 export default async function authentication(req:Request, res:Response, next:NextFunction) {
-    const token:string = req.headers['x-access-token']!.toString();
+    let token:any = req.headers['x-access-token'];
+
+    if(token){
+        token = token.toString();
+    }
 
     if(!token) throw checkError(401, "Você precisa enviar o token de autorização!");
 

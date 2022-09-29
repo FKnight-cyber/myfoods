@@ -28,3 +28,11 @@ export async function signIn(req:Request, res:Response){
 
     res.status(200).send(token);
 };
+
+export async function getUserInfo(req:Request, res:Response){
+    const  { userInfo }  = res.locals;
+
+    const allInfo = await authServices.getUserInfo(userInfo);
+
+    res.status(200).send(allInfo);
+}

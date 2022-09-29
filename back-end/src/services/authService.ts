@@ -45,9 +45,29 @@ async function signIn(user:IUserLoginData) {
    return token;
 }
 
+async function getUserInfo(userInfo:any) {
+    const { id, name, email, cep, houseNumber } = userInfo.data;
+
+    const { data:info } = await axios.get(`http://viacep.com.br/ws/${cep}/json/`).catch(()=>{
+        throw checkError(500,"Erro na busca pelo seu CEP!");
+    });
+
+    return {
+        id,
+        name,
+        email,
+        houseNumber,
+        cep,
+        district: info.bairro,
+        road: info.logradouro,
+        city: info.localidade
+    }
+}
+
 const authServices = {
     signUp,
-    signIn
+    signIn,
+    getUserInfo
 }
 
 export default authServices;
