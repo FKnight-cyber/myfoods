@@ -17,87 +17,44 @@ export default function Register(){
     async function signUp(event){
         event.preventDefault();
 
-        const promise2 = axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-
-        promise2.then(res => {
-            if(res.data.localidade === "Fortaleza"){
-                if(res.data.bairro !== "Parangaba"){
-                    Swal.fire({
-                        title: 'Error!',
-                        icon: 'error',
-                        html: "Desculpe, não entregamos na sua localidade ;(",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        }).then((result) => {
-                            return;
-                        })
-                    }else{
-                        const body = {
-                            name,
-                            cep,
-                            houseNumber,
-                            email,
-                            password
-                        };
+        const body = {
+            name,
+            cep,
+            houseNumber,
+            email,
+            password
+        };
                 
-                        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
                 
-                        promise.then(res => {
-                            navigate("/");
-                        });
+        promise.then(res => {
+            navigate("/");
+        });
                 
-                        promise.catch(Error => {
-                            let timerInterval
-                            Swal.fire({
-                            title: 'Error!',
-                            icon: 'error',
-                            html: `${Error.response.data}`,
-                            timer: 2000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading()
-                                const b = Swal.getHtmlContainer().querySelector('b')
-                                timerInterval = setInterval(() => {
-                                b.textContent = Swal.getTimerLeft()
-                                }, 100);
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval)
-                            }
-                            }).then((result) => {
-                                if (result.dismiss === Swal.DismissReason.timer) {
-                                    return;
-                                }
-                            })
-                        });
-                    }
-                }
-            });
-
-        promise2.catch(Error => {
-            let timerInterval;
+        promise.catch(Error => {
+            let timerInterval
             Swal.fire({
-            title: 'Error!',
-            icon: 'error',
-            html: `${Error.response.data}`,
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading()
-                const b = Swal.getHtmlContainer().querySelector('b')
-                timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft()
-                }, 100);
-            },
-            willClose: () => {
-                clearInterval(timerInterval)
-            }
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
             }).then((result) => {
-                if (result.dismiss === Swal.DismissReason.timer) {
+                 if (result.dismiss === Swal.DismissReason.timer) {
                     return;
                 }
             })
-        });
+        });  
     };
 
     return(
