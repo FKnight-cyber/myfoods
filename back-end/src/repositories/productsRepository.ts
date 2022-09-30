@@ -9,8 +9,41 @@ async function findProductsByCategoryId(id:number) {
     }});
 };
 
+async function findProductById(id:number) {
+    return await prisma.product.findUnique({where:{id}});
+};
+
+async function order(id:number,amount:number) {
+    await prisma.product.update({
+        where:{
+            id
+        },
+        data:{
+            quantity:{
+                decrement: amount
+            }
+        }
+    });
+};
+
+async function cancelOrder(id:number,amount:number) {
+    await prisma.product.update({
+        where:{
+            id
+        },
+        data:{
+            quantity:{
+                increment: amount
+            }
+        }
+    });
+};
+
 const productsRepository = {
-    findProductsByCategoryId
+    findProductsByCategoryId,
+    findProductById,
+    order,
+    cancelOrder
 };
 
 export default productsRepository;
