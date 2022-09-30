@@ -13,10 +13,17 @@ async function addToCart(cart:ICartData){
     await cartRepository.insert(cart);
 
     await productRepository.order(cart.productId,cart.quantity);
+};
+
+async function listProducts(userId:number){
+    const products = await cartRepository.getProductsByUserId(userId);
+
+    return products;
 }
 
 const cartServices = {
-    addToCart
+    addToCart,
+    listProducts
 };
 
 export default cartServices;

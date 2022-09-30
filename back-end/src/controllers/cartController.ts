@@ -19,4 +19,14 @@ export async function addToCart(req:Request, res:Response) {
     });
 
     res.sendStatus(201);
+};
+
+export async function getMyOrders(req:Request, res:Response){
+    const { userInfo } = res.locals;
+
+    const userId:number = userInfo.data.id;
+
+    const products = await cartServices.listProducts(userId);
+
+    res.status(200).send(products);
 }
