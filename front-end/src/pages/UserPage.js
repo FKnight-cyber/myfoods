@@ -7,58 +7,19 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function UserPage(){
-    const [name, setName] = useState('');
-    const [CEP, setCEP] = useState('');
-    const [city, setCity] = useState('');
-    const [district, setDistrict] = useState('');
-    const [road, setRoad] = useState('');
-    const [number, setNumber] = useState('');
     const [purchases, setPurchases] = useState(0);
 
     const navigate = useNavigate();
 
-    const { token } = useContext(UserContext);
-
-    useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/info`,{
-            headers:{'x-access-token': `${token}`}
-        });
-
-        promise.then(res => {
-            setName(res.data.name);
-            setCEP(res.data.cep);
-            setCity(res.data.city);
-            setDistrict(res.data.district);
-            setRoad(res.data.road.split("Rua "));
-            setNumber(res.data.houseNumber);
-        });
-
-        promise.catch(Error => {
-            let timerInterval
-            Swal.fire({
-                title: 'Error!',
-                icon: 'error',
-                html: `${Error.response.data}`,
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading()
-                    const b = Swal.getHtmlContainer().querySelector('b')
-                    timerInterval = setInterval(() => {
-                        b.textContent = Swal.getTimerLeft()
-                    }, 100);
-                },
-                willClose: () => {
-                    clearInterval(timerInterval)
-                }
-            }).then((result) => {
-                 if (result.dismiss === Swal.DismissReason.timer) {
-                    return;
-                }
-            })
-        });
-
-    },[]);
+    const { 
+        token,
+        name,
+        CEP,
+        city,
+        district,
+        road,
+        number 
+    } = useContext(UserContext);
 
     return(
         <Container>

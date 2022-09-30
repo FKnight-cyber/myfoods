@@ -6,23 +6,49 @@ import UserContext from "../context/UserContext";
 import Swal from "sweetalert2";
 import { FaOutdent, FaUserAlt, FaGrinWink } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import SendMessages from "../components/sendMessage/SendMessage";
 
 export default function MyCart(){
     const [products, setProducts] = useState([]);
     const [productsInCart, setProductsInCart] = useState(0);
+    const [order, setOrder] = useState(false);
+    const [total, setTotal] = useState(0);
 
-    const { token } = useContext(UserContext);
+    const { 
+        token,
+        name,
+        CEP,
+        district,
+        road,
+        number 
+    } = useContext(UserContext);
+
+    const myRequest = {
+        name,
+        CEP,
+        district,
+        road,
+        number,
+        total,
+        products
+    }
 
     const navigate = useNavigate();
 
     useEffect(() => {
+
+        if(!name){
+            navigate("/initialpage");
+        }
+
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart/list`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
-            setProducts(res.data);
-            setProductsInCart(res.data.length);
+            setTotal(formatPrice(res.data[1]));
+            setProducts(res.data[0]);
+            setProductsInCart(res.data[0].length);
         });
 
         promise.catch(Error => {
@@ -130,25 +156,32 @@ export default function MyCart(){
 
     return(
         <Container>
-            <FaOutdent
-                color="#ffffff"
-                size={30}
-                onClick={() => navigate("/initialpage")} 
-            />
-            <Products>
-                {
-                    products.length > 0 ? renderProduct(products) : ""
-                }
-            </Products>
-            <FaUserAlt
-                color="#ffffff"
-                size={30}
-                onClick={() => navigate("/user")}  
-            />
-            <div className="buy">
-                <h5>Finalizar Pedido</h5>
-                <FaGrinWink size={30} />
-            </div>
+            {
+                order ?
+                <SendMessages messageData={myRequest} />
+                :
+                <>
+                    <FaOutdent
+                        color="#ffffff"
+                        size={30}
+                        onClick={() => navigate("/initialpage")} 
+                    />
+                    <Products>
+                        {
+                            products.length > 0 ? renderProduct(products) : ""
+                        }
+                    </Products>
+                    <FaUserAlt
+                        color="#ffffff"
+                        size={30}
+                        onClick={() => navigate("/user")}  
+                    />
+                    <div className="buy" onClick={() => setOrder(true)}>
+                        <h5>Finalizar Pedido</h5>
+                        <FaGrinWink size={30} />
+                    </div>
+                </>
+            }
         </Container>
     )
 }
@@ -159,6 +192,10 @@ const Container = styled.div`
     background-color: #211A22;
     padding: 8px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     > * {
         &:first-child {
@@ -180,6 +217,7 @@ const Container = styled.div`
         align-items: center;
         background-color: #7ED321;
         margin-top: 20px;
+        width: 300px;
         height: 40px;
         color: #ffffff;
         border-radius: 12px;
@@ -190,6 +228,55 @@ const Container = styled.div`
             font-style: italic;
             font-weight: 700;
         }
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+`
+const OrderContainer = styled.div`
+    width: 92%;
+    height: 90vh;
+    background-color: #ffffff;
+    padding: 16px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    overflow-y: scroll;
+
+    h2{
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .bar{
+        height: 40px;
+    }
+
+    .cancel,.finishOrder{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    .cancel{
+        position: absolute;
+        height: 40px;
+        bottom: 0;
+        left: 0;
+        width: 50%;
+        background-color: crimson;
+    }
+
+    .finishOrder{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 40px;
+        width: 50%;
+        background-color: #7ED321;
     }
 `
 
@@ -255,6 +342,10 @@ const Product = styled.div`
             bottom: -26px;
             background-color: crimson;
             color: #ffffff;
+
+            &:hover{
+                cursor: pointer;
+            }
         }
     }
 `

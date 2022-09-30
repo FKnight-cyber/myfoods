@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import logo from "../assets/pizza.png";
 import CategoriesBar from "../components/CategoriesBar";
@@ -7,13 +7,66 @@ import Products from "../components/Products";
 import { FaSignOutAlt,FaUserAlt } from "react-icons/fa";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function InitialPage(){
     const [category, setCategory] = useState("Pizzas");
     const [openMenu, setOpenMenu] = useState(false);
 
-    const { setToken } = useContext(UserContext);
+    const { 
+        token,
+        setToken,
+        setName,
+        setCEP,
+        setCity,
+        setDistrict,
+        setRoad,
+        setNumber 
+    } = useContext(UserContext);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/info`,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setName(res.data.name);
+            setCEP(res.data.cep);
+            setCity(res.data.city);
+            setDistrict(res.data.district);
+            setRoad(res.data.road.split("Rua "));
+            setNumber(res.data.houseNumber);
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            })
+        });
+
+    },[]);
 
     return(
         <InitialPageContainer>

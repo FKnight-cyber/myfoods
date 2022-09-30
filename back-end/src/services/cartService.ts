@@ -18,7 +18,13 @@ async function addToCart(cart:ICartData){
 async function listProducts(userId:number){
     const products = await cartRepository.getProductsByUserId(userId);
 
-    return products;
+    let sum = 0;
+
+    products.forEach(product => {
+        sum += product.products.price;
+    });
+
+    return [products,sum];
 }
 
 async function removeFromCart(productId:number, itemId:number, quantity:number) {

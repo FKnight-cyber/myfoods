@@ -10,10 +10,28 @@ import MyCart from "../pages/MyCart";
 
 export default function App(){
     const [token,setToken] = useState(localStorage.getItem('authToken'));
+    const [name, setName] = useState('');
+    const [CEP, setCEP] = useState('');
+    const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [road, setRoad] = useState('');
+    const [number, setNumber] = useState('');
 
     const userContext = {
         token,
-        setToken
+        setToken,
+        name,
+        setName,
+        CEP,
+        setCEP,
+        city,
+        setCity,
+        district,
+        setDistrict,
+        road,
+        setRoad,
+        number,
+        setNumber
     }
 
     return(
