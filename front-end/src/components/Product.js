@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FaMinusCircle,FaPlusCircle,FaCartPlus } from "react-icons/fa";
 import { useState } from "react";
 
-export default function Product({image,name,price,description,category}){
+export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
     const [selected, setSelected] = useState(false);
 
@@ -11,6 +11,10 @@ export default function Product({image,name,price,description,category}){
             style: 'currency',
             currency: 'BRL',
           });
+    }
+
+    function addToCart(quantity,productId,userId){
+        return;
     }
 
     return(
@@ -63,9 +67,9 @@ export default function Product({image,name,price,description,category}){
                     />
                 </div>
                 <FaCartPlus 
-                size={30} 
-                color="#7ED321"
-                display={selected ? "flex" : "none"}
+                    size={30} 
+                    color="#7ED321"
+                    display={selected ? "flex" : "none"}
                  />
             </div>
             

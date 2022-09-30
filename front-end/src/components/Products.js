@@ -64,7 +64,8 @@ export default function Products({category,openMenu}){
                             name={product.name}
                             price={product.price}
                             description={product.description}
-                            category={category} 
+                            category={category}
+                            id={product.id} 
                         />
                     </SwiperSlide>
                 )}

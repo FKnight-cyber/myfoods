@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id            Int        @id @default(autoincrement())
-  email         String     @unique
-  name          String
-  cep           String     @default("")
-  houseNumber   String     @default("")
-  password      String
-  createdAt     DateTime   @default(now())
-  purchases     Purchase[]
+  id          Int        @id @default(autoincrement())
+  email       String     @unique
+  name        String
+  cep         String     @default("")
+  houseNumber String     @default("")
+  password    String
+  createdAt   DateTime   @default(now())
+  purchases   Purchase[]
+  Cart        Cart[]
 
   @@map("users")
 }
@@ -40,6 +41,7 @@ model Product {
   imageURL    String     @default("")
   categories  Category   @relation(fields: [categoryId], references: [id])
   purchases   Purchase[]
+  Cart        Cart[]
 
   @@map("products")
 }
@@ -53,4 +55,15 @@ model Purchase {
   users     User     @relation(fields: [userId], references: [id])
 
   @@map("purchases")
+}
+
+model Cart {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  productId Int
+  quantity  Int
+  products  Product @relation(fields: [productId], references: [id])
+  users     User    @relation(fields: [userId], references: [id])
+
+  @@map("carts")
 }
