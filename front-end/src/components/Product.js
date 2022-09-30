@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { FaMinusCircle,FaPlusCircle,FaCartPlus } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import UserContext from "../context/UserContext";
 
 export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
     const [selected, setSelected] = useState(false);
+
+    const { token } = useContext(UserContext);
 
     function formatPrice(price){
         return (price/100).toLocaleString('pt-br', {
@@ -13,8 +18,47 @@ export default function Product({image,name,price,description,category,id}){
           });
     }
 
-    function addToCart(quantity,productId,userId){
-        return;
+    function addToCart(quantity,productId){
+
+        const body = {
+            quantity,
+            productId
+        };
+
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/cart/add`,body,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(()=>{
+            console.log("added!");
+            setSelected(false);
+            setQuantity(0);
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            })
+        });
     }
 
     return(
@@ -70,9 +114,9 @@ export default function Product({image,name,price,description,category,id}){
                     size={30} 
                     color="#7ED321"
                     display={selected ? "flex" : "none"}
+                    onClick={()=>addToCart(quantity,id)}
                  />
-            </div>
-            
+            </div>  
         </Container> 
     )
 }

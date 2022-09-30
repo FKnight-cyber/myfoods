@@ -2,12 +2,15 @@ import { Request, Response } from "express";
 import cartServices from "../services/cartService";
 
 export async function addToCart(req:Request, res:Response) {
-    const { userId, productId, quantity } : 
-    { 
-        userId:number, 
+    const { productId, quantity } : 
+    {  
         productId:number, 
         quantity:number 
     } = req.body
+
+    const { userInfo } = res.locals;
+
+    const userId:number = userInfo.data.id;
 
     await cartServices.addToCart({
         userId,
