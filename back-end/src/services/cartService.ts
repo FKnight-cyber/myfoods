@@ -21,9 +21,16 @@ async function listProducts(userId:number){
     return products;
 }
 
+async function removeFromCart(productId:number, itemId:number, quantity:number) {
+    await cartRepository.remove(itemId);
+
+    await productRepository.cancelOrder(productId, quantity);
+}
+
 const cartServices = {
     addToCart,
-    listProducts
+    listProducts,
+    removeFromCart
 };
 
 export default cartServices;

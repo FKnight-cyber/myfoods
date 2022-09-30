@@ -9,19 +9,20 @@ import { useNavigate } from "react-router-dom";
 
 export default function MyCart(){
     const [products, setProducts] = useState([]);
+    const [productsInCart, setProductsInCart] = useState(0);
 
     const { token } = useContext(UserContext);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart/list`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
             setProducts(res.data);
+            setProductsInCart(res.data.length);
         });
 
         promise.catch(Error => {
@@ -49,18 +50,19 @@ export default function MyCart(){
             })
         });
 
-    },[]);
+    },[productsInCart]);
 
-    function removeFromCart(id){
-        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/remove/${id}`,{
+    function removeFromCart(productId,id,quantity){
+        const promise = 
+        axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/remove?product=${productId}&item=${id}&quantity=${quantity}`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
+            setProductsInCart(productsInCart - 1);
             let timerInterval
             Swal.fire({
-                title: 'Error!',
-                icon: 'error',
+                icon: 'success',
                 html: "Removido do carrinho!",
                 timer: 2000,
                 timerProgressBar: true,
@@ -119,7 +121,7 @@ export default function MyCart(){
                         {formatPrice(product.products.price * product.quantity)}
                     </h1>
                 </div>
-                <div className="remove" onClick={() => removeFromCart(product.productId)}>
+                <div className="remove" onClick={() => removeFromCart(product.productId,product.id,product.quantity)}>
                     <h4>Retirar do carrinho</h4>
                 </div>
             </Product>

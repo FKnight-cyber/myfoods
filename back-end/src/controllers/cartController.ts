@@ -30,3 +30,13 @@ export async function getMyOrders(req:Request, res:Response){
 
     res.status(200).send(products);
 }
+
+export async function removeItemFromCart(req:Request, res:Response) {
+    const productId:number = Number(req.query.product);
+    const itemId:number = Number(req.query.item);
+    const quantity:number = Number(req.query.quantity);
+
+    await cartServices.removeFromCart(productId, itemId, quantity);
+
+    res.sendStatus(200);
+}

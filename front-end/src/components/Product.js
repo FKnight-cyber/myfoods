@@ -23,10 +23,30 @@ export default function Product({image,name,price,description,category,id}){
             headers:{'x-access-token': `${token}`}
         });
 
-        promise.then(()=>{
-            console.log("added!");
+        promise.then(res => {
             setSelected(false);
             setQuantity(0);
+            let timerInterval
+            Swal.fire({
+                icon: 'success',
+                html: "Adicionado ao carrinho!",
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            })
         });
 
         promise.catch(Error => {

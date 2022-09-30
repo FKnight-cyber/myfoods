@@ -24,9 +24,14 @@ async function getProductsByUserId(userId:number){
     });
 };
 
+async function remove(id:number) {
+    await prisma.cart.delete({where:{id}});
+}
+
 const cartRepository = {
     insert,
-    getProductsByUserId
+    getProductsByUserId,
+    remove
 };
 
 export default cartRepository;
