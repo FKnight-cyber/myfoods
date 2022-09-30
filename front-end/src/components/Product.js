@@ -4,19 +4,13 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import UserContext from "../context/UserContext";
+import { formatPrice } from "../utils/utilityFunctions";
 
 export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
     const [selected, setSelected] = useState(false);
 
     const { token } = useContext(UserContext);
-
-    function formatPrice(price){
-        return (price/100).toLocaleString('pt-br', {
-            style: 'currency',
-            currency: 'BRL',
-          });
-    }
 
     function addToCart(quantity,productId){
 

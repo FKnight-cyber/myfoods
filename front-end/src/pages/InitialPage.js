@@ -36,7 +36,6 @@ export default function InitialPage(){
             </header>
             <CategoriesBar 
                 category={category}
-                setCategory={setCategory}
                 openMenu={openMenu} 
                 setOpenMenu={setOpenMenu} 
             />

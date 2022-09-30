@@ -79,7 +79,7 @@ export default function UserPage(){
             <FaOutdent
                 size={30}
                 color="#ffffff"
-                onClick={() => navigate("/initialpage")}
+                onClick={() => navigate(-1)}
             />
         </Container>
     )

@@ -1,18 +1,24 @@
 import styled from "styled-components";
 import { FaBars,FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-export default function CategoriesBar({category,setCategory, setOpenMenu, openMenu}){
+export default function CategoriesBar({category, setOpenMenu, openMenu}){
+    const navigate = useNavigate();
     return(
         <Container>
             <div className="categorySelector">
                 <FaBars 
-                size={30} 
-                color="#ffffff"
-                onClick={() => setOpenMenu(!openMenu)}
+                    size={30} 
+                    color="#ffffff"
+                    onClick={() => setOpenMenu(!openMenu)}
                 />
                 <h2>{category}</h2>
             </div>
-            <FaShoppingCart size={30} color="#ffffff" />
+            <FaShoppingCart 
+                size={30} 
+                color="#ffffff" 
+                onClick={() => navigate("/cart")}
+            />
         </Container>
     )
 }
