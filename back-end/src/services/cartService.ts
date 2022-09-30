@@ -25,18 +25,23 @@ async function listProducts(userId:number){
     });
 
     return [products,sum];
-}
+};
 
 async function removeFromCart(productId:number, itemId:number, quantity:number) {
     await cartRepository.remove(itemId);
 
     await productRepository.cancelOrder(productId, quantity);
+};
+
+async function cleanCart(userId:number) {
+    await cartRepository.removeUserProducts(userId);
 }
 
 const cartServices = {
     addToCart,
     listProducts,
-    removeFromCart
+    removeFromCart,
+    cleanCart
 };
 
 export default cartServices;

@@ -26,12 +26,17 @@ async function getProductsByUserId(userId:number){
 
 async function remove(id:number) {
     await prisma.cart.delete({where:{id}});
+};
+
+async function removeUserProducts(userId:number) {
+    await prisma.cart.deleteMany({where:{userId}});
 }
 
 const cartRepository = {
     insert,
     getProductsByUserId,
-    remove
+    remove,
+    removeUserProducts
 };
 
 export default cartRepository;

@@ -39,29 +39,20 @@ const SendMessages = ({messageData}) => {
   const [numberEmptyError, setNumberEmptyError] = useState(false);
   const [messageEmptyError, setMessageEmptyError] = useState(false);
 
-  const [formData, setFormData] = useState({
-    mobileNumber: "",
-    message: `${messageData.name}
+  const [mobileNumber, setMobileNumber] = useState("5585997154567")
+
+  const [message, setMessage] = useState(
+    `${messageData.name}
 CEP ${messageData.CEP}
 Bairro ${messageData.district}
-RUA ${messageData.road}
+Rua ${messageData.road}
 Número ${messageData.number}
 ${renderOrder(messageData.products)}
 Total: ${messageData.total}
-`,
+`
 
-});
+);
   const { token } = useContext(UserContext);
-
-  const { mobileNumber, message } = formData;
-
-  const onChange = (e) => {
-    e.preventDefault();
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const navigate = useNavigate();
 
@@ -127,7 +118,6 @@ Total: ${messageData.total}
             placeholder='Mobile Number'
             name='mobileNumber'
             value={mobileNumber}
-            onChange={onChange}
             size='small'
             style={{
               margin: "1em 0em",
@@ -167,7 +157,7 @@ Total: ${messageData.total}
             }}
             name='message'
             value={message}
-            onChange={onChange}
+            onChange={e => setMessage(e.target.value)}
             required
             error={message.length > CHARACTER_LIMIT - 1 || messageEmptyError}
             helperText={

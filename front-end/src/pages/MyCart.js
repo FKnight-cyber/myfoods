@@ -155,7 +155,7 @@ export default function MyCart(){
     };
 
     return(
-        <Container>
+        <Container products={products}>
             {
                 order ?
                 <SendMessages messageData={myRequest} />
@@ -212,7 +212,7 @@ const Container = styled.div`
     }
 
     .buy{
-        display: flex;
+        display: ${props => props.products.length > 0 ? "flex" : "none"};
         justify-content: center;
         align-items: center;
         background-color: #7ED321;

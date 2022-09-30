@@ -39,4 +39,14 @@ export async function removeItemFromCart(req:Request, res:Response) {
     await cartServices.removeFromCart(productId, itemId, quantity);
 
     res.sendStatus(200);
+};
+
+export async function cleanCart(req:Request, res:Response){
+    const { userInfo } = res.locals;
+
+    const userId:number = userInfo.data.id;
+
+    await cartServices.cleanCart(userId);
+
+    res.sendStatus(200);
 }
