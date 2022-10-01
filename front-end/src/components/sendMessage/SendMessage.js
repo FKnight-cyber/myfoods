@@ -9,11 +9,9 @@ import UserContext from "../../context/UserContext";
 const CssTextField = styled(TextField, {
   shouldForwardProp: (props) => props !== "focusColor",
 })((p) => ({
-  // input label when focused
   "& label.Mui-focused": {
     color: "#7ed957",
   },
-  // focused color for input with variant='outlined'
   "& .MuiOutlinedInput-root": {
     "&.Mui-focused fieldset": {
       borderColor: "#7ed957",
@@ -46,9 +44,10 @@ const SendMessages = ({messageData}) => {
 CEP ${messageData.CEP}
 Bairro ${messageData.district}
 Rua ${messageData.road}
-Número ${messageData.number}
+Número ${messageData.number}\n
 ${renderOrder(messageData.products)}
-Total: ${messageData.total}
+Total: ${messageData.total}\n
+Se fizer o pagamentos por PIX envie o comprovante!
 `
 
 );
@@ -185,6 +184,7 @@ Total: ${messageData.total}
             Enviar
           </Button>
         </div>
+        <h1 style={{ marginTop: "1.5em" }}>PIX: ryannicholas.vieira@gmail.com</h1>
       </div>
     </div>
   );
