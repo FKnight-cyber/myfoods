@@ -132,6 +132,7 @@ export default function Product({image,name,price,description,category,id}){
                         addToCart(quantity,id)
                         setProductsInCart(productsInCart + 1);
                     }}
+                    className="icon" 
                  />
             </div>  
         </Container> 

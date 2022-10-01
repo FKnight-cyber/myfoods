@@ -78,25 +78,29 @@ export default function InitialPage(){
                         localStorage.setItem("authToken", "");
                         setToken("");
                         navigate("/");
-                    }} 
+                    }}
+                    className="icon" 
                 />
                 <img src={logo} alt="pizza" srcset="" />
                 <FaUserAlt
                     size={30}
                     color="#ffffff"
-                    onClick={() => navigate("/user")} 
+                    onClick={() => navigate("/user")}
+                    className="icon" 
                 />
             </header>
             <CategoriesBar 
                 category={category}
                 openMenu={openMenu} 
                 setOpenMenu={setOpenMenu} 
+                className="icon"
             />
             <CategoriesMenu
                 openMenu={openMenu}
                 categoria={category}
                 setCategory={setCategory}
-                setOpenMenu={setOpenMenu} 
+                setOpenMenu={setOpenMenu}
+                className="icon" 
             />
             <Products 
                 openMenu={openMenu} 
@@ -113,6 +117,12 @@ const InitialPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .icon{
+        &:hover{
+            cursor: pointer;
+        }
+    }
 
     header{
         display: flex;

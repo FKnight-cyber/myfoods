@@ -37,7 +37,7 @@ const SendMessages = ({messageData}) => {
   const [numberEmptyError, setNumberEmptyError] = useState(false);
   const [messageEmptyError, setMessageEmptyError] = useState(false);
 
-  const [mobileNumber, setMobileNumber] = useState("5585997154567")
+  const [mobileNumber, setMobileNumber] = useState(process.env.REACT_APP_WHATSAPP_NUMBER);
 
   const [message, setMessage] = useState(
     `${messageData.name}

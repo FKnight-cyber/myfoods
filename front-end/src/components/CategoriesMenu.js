@@ -62,7 +62,7 @@ export default function CategoriesMenu({openMenu,setCategory,setOpenMenu,categor
                     setOpenMenu(!openMenu);
                 }}
             >
-                <h1>{category.name}</h1>
+                <h1 className="icon">{category.name}</h1>
             </Category>
         )
     };

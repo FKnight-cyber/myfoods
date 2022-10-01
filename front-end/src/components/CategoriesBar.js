@@ -16,6 +16,7 @@ export default function CategoriesBar({category, setOpenMenu, openMenu}){
                     size={30} 
                     color="#ffffff"
                     onClick={() => setOpenMenu(!openMenu)}
+                    className="icon" 
                 />
                 <h2>{category}</h2>
             </div>
@@ -24,6 +25,7 @@ export default function CategoriesBar({category, setOpenMenu, openMenu}){
                     size={30} 
                     color="#ffffff" 
                     onClick={() => navigate("/cart")}
+                    className="icon" 
                 />
                 <h6 className="productsCount">{productsInCart}</h6>
             </div> 

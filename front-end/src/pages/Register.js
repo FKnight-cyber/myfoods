@@ -176,6 +176,10 @@ export const RegisterContainer = styled.div`
             font-size: 20px;
             border: none;
             margin-bottom: 20px;
+
+            &:hover{
+                cursor: pointer;
+            }
         }
     }
 

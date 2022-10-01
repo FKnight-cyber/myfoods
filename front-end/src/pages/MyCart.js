@@ -221,7 +221,8 @@ export default function MyCart(){
                     <FaOutdent
                         color="#ffffff"
                         size={30}
-                        onClick={() => navigate("/initialpage")} 
+                        onClick={() => navigate("/initialpage")}
+                        className="icon"   
                     />
                     <Products product={productsInCart}>
                         {
@@ -238,7 +239,8 @@ export default function MyCart(){
                     <FaUserAlt
                         color="#ffffff"
                         size={30}
-                        onClick={() => navigate("/user")}  
+                        onClick={() => navigate("/user")}
+                        className="icon"  
                     />
                     <div className="buy" onClick={() => setOrder(true)}>
                         <h5>Finalizar Pedido</h5>
@@ -260,6 +262,12 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    .icon{
+        &:hover{
+            cursor: pointer;
+        }
+    }
 
     > * {
         &:first-child {
@@ -319,6 +327,10 @@ const Products = styled.div`
         background-color: crimson;
         bottom: 6px;
         left: 90%;
+
+        &:hover{
+            cursor: pointer;
+        }
     }
 `
 
