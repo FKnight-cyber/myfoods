@@ -49,4 +49,14 @@ export async function cleanCart(req:Request, res:Response){
     await cartServices.cleanCart(userId);
 
     res.sendStatus(200);
+};
+
+export async function cancelCart(req:Request, res:Response){
+    const { userInfo } = res.locals;
+
+    const userId:number = userInfo.data.id;
+
+    await cartServices.cancelCart(userId);
+
+    res.sendStatus(200);
 }

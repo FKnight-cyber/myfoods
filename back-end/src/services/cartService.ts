@@ -37,11 +37,22 @@ async function cleanCart(userId:number) {
     await cartRepository.removeUserProducts(userId);
 }
 
+async function cancelCart(userId:number) {
+    const products = await cartRepository.getProductsByUserId(userId);
+
+    for (const product of products){
+        await productRepository.cancelOrder(product.productId, product.quantity);
+    }
+    
+    await cartRepository.removeUserProducts(userId);
+}
+
 const cartServices = {
     addToCart,
     listProducts,
     removeFromCart,
-    cleanCart
+    cleanCart,
+    cancelCart
 };
 
 export default cartServices;
