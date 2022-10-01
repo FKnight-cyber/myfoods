@@ -61,7 +61,7 @@ export default function Products({category,openMenu}){
                 centeredSlides={true}
                 autoplay={{
                 delay: 10000,
-                disableOnInteraction: true,
+                disableOnInteraction: false,
                 }}
                 pagination={{
                 clickable: true,
