@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import "swiper/css/bundle";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');

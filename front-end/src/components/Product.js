@@ -30,8 +30,8 @@ export default function Product({image,name,price,description,category,id}){
             Swal.fire({
                 icon: 'success',
                 html: "Adicionado ao carrinho!",
-                timer: 2000,
-                timerProgressBar: true,
+                timer: 15000,
+                timerProgressBar: false,
                 didOpen: () => {
                     Swal.showLoading()
                     const b = Swal.getHtmlContainer().querySelector('b')
@@ -141,7 +141,7 @@ export default function Product({image,name,price,description,category,id}){
 const Container = styled.div`
     img{
         width: 100%;
-        height: 216px;
+        height: 216px !important;
         object-fit: cover;
     }
     h1{
@@ -167,20 +167,30 @@ const Container = styled.div`
     }
 
     .buttons{
+        width: 100% !important;
         padding-right: 10px;
     }
 
     .order{
-        width: 80px;
+        width: 100px; 
         margin-top: 6px;
         margin-left: 6px;
+
+        > * {
+            &:first-child,&:last-child{
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
     }
 
     input{
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 30px;
+        width: 40px;
+        height: 24px;
         padding-left: 8px;
         border: none;
     }
