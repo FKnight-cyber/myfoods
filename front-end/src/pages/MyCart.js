@@ -10,7 +10,6 @@ import SendMessages from "../components/sendMessage/SendMessage";
 
 export default function MyCart(){
     const [products, setProducts] = useState([]);
-    const [productsInCart, setProductsInCart] = useState(0);
     const [order, setOrder] = useState(false);
     const [total, setTotal] = useState(0);
 
@@ -20,7 +19,9 @@ export default function MyCart(){
         CEP,
         district,
         road,
-        number 
+        number,
+        productsInCart,
+        setProductsInCart 
     } = useContext(UserContext);
 
     const myRequest = {

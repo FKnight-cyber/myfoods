@@ -16,6 +16,7 @@ export default function App(){
     const [district, setDistrict] = useState('');
     const [road, setRoad] = useState('');
     const [number, setNumber] = useState('');
+    const [productsInCart, setProductsInCart] = useState(0);
 
     const userContext = {
         token,
@@ -31,7 +32,9 @@ export default function App(){
         road,
         setRoad,
         number,
-        setNumber
+        setNumber,
+        productsInCart,
+        setProductsInCart
     }
 
     return(

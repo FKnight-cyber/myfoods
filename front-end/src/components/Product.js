@@ -10,7 +10,7 @@ export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
     const [selected, setSelected] = useState(false);
 
-    const { token } = useContext(UserContext);
+    const { token, productsInCart ,setProductsInCart } = useContext(UserContext);
 
     function addToCart(quantity,productId){
 
@@ -128,7 +128,10 @@ export default function Product({image,name,price,description,category,id}){
                     size={30} 
                     color="#7ED321"
                     display={selected ? "flex" : "none"}
-                    onClick={()=>addToCart(quantity,id)}
+                    onClick={()=>{
+                        addToCart(quantity,id)
+                        setProductsInCart(productsInCart + 1);
+                    }}
                  />
             </div>  
         </Container> 
