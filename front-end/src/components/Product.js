@@ -139,6 +139,11 @@ export default function Product({image,name,price,description,category,id}){
 }
 
 const Container = styled.div`
+    img{
+        width: 100%;
+        height: 216px;
+        object-fit: cover;
+    }
     h1{
         font-weight: 700;
         font-size: 20px;
@@ -149,8 +154,10 @@ const Container = styled.div`
     h3{
         margin-top: 6px;
         margin-left: 6px;
-        height: 30px;
+        height: 40px;
+        word-break: break-all;
         overflow-y: scroll;
+        padding: 4px;
     }
 
     .buttons,.order{
