@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { formatPrice } from "../utils/utilityFunctions";
 import UserContext from "../context/UserContext";
 import Swal from "sweetalert2";
-import { FaOutdent, FaUserAlt, FaGrinWink } from "react-icons/fa";
+import { FaOutdent, FaUserAlt, FaGrinWink, FaCartArrowDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import SendMessages from "../components/sendMessage/SendMessage";
 
@@ -155,6 +155,63 @@ export default function MyCart(){
         );
     };
 
+    function cleanCart(){
+        const promise = 
+        axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/cancel`,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setProductsInCart(0);
+            let timerInterval
+            Swal.fire({
+                icon: 'success',
+                html: "Removido do carrinho!",
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            })
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            })
+        });
+    }
+
     return(
         <Container products={products}>
             {
@@ -171,6 +228,13 @@ export default function MyCart(){
                         {
                             products.length > 0 ? renderProduct(products) : ""
                         }
+                        <div className="cleanCart">
+                            <FaCartArrowDown
+                                size={30}
+                                color="#ffffff"
+                                onClick={cleanCart}
+                            />
+                        </div>
                     </Products>
                     <FaUserAlt
                         color="#ffffff"
@@ -235,51 +299,6 @@ const Container = styled.div`
         }
     }
 `
-const OrderContainer = styled.div`
-    width: 92%;
-    height: 90vh;
-    background-color: #ffffff;
-    padding: 16px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    overflow-y: scroll;
-
-    h2{
-        font-size: 20px;
-        margin-bottom: 4px;
-    }
-
-    .bar{
-        height: 40px;
-    }
-
-    .cancel,.finishOrder{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        &:hover{
-            cursor: pointer;
-        }
-    }
-
-    .cancel{
-        position: absolute;
-        height: 40px;
-        bottom: 0;
-        left: 0;
-        width: 50%;
-        background-color: crimson;
-    }
-
-    .finishOrder{
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        height: 40px;
-        width: 50%;
-        background-color: #7ED321;
-    }
-`
 
 const Products = styled.div`
     width: 100%;
@@ -288,6 +307,20 @@ const Products = styled.div`
     margin-top: 60px;
     overflow-y: scroll;
     padding: 8px;
+    position: relative;
+
+    .cleanCart{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        position: sticky;
+        background-color: crimson;
+        bottom: 6px;
+        left: 90%;
+    }
 `
 
 const Product = styled.div`

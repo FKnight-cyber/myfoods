@@ -30,7 +30,7 @@ export default function Product({image,name,price,description,category,id}){
             Swal.fire({
                 icon: 'success',
                 html: "Adicionado ao carrinho!",
-                timer: 2000,
+                timer: 1500,
                 timerProgressBar: false,
                 didOpen: () => {
                     Swal.showLoading()
