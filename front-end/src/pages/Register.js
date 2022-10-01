@@ -70,15 +70,26 @@ export default function Register(){
                  />
                 <input type="number"
                     placeholder="CEP"
-                    maxLength={8}
+                    onChange={e => {
+                        if(e.target.value.toString().length > 8){
+                            return;
+                        }else{
+                            setCep(e.target.value);
+                        }       
+                    }}
                     value={cep}
-                    onChange={e => setCep(e.target.value)}
                  />
                  <input type="number"
                     placeholder="Número da casa"
-                    maxLength={10}
+                    maxLength="10"
                     value={houseNumber}
-                    onChange={e => setHouseNumber(e.target.value)}
+                    onChange={e => {
+                        if(e.target.value.toString().length > 10){
+                            return;
+                        }else{
+                            setHouseNumber(e.target.value);
+                        }       
+                    }}
                  />
                 <input type="email"
                     placeholder="E-mail"
