@@ -144,8 +144,7 @@ export default function MyCart(){
                     <h1>{product.products.name}</h1>
                     <h2>{formatPrice(product.products.price)}</h2>
                     <h2>Quantidade: {product.quantity}</h2>
-                    <h1>Valor total: 
-                        {formatPrice(product.products.price * product.quantity)}
+                    <h1>Valor total: {formatPrice(product.products.price * product.quantity)}
                     </h1>
                 </div>
                 <div className="remove" onClick={() => removeFromCart(product.productId,product.id,product.quantity)}>
@@ -224,7 +223,7 @@ export default function MyCart(){
                         size={30}
                         onClick={() => navigate("/initialpage")} 
                     />
-                    <Products>
+                    <Products product={productsInCart}>
                         {
                             products.length > 0 ? renderProduct(products) : ""
                         }
@@ -310,7 +309,7 @@ const Products = styled.div`
     position: relative;
 
     .cleanCart{
-        display: flex;
+        display: ${props => props.product > 0 ? "flex" : "none"};
         justify-content: center;
         align-items: center;
         width: 60px;
@@ -339,13 +338,13 @@ const Product = styled.div`
         padding: 6px;
 
         h1{
+            width: 100%;
+            height: 20px;
             display: block;
             font-size: 16px;
             font-style: italic;
             font-weight: 700;
-            text-overflow:ellipsis;
-            white-space: nowrap;
-            overflow: hidden
+            overflow-y: scroll;
         }
 
         h2{
