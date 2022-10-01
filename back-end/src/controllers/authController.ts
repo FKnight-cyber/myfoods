@@ -25,6 +25,10 @@ export async function signIn(req:Request, res:Response){
     };
 
     const token = await authServices.signIn(user);
+    
+    if(token[1] === "admin"){
+    return res.status(200).send({token, redirectTo:"/user"});
+    }
 
     res.status(200).send(token);
 };

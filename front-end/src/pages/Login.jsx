@@ -31,8 +31,12 @@ export default function Login(){
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-in`,body);
 
         promise.then(res => {
-            localStorage.setItem("authToken", res.data);
-            setToken(res.data);
+            localStorage.setItem("authToken", res.data.token[0]);
+            setToken(res.data.token[0]);
+            if(res.data.redirectTo){
+                window.location.href = `${res.data.redirectTo}`;
+                return;
+            }
             navigate("/initialpage");
         });
 
