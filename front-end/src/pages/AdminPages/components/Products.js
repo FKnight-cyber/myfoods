@@ -3,7 +3,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext";
 import Swal from "sweetalert2";
-import Product from "../../../components/Product";
+import { formatPrice } from "../../../utils/utilityFunctions"
 
 export default function Products({selectProduct}){
     const [image, setImage] = useState('');
@@ -17,9 +17,9 @@ export default function Products({selectProduct}){
 
     const { token } = useContext(UserContext);
     
-    /*useEffect(() => {
+    useEffect(() => {
 
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products`,{
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/all`,{
             headers:{'x-access-token': `${token}`}
         });
 
@@ -52,18 +52,19 @@ export default function Products({selectProduct}){
             })
         });
 
-    },[callUseEffect]); */
+    },[callUseEffect]); 
 
     function renderProducts(products){
-        return products.map((product,index) => 
-            <Product 
-                key={index} 
-                image={product.image} 
-                name={product.name}
-                price={product.name}
-                description={product.description}
-                id={product.id}
-            />
+        return products.map((product,index) =>
+            <Product key={index}>
+                <img src={product.imageURL} alt="" srcset="" />
+                <div className="info">
+                    <h1>{product.name}</h1>
+                    <h3>{product.description}</h3>
+                    <h2>Quantidade: {product.quantity}</h2>
+                    <h1>Preço: {formatPrice(product.price)}</h1>
+                </div>
+            </Product>
         )
     };
 
@@ -112,7 +113,11 @@ export default function Products({selectProduct}){
                 />
                 <button type="submit">Create</button>
             </CreateField>
-            
+            <section>
+                {
+                    products.length > 0 ? renderProducts(products) : ''
+                }
+            </section> 
         </Container>
     )
 };
@@ -122,9 +127,16 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
     width: 80%;
-    height: 500px;
+    height: 70vh;
+    overflow-y: scroll !important;
     background-color: crimson;
-    overflow-y: scroll;
+    
+    section{
+        width: 96%;
+        height: 340px;
+        overflow-y: scroll;
+        background-color: crimson;
+    }
 `
 
 const CreateField = styled.form`
@@ -133,9 +145,7 @@ const CreateField = styled.form`
     align-items: center;
     flex-direction: column;
     width: 98%;
-    height: 260px;
     background-color: #ffffff;
-    overflow-y: scroll;
     padding: 12px;
     border-radius: 10px;
     border: solid 2px black;
@@ -164,5 +174,45 @@ const CreateField = styled.form`
         font-size: 20px;
         font-style: italic;
         font-weight: 700;
+    }
+`
+
+const Product = styled.div`
+    width: 98%;
+    height: 320px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: solid 2px black;
+
+    img{
+        width: 100%;
+        height: 50%;
+        object-fit: cover;
+    }
+
+    .info{
+        padding: 8px;
+
+        h1{
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        h1,h2{
+            margin-bottom: 8px;
+        }
+
+        h3{
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            word-break: break-all;
+            overflow-y: scroll;
+            height: 60px;
+            border: solid 1px black;
+        }
     }
 `

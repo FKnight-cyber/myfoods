@@ -24,3 +24,10 @@ export async function addProduct(req:Request, res:Response) {
 
     res.sendStatus(201);
 }
+
+export async function getAllProducts(req:Request, res:Response) {
+    
+    const products = await productServices.getAll();
+
+    res.status(200).send(products);
+}

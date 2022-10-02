@@ -13,6 +13,10 @@ async function getProductsByCategoryName(category:string){
     return products;
 };
 
+async function getAll() {
+    return await productsRepository.getAllProducts();
+}
+
 async function addProduct(name:string, 
     image:string, category:string, 
     description:string, quantity:number, price:number) {
@@ -35,7 +39,8 @@ async function addProduct(name:string,
 
 const productServices = {
     getProductsByCategoryName,
-    addProduct
+    addProduct,
+    getAll
 };
 
 export default productServices;

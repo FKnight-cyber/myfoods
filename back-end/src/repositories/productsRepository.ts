@@ -5,13 +5,24 @@ async function insert(product:IProductData) {
     await prisma.product.create({data:product});
 }
 
-async function findProductsByCategoryId(id:number) {
-    return await prisma.product.findMany({where:{
-        categoryId:id,
-        quantity:{
-            gt:0
+async function getAllProducts() {
+    return prisma.product.findMany({
+        orderBy:{
+            categoryId: 'asc'
         }
-    }});
+    })
+}
+
+async function findProductsByCategoryId(id:number) {
+    return await prisma.product.findMany(
+        {
+            where:{
+                categoryId:id,
+                quantity:{
+                    gt:0
+                }
+            }
+        });
 };
 
 async function findProductById(id:number) {
@@ -49,7 +60,8 @@ const productsRepository = {
     findProductById,
     order,
     cancelOrder,
-    insert
+    insert,
+    getAllProducts
 };
 
 export default productsRepository;
