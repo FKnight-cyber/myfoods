@@ -7,6 +7,7 @@ import Login from "../pages/Login.jsx";
 import Register from "../pages/Register";
 import UserPage from "../pages/UserPage";
 import MyCart from "../pages/MyCart";
+import ControlPage from "../pages/AdminPages/Control";
 
 export default function App(){
     const [token,setToken] = useState(localStorage.getItem('authToken'));
@@ -47,6 +48,7 @@ export default function App(){
                     <Route path="/sign-up" element={<Register />} />
                     <Route path="/user" element={<UserPage />} />
                     <Route path="/cart" element={<MyCart />} />
+                    <Route path="/admin/control" element={<ControlPage />} />
                 </Routes>
             </UserContext.Provider>
         </BrowserRouter>

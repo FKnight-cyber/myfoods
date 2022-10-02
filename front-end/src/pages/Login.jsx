@@ -32,8 +32,8 @@ export default function Login(){
 
         promise.then(res => {
             if(res.data.redirectTo){
-                localStorage.setItem("authToken", res.data.token[0]);
-                setToken(res.data.token[0]);
+                localStorage.setItem("authToken", res.data.token);
+                setToken(res.data.token);
                 window.location.href = `${res.data.redirectTo}`;
                 return;
             }else{
