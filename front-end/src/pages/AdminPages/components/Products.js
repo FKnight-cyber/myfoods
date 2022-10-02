@@ -24,6 +24,7 @@ export default function Products({selectProduct}){
         });
 
         promise.then(res => {
+            console.log(res.data)
             setProducts(res.data);
         });
 
@@ -70,6 +71,76 @@ export default function Products({selectProduct}){
 
     function createProduct(event){
         event.preventDefault();
+
+        const body = {
+            name,
+            category,
+            image,
+            description,
+            price: Number(price),
+            quantity: Number(quantity)
+        }
+
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/products/create`,body,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setName('');
+            setCategory('');
+            setImage('');
+            setDescription('');
+            setPrice('');
+            setQuantity('');
+            setCallUseEffect(callUseEffect + 1);
+
+            let timerInterval
+            Swal.fire({
+                icon: 'success',
+                html: `Produto adicionado!`,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
     };
 
     return(
