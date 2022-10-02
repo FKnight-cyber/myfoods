@@ -16,7 +16,6 @@ export default function Categories({selectCategory}){
         });
 
         promise.then(res => {
-            console.log(res.data)
             setCategories(res.data);
         });
 

@@ -7,3 +7,13 @@ export async function getCategories(req:Request, res:Response) {
     
     res.status(200).send(categories);
 }
+
+export async function editCategory(req:Request, res:Response){
+
+    const id:number = Number(req.params.id);
+    const name:string = req.body.name;
+
+    const category = await categoryServices.updateCategoryById(id, name);
+    
+    res.status(200).send(category);
+}
