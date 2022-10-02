@@ -174,8 +174,64 @@ export default function Categories({selectCategory}){
             });
         });
     }
-    
 
+    function deleteCategory(id){
+        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/categories/delete/${id}`,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setCallUseEffect(callUseEffect + 1);
+
+            let timerInterval
+            Swal.fire({
+                icon: 'success',
+                html: `Categoria deletada!`,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+    }
+    
     function renderCategories(categories){
         return categories.map((category,index) => 
             <div className="category" key={index}>
@@ -200,7 +256,8 @@ export default function Categories({selectCategory}){
                     />
                     <FaRegMinusSquare 
                         size={24}
-                        className="icon"  
+                        className="icon"
+                        onClick={() => deleteCategory(category.id)}  
                     />
                 </div>
             </div>
