@@ -25,4 +25,12 @@ export async function deleteCategory(req:Request, res:Response){
     await categoryServices.deleleCategoryById(id);
 
     res.sendStatus(200);
+};
+
+export async function createCategory(req:Request, res:Response) {
+    const name:string = req.body.name;
+
+    await categoryServices.addCategory(name);
+
+    res.sendStatus(201);
 }

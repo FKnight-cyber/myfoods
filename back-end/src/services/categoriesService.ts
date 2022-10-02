@@ -26,10 +26,19 @@ async function deleleCategoryById(id:number) {
     await categoriesRepository.remove(id);
 };
 
+async function addCategory(name:string) {
+    const checkCategory = await categoriesRepository.findCategoryByName(name);
+
+    if(checkCategory) throw checkError(409, "Categoria já está cadastrada!");
+
+    await categoriesRepository.insert(name);
+}
+
 const categoryServices = {
     getCategories,
     updateCategoryById,
-    deleleCategoryById
+    deleleCategoryById,
+    addCategory
 };
 
 export default categoryServices;

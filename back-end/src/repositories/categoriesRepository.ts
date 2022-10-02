@@ -10,6 +10,10 @@ async function findCategoryById(id:number) {
 
 async function getCategories(){
     return await prisma.category.findMany({});
+};
+
+async function insert(name:string){
+    await prisma.category.create({data:{name}});
 }
 
 async function update(id:number,name:string){
@@ -25,14 +29,15 @@ async function update(id:number,name:string){
 
 async function remove(id:number) {
     await prisma.category.delete({where:{id}});
-}
+};
 
 const categoriesRepository = {
     findCategoryByName,
     findCategoryById,
     getCategories,
     update,
-    remove
+    remove,
+    insert
 };
 
 export default categoriesRepository;
