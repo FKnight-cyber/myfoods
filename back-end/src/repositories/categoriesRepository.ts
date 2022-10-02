@@ -23,11 +23,16 @@ async function update(id:number,name:string){
     })
 };
 
+async function remove(id:number) {
+    await prisma.category.delete({where:{id}});
+}
+
 const categoriesRepository = {
     findCategoryByName,
     findCategoryById,
     getCategories,
-    update
+    update,
+    remove
 };
 
 export default categoriesRepository;

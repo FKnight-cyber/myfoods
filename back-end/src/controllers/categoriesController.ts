@@ -6,7 +6,7 @@ export async function getCategories(req:Request, res:Response) {
     const categories = await categoryServices.getCategories();
     
     res.status(200).send(categories);
-}
+};
 
 export async function editCategory(req:Request, res:Response){
 
@@ -16,4 +16,13 @@ export async function editCategory(req:Request, res:Response){
     const category = await categoryServices.updateCategoryById(id, name);
     
     res.status(200).send(category);
+};
+
+export async function deleteCategory(req:Request, res:Response){
+
+    const id:number = Number(req.params.id);
+
+    await categoryServices.deleleCategoryById(id);
+
+    res.sendStatus(200);
 }
