@@ -289,7 +289,7 @@ const Container = styled.div`
     flex-direction: column;
     padding: 12px;
     width: 80%;
-    height: 200px;
+    height: 300px;
     background-color: crimson;
     margin-bottom: 20px;
     overflow-y: scroll;
@@ -329,9 +329,12 @@ const Container = styled.div`
         color:#ffffff;
     }
 
-    h1{
-         overflow-x: hidden;
+    .categoryName{
          width: 60%;
+
+         h1{
+            overflow-x: hidden;
+         }
     }
 
     .category,.buttons{
