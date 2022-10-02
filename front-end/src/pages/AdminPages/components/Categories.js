@@ -9,17 +9,18 @@ export default function Categories({selectCategory}){
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState('');
     const [callUseEffect, setCallUseEffect] = useState(0);
+    const [edit, setEdit] = useState([]);
 
     const { token } = useContext(UserContext);
 
     useEffect(() => {
-        console.log(1)
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/categories`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
             setCategories(res.data);
+            setEdit(categories.map(e => false));
         });
 
         promise.catch(Error => {
@@ -113,16 +114,93 @@ export default function Categories({selectCategory}){
         });
     }
 
+    function editCategory(name,id){
+        const body = {
+            name
+        };
+
+        const promise = axios.patch(`${process.env.REACT_APP_API_BASE_URL}/categories/${id}`,body,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setCallUseEffect(callUseEffect + 1);
+
+            let timerInterval
+            Swal.fire({
+                icon: 'success',
+                html: `Categoria alterada!`,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+    }
+    
+
     function renderCategories(categories){
-        return categories.map(category => 
-            <div className="category">
-                <h1>{category.name}</h1>
+        return categories.map((category,index) => 
+            <div className="category" key={index}>
+                <div className="categoryName">
+                    <h1>{category.name}</h1>
+                    <input type="text"
+                        onChange={e => {
+                            category.name = e.target.value
+                       }}
+                        onKeyDown={e => {
+                        if(e.key === 'Enter'){
+                            editCategory(category.name,category.id);
+                        }
+                    }}
+                    />
+                </div>   
                 <div className="buttons">
                     <FaEdit 
-                        size={24} 
+                        size={24}
+                        onClick={() => editCategory(category.name,category.id)}
+                        className="icon" 
                     />
                     <FaRegMinusSquare 
-                        size={24} 
+                        size={24}
+                        className="icon"  
                     />
                 </div>
             </div>
@@ -138,7 +216,7 @@ export default function Categories({selectCategory}){
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
-                <button type="submit" onClick={createCategory}>
+                <button className="icon" type="submit" onClick={createCategory}>
                     +
                 </button>
             </form>
@@ -161,6 +239,12 @@ const Container = styled.div`
     color: #ffffff;
     font-size: 20px;
     font-weight: 400;
+
+    .icon{
+        &:hover{
+            cursor: pointer;
+        }
+    }
 
     form{
         display: flex;

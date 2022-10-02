@@ -2,9 +2,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import Categories from "./components/Categories";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
+import Products from "./components/Products";
 
 export default function ControlPage(){
     const [selectCategory, setSelectCategory] = useState(false);
+    const [selectProduct, setSelectProduct] = useState(false);
     return(
         <Container>
             <div className="panel" onClick={() => setSelectCategory(!selectCategory)}>
@@ -25,9 +27,24 @@ export default function ControlPage(){
             <Categories 
                 selectCategory={selectCategory}
             />
-            <div className="panel">
+            <div className="panel" onClick={() => setSelectProduct(!selectProduct)}>
                 <h1>Produtos</h1>
+                {
+                    selectProduct ? 
+                        <FaSortUp
+                            size={30}
+                            color="#ffffff"
+                        />
+                    :
+                        <FaSortDown
+                            size={30}
+                            color="#ffffff"
+                        />
+                }   
             </div>
+            <Products 
+                selectProduct={selectProduct}
+            />
         </Container>
     )
 }
@@ -48,6 +65,7 @@ const Container = styled.div`
         align-items: center;
         width: 90%;
         height: 10vh;
+        margin-top: 20px;
         margin-bottom: 20px;
         padding-left: 10px;
         padding-right: 10px;
