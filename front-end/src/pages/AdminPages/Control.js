@@ -1,6 +1,7 @@
-import { useState } from "react"
-import styled from "styled-components"
-import Categories from "./components/Categories"
+import { useState } from "react";
+import styled from "styled-components";
+import Categories from "./components/Categories";
+import { FaSortDown, FaSortUp } from "react-icons/fa";
 
 export default function ControlPage(){
     const [selectCategory, setSelectCategory] = useState(false);
@@ -8,6 +9,18 @@ export default function ControlPage(){
         <Container>
             <div className="panel" onClick={() => setSelectCategory(!selectCategory)}>
                 <h1>Categorias</h1>
+                {
+                    selectCategory ? 
+                        <FaSortUp
+                            size={30}
+                            color="#ffffff"
+                        />
+                    :
+                        <FaSortDown
+                            size={30}
+                            color="#ffffff"
+                        />
+                }    
             </div>
             <Categories 
                 selectCategory={selectCategory}
@@ -31,11 +44,13 @@ const Container = styled.div`
 
     .panel{
         display: flex;
+        justify-content: space-between;
         align-items: center;
         width: 90%;
         height: 10vh;
         margin-bottom: 20px;
         padding-left: 10px;
+        padding-right: 10px;
         border-radius: 12px;
 
         background-color: crimson;
