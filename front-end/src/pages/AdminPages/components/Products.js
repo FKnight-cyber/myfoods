@@ -24,7 +24,6 @@ export default function Products({selectProduct}){
         });
 
         promise.then(res => {
-            console.log(res.data)
             setProducts(res.data);
         });
 
