@@ -37,26 +37,27 @@ const SendMessages = ({messageData}) => {
   const [numberEmptyError, setNumberEmptyError] = useState(false);
   const [messageEmptyError, setMessageEmptyError] = useState(false);
 
-  const [mobileNumber, setMobileNumber] = useState(process.env.REACT_APP_WHATSAPP_NUMBER);
+  const [mobileNumber, setMobileNumber] = useState('');
 
   const [message, setMessage] = useState(
-    `${messageData.name}
-CEP ${messageData.CEP}
-Bairro ${messageData.district}
-Rua ${messageData.road}
-Número ${messageData.number}\n
+    `Nome: ${messageData.name}
+CEP: ${messageData.CEP}
+Bairro: ${messageData.district}
+Rua: ${messageData.road}
+Número da casa: ${messageData.number}\n
 ${renderOrder(messageData.products)}
 Total: ${messageData.total}\n
-Se fizer o pagamentos por PIX envie o comprovante!
-`
+PIX: ryannicholas.vieira@gmail.com
+Se fizer o pagamento por PIX envie o comprovante!
+`);
 
-);
-  const { token } = useContext(UserContext);
+  const { token, setProductsInCart } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (mobileNumber.length < 1) {
       setNumberEmptyError(true);
       setTimeout(() => setNumberEmptyError(false), 3000);
@@ -64,11 +65,21 @@ Se fizer o pagamentos por PIX envie o comprovante!
       setMessageEmptyError(true);
       setTimeout(() => setMessageEmptyError(false), 3000);
     } else {
-      let number = mobileNumber.replace(/[^\w\s]/gi, "").replace(/ /g, "");
 
-      let url = `https://web.whatsapp.com/send?phone=${number}`;
+      setMessage(`Nome: ${messageData.name}
+      CEP: ${messageData.CEP}
+      Bairro: ${messageData.district}
+      Rua: ${messageData.road}
+      Número da casa: ${messageData.number}\n
+      ${renderOrder(messageData.products)}
+      Total: ${messageData.total}\n
+      PIX: ryannicholas.vieira@gmail.com
+      Se fizer o pagamento por PIX envie o comprovante!
+      `);
 
-      url += `&text=${encodeURI(message)}&app_absent=0`;
+      let url = `https://web.whatsapp.com/send?phone=${process.env.REACT_APP_WHATSAPP_NUMBER}`;
+
+      url += `&text=${encodeURI(message + `Telefone: ${mobileNumber}`)}&app_absent=0`;
 
       const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`,{
             headers:{'x-access-token': `${token}`}
@@ -82,6 +93,7 @@ Se fizer o pagamentos por PIX envie o comprovante!
         console.log(Error.response.data)
       });
 
+      setProductsInCart(0);
       navigate("/initialpage");
       window.open(url);
     }
@@ -117,6 +129,7 @@ Se fizer o pagamentos por PIX envie o comprovante!
             placeholder='Mobile Number'
             name='mobileNumber'
             value={mobileNumber}
+            onChange={e => setMobileNumber(e.target.value)}
             size='small'
             style={{
               margin: "1em 0em",
@@ -156,7 +169,6 @@ Se fizer o pagamentos por PIX envie o comprovante!
             }}
             name='message'
             value={message}
-            onChange={e => setMessage(e.target.value)}
             required
             error={message.length > CHARACTER_LIMIT - 1 || messageEmptyError}
             helperText={

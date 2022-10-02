@@ -60,8 +60,8 @@ export default function Products({category,openMenu}){
                 spaceBetween={30}
                 centeredSlides={true}
                 autoplay={{
-                delay: 10000,
-                disableOnInteraction: false,
+                delay: 30000,
+                disableOnInteraction: true,
                 }}
                 pagination={{
                 clickable: true,

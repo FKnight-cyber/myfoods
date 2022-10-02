@@ -31,13 +31,16 @@ export default function Login(){
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-in`,body);
 
         promise.then(res => {
-            localStorage.setItem("authToken", res.data.token[0]);
-            setToken(res.data.token[0]);
             if(res.data.redirectTo){
+                localStorage.setItem("authToken", res.data.token[0]);
+                setToken(res.data.token[0]);
                 window.location.href = `${res.data.redirectTo}`;
                 return;
+            }else{
+                localStorage.setItem("authToken", res.data);
+                setToken(res.data);
+                navigate("/initialpage");
             }
-            navigate("/initialpage");
         });
 
         promise.catch(Error => {
