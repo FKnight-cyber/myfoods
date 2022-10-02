@@ -9,7 +9,7 @@ async function signUp(user:IUserData) {
 
     if(checkUser) throw checkError(409,"Este email já foi registrado!");
 
-    if(user.email === "admin@control.com"){
+    if(user.email === process.env.ADMIN){
         await authRepository.insert({
             email: user.email,
             password: encrypt(user.password),
@@ -44,7 +44,7 @@ async function signIn(user:IUserLoginData) {
    if(!checkUser) throw checkError(404,"Este email não está registrado!");
    if(!decrypt(user.password, checkUser.password)) throw checkError(401,"Senha incorreta!");
 
-   if(checkUser.email === "admin@control.com"){
+   if(checkUser.email === process.env.ADMIN){
         const adminInfo:IUserInfo = {
             id:checkUser!.id,
             email:checkUser!.email,
