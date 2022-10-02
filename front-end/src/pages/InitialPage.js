@@ -27,6 +27,10 @@ export default function InitialPage(){
 
     const navigate = useNavigate();
 
+    if(token === ""){
+        navigate('/');
+    }
+
     useEffect(() => {
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/info`,{
             headers:{'x-access-token': `${token}`}
@@ -42,7 +46,7 @@ export default function InitialPage(){
         });
 
         promise.catch(Error => {
-            let timerInterval
+            let timerInterval;
             Swal.fire({
                 title: 'Error!',
                 icon: 'error',
@@ -60,10 +64,13 @@ export default function InitialPage(){
                     clearInterval(timerInterval)
                 }
             }).then((result) => {
-                 if (result.dismiss === Swal.DismissReason.timer) {
-                    return;
-                }
-            })
+                 return;
+            });
+            if(Error.response.status === 401){
+                localStorage.setItem('authToken', '');
+                setToken('');
+                navigate('/');
+            }
         });
 
     },[]);
