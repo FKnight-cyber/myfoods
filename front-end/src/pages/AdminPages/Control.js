@@ -1,13 +1,17 @@
+import { useState } from "react"
 import styled from "styled-components"
 import Categories from "./components/Categories"
 
 export default function ControlPage(){
+    const [selectCategory, setSelectCategory] = useState(false);
     return(
         <Container>
-            <div className="panel">
+            <div className="panel" onClick={() => setSelectCategory(!selectCategory)}>
                 <h1>Categorias</h1>
             </div>
-            <Categories />
+            <Categories 
+                selectCategory={selectCategory}
+            />
             <div className="panel">
                 <h1>Produtos</h1>
             </div>

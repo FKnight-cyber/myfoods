@@ -5,17 +5,18 @@ import Swal from "sweetalert2";
 import UserContext from "../../../context/UserContext";
 import { FaEdit, FaRegMinusSquare } from "react-icons/fa"
 
-export default function Categories({selected}){
+export default function Categories({selectCategory}){
     const [categories, setCategories] = useState([]);
 
     const { token } = useContext(UserContext);
 
     useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/categories`,{
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/categories`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
+            console.log(res.data)
             setCategories(res.data);
         });
 
@@ -46,30 +47,27 @@ export default function Categories({selected}){
 
     },[]);
 
+    function renderCategories(categories){
+        return categories.map(category => 
+            <div className="category">
+                <h1>{category.name}</h1>
+                <div className="buttons">
+                    <FaEdit 
+                        size={24} 
+                    />
+                    <FaRegMinusSquare 
+                        size={24} 
+                    />
+                </div>
+            </div>
+            )
+    }
+
     return(
-        <Container selected={selected}>
-            <div className="category">
-                <h1>Pizzasssssssssssssssssssssssssssssssssssssssssssssssssss</h1>
-                <div className="buttons">
-                    <FaEdit 
-                        size={24} 
-                    />
-                    <FaRegMinusSquare 
-                        size={24} 
-                    />
-                </div>
-            </div>
-            <div className="category">
-                <h1>Pizzas</h1>
-                <div className="buttons">
-                    <FaEdit 
-                        size={24} 
-                    />
-                    <FaRegMinusSquare 
-                        size={24} 
-                    />
-                </div>
-            </div>
+        <Container selected={selectCategory}>
+            {
+                categories.length > 0 ? renderCategories(categories) : ""
+            }
         </Container>
     )
 }
