@@ -1,3 +1,3 @@
 import { Product } from "@prisma/client";
 
-export type IProductData = Omit<Product, "createdAt">;
+export type IProductData = Omit<Product, "createdAt" | "id">;

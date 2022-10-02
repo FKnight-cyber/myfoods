@@ -1,4 +1,9 @@
 import prisma from "../database";
+import { IProductData } from "../types/productTypes";
+
+async function insert(product:IProductData) {
+    await prisma.product.create({data:product});
+}
 
 async function findProductsByCategoryId(id:number) {
     return await prisma.product.findMany({where:{
@@ -43,7 +48,8 @@ const productsRepository = {
     findProductsByCategoryId,
     findProductById,
     order,
-    cancelOrder
+    cancelOrder,
+    insert
 };
 
 export default productsRepository;
