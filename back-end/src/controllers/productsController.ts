@@ -23,11 +23,19 @@ export async function addProduct(req:Request, res:Response) {
     await productServices.addProduct(name, image, category, description, quantity, price);
 
     res.sendStatus(201);
-}
+};
 
 export async function getAllProducts(req:Request, res:Response) {
     
     const products = await productServices.getAll();
 
     res.status(200).send(products);
-}
+};
+
+export async function deleteProduct(req:Request, res:Response) {
+    const id:number = Number(req.params.id);
+
+    await productServices.removeProduct(id);
+
+    res.sendStatus(200);
+};

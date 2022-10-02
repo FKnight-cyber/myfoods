@@ -15,7 +15,7 @@ async function getProductsByCategoryName(category:string){
 
 async function getAll() {
     return await productsRepository.getAllProducts();
-}
+};
 
 async function addProduct(name:string, 
     image:string, category:string, 
@@ -35,12 +35,21 @@ async function addProduct(name:string,
         }
     
         await productsRepository.insert(product);
-}
+};
+
+async function removeProduct(id:number){
+    const checkProduct = await productsRepository.findProductById(id);
+
+    if(!checkProduct) throw checkError(404,"Produto não registrado!");
+
+    await productsRepository.remove(id);
+};
 
 const productServices = {
     getProductsByCategoryName,
     addProduct,
-    getAll
+    getAll,
+    removeProduct
 };
 
 export default productServices;

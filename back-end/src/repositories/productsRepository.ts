@@ -55,13 +55,18 @@ async function cancelOrder(id:number,amount:number) {
     });
 };
 
+async function remove(id:number) {
+    await prisma.product.delete({where:{id}});
+}
+
 const productsRepository = {
     findProductsByCategoryId,
     findProductById,
     order,
     cancelOrder,
     insert,
-    getAllProducts
+    getAllProducts,
+    remove
 };
 
 export default productsRepository;

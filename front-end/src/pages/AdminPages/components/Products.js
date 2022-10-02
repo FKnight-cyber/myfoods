@@ -153,7 +153,7 @@ export default function Products({selectProduct}){
     };
 
     function deleteProduct(id){
-        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/products/delete/${id}`,{
+        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/products/delete/${id}`,{
             headers:{'x-access-token': `${token}`}
         });
 
