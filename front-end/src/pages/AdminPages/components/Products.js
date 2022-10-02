@@ -3,7 +3,8 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext";
 import Swal from "sweetalert2";
-import { formatPrice } from "../../../utils/utilityFunctions"
+import { formatPrice } from "../../../utils/utilityFunctions";
+import { FaMinusCircle, FaEdit } from "react-icons/fa";
 
 export default function Products({selectProduct}){
     const [image, setImage] = useState('');
@@ -64,6 +65,15 @@ export default function Products({selectProduct}){
                     <h2>Quantidade: {product.quantity}</h2>
                     <h1>Preço: {formatPrice(product.price)}</h1>
                 </div>
+                <FaMinusCircle
+                    size={30}
+                    color="crimson"
+                    onClick={() => deleteProduct(product.id)}
+                />
+                <FaEdit
+                    size={30}
+                    color="#7ED321" 
+                />
             </Product>
         )
     };
@@ -97,6 +107,63 @@ export default function Products({selectProduct}){
             Swal.fire({
                 icon: 'success',
                 html: `Produto adicionado!`,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+
+        promise.catch(Error => {
+            let timerInterval
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 if (result.dismiss === Swal.DismissReason.timer) {
+                    return;
+                }
+            });
+        });
+    };
+
+    function deleteProduct(id){
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/products/delete/${id}`,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setCallUseEffect(callUseEffect + 1);
+
+            let timerInterval
+            Swal.fire({
+                icon: 'success',
+                html: `Produto deletado!`,
                 timer: 1000,
                 timerProgressBar: true,
                 didOpen: () => {
@@ -204,7 +271,6 @@ const Container = styled.div`
     section{
         width: 96%;
         height: 340px;
-        overflow-y: scroll;
         background-color: crimson;
     }
 `
@@ -254,6 +320,7 @@ const Product = styled.div`
     background-color: #ffffff;
     border-radius: 10px;
     border: solid 2px black;
+    position: relative;
 
     img{
         width: 100%;
@@ -283,6 +350,19 @@ const Product = styled.div`
             overflow-y: scroll;
             height: 60px;
             border: solid 1px black;
+        }
+    }
+
+    > * {
+        &:nth-last-child(2){
+            position: absolute;
+            right: 60px;
+            bottom: 8px;
+        }
+        &:last-child{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
         }
     }
 `

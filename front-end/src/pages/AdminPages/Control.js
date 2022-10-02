@@ -52,12 +52,12 @@ export default function ControlPage(){
 const Container = styled.div`
     width: 100%;
     height: 100vh;
+    overflow-y: scroll;
     background-color: #211A22;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow-y: scroll;
 
     .panel{
         display: flex;
