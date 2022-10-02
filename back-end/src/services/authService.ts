@@ -9,7 +9,7 @@ async function signUp(user:IUserData) {
 
     if(checkUser) throw checkError(409,"Este email já foi registrado!");
 
-    if(user.email === process.env.ADMIN){
+    if(user.email === process.env.ADMIN_EMAIL){
         await authRepository.insert({
             email: user.email,
             password: encrypt(user.password),
@@ -19,24 +19,24 @@ async function signUp(user:IUserData) {
         });
 
         return;
+    }else{
+        const { data:info } = await axios.get(`http://viacep.com.br/ws/${user.cep}/json/`).catch(()=>{
+            throw checkError(500,"Erro na busca pelo seu CEP!");
+        });
+    
+        const validAddressDelivery = {
+            Parangaba:true
+        };
+    
+        if(info.erro) throw checkError(404,"Não encontramos informação do seu CEP, verifique novamente!");
+    
+        if(validAddressDelivery[info.bairro] !== true) throw checkError(401,"Infelizmente não cobrimos o seu bairro ;(");
+    
+        user.password = encrypt(user.password);
+    
+        await authRepository.insert(user);
     }
-
-    const { data:info } = await axios.get(`http://viacep.com.br/ws/${user.cep}/json/`).catch(()=>{
-        throw checkError(500,"Erro na busca pelo seu CEP!");
-    });
-
-    const validAddressDelivery = {
-        Parangaba:true
-    };
-
-    if(info.erro) throw checkError(404,"Não encontramos informação do seu CEP, verifique novamente!");
-
-    if(validAddressDelivery[info.bairro] !== true) throw checkError(401,"Infelizmente não cobrimos o seu bairro ;(");
-
-    user.password = encrypt(user.password);
-
-    await authRepository.insert(user);
-}
+};
 
 async function signIn(user:IUserLoginData) {
    const checkUser = await authRepository.findUser(user.email);
@@ -44,7 +44,7 @@ async function signIn(user:IUserLoginData) {
    if(!checkUser) throw checkError(404,"Este email não está registrado!");
    if(!decrypt(user.password, checkUser.password)) throw checkError(401,"Senha incorreta!");
 
-   if(checkUser.email === process.env.ADMIN){
+   if(checkUser.email === process.env.ADMIN_EMAIL){
         const adminInfo:IUserInfo = {
             id:checkUser!.id,
             email:checkUser!.email,

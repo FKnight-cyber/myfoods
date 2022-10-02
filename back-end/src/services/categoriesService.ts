@@ -7,7 +7,7 @@ async function getCategories(){
 };
 
 async function updateCategoryById(id:number, name:string, user:IUserData) {
-    if(user.email !== process.env.ADMIN) throw checkError(401, "You shall not pass!!!");
+    if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
     const checkCategory = await categoriesRepository.findCategoryById(id);
 
@@ -22,7 +22,7 @@ async function updateCategoryById(id:number, name:string, user:IUserData) {
 };
 
 async function deleleCategoryById(id:number, user:IUserData) {
-    if(user.email !== process.env.ADMIN) throw checkError(401, "You shall not pass!!!");
+    if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
     const checkCategory = await categoriesRepository.findCategoryById(id);
 
@@ -32,7 +32,7 @@ async function deleleCategoryById(id:number, user:IUserData) {
 };
 
 async function addCategory(name:string, user:IUserData) {
-    if(user.email !== process.env.ADMIN) throw checkError(401, "You shall not pass!!!");
+    if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
     const checkCategory = await categoriesRepository.findCategoryByName(name);
 
