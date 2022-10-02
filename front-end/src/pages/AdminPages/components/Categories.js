@@ -9,7 +9,6 @@ export default function Categories({selectCategory}){
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState('');
     const [callUseEffect, setCallUseEffect] = useState(0);
-    const [edit, setEdit] = useState([]);
 
     const { token } = useContext(UserContext);
 
@@ -20,7 +19,6 @@ export default function Categories({selectCategory}){
 
         promise.then(res => {
             setCategories(res.data);
-            setEdit(categories.map(e => false));
         });
 
         promise.catch(Error => {
@@ -242,10 +240,11 @@ export default function Categories({selectCategory}){
                             category.name = e.target.value
                        }}
                         onKeyDown={e => {
-                        if(e.key === 'Enter'){
-                            editCategory(category.name,category.id);
-                        }
-                    }}
+                            if(e.key === 'Enter'){
+                                editCategory(category.name,category.id);
+                            }
+                         }}
+                        required 
                     />
                 </div>   
                 <div className="buttons">
