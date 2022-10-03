@@ -170,7 +170,7 @@ const Container = styled.div`
     h3{
         margin-top: 10px;
         margin-left: 6px;
-        height: 60px;
+        height: 50px;
         word-break: break-all;
         overflow-y: scroll;
         padding: 4px;
@@ -185,6 +185,7 @@ const Container = styled.div`
     .buttons{
         width: 100% !important;
         padding-right: 10px;
+        margin-top: 10px !important;
     }
 
     .order{
