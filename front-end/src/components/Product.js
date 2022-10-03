@@ -25,6 +25,7 @@ export default function Product({image,name,price,description,category,id}){
 
         promise.then(res => {
             setSelected(false);
+            setProductsInCart(productsInCart + 1);
             setQuantity(0);
             let timerInterval
             Swal.fire({
@@ -78,62 +79,63 @@ export default function Product({image,name,price,description,category,id}){
     return(
         <Container>
             <img src={image} alt={category} srcset="" />
-            <h1>{name}</h1>
-            <h1>
-                {
-                    quantity <= 1 ? formatPrice(price) : formatPrice(price * Number(quantity))
-                }
-            </h1>
-            <h3>{description}</h3>
-            <div className="buttons">
-                <div className="order">
-                    <FaMinusCircle 
-                    size={24} 
-                    color="#E45727"
-                    onClick={()=>{
-                        const control = quantity - 1;
-                        if(control === 0){
-                            setSelected(false);
-                        }
-                        if(quantity > 0){
-                            setQuantity(control);
-                            if(quantity === 0){
+            <div className="info">
+                <h1>{name}</h1>
+                <h1>
+                    {
+                        quantity <= 1 ? formatPrice(price) : formatPrice(price * Number(quantity))
+                    }
+                </h1>
+                <h3>{description}</h3>
+                <div className="buttons">
+                    <div className="order">
+                        <FaMinusCircle 
+                        size={24} 
+                        color="#E45727"
+                        onClick={()=>{
+                            const control = quantity - 1;
+                            if(control === 0){
                                 setSelected(false);
                             }
-                        }
-                    }}
-                    />
-                    <input type="number"
-                    value={quantity}
-                    onChange={e => setQuantity(Number(e.target.value))}
-                     />
-                    <FaPlusCircle 
-                    size={24} 
-                    color="#65B362"
-                    onClick={()=>{
-                        const control = quantity +1;
-                        if(control > 0){
-                            if(!selected){
+                            if(quantity > 0){
+                                setQuantity(control);
+                                if(quantity === 0){
+                                    setSelected(false);
+                                }
+                            }
+                        }}
+                        />
+                        <input type="number"
+                        value={quantity}
+                        onChange={e => setQuantity(Number(e.target.value))}
+                        />
+                        <FaPlusCircle 
+                        size={24} 
+                        color="#65B362"
+                        onClick={()=>{
+                            const control = quantity +1;
+                            if(control > 0){
+                                if(!selected){
+                                    setSelected(true);
+                                }
+                            }
+                            setQuantity(control)
+                            if(quantity > 0){
                                 setSelected(true);
                             }
-                        }
-                        setQuantity(control)
-                        if(quantity > 0){
-                            setSelected(true);
-                        }
-                    }}
+                        }}
+                        />
+                    </div>
+                    <FaCartPlus 
+                        size={30} 
+                        color="#7ED321"
+                        display={selected ? "flex" : "none"}
+                        onClick={()=>{
+                            addToCart(quantity,id)
+                        }}
+                        className="icon" 
                     />
                 </div>
-                <FaCartPlus 
-                    size={30} 
-                    color="#7ED321"
-                    display={selected ? "flex" : "none"}
-                    onClick={()=>{
-                        addToCart(quantity,id)
-                        setProductsInCart(productsInCart + 1);
-                    }}
-                    className="icon" 
-                 />
             </div>  
         </Container> 
     )
@@ -148,14 +150,14 @@ const Container = styled.div`
     h1{
         font-weight: 700;
         font-size: 20px;
-        margin-top: 6px;
+        margin-top: 8px;
         margin-left: 6px;
     }
 
     h3{
-        margin-top: 6px;
+        margin-top: 10px;
         margin-left: 6px;
-        height: 40px;
+        height: 60px;
         word-break: break-all;
         overflow-y: scroll;
         padding: 4px;

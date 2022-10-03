@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import logo from "../assets/pizza.png";
+import logo from "../assets/myfoods.png";
 import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -129,8 +129,8 @@ export const RegisterContainer = styled.div`
         justify-content: center;
 
         img{
-            width: 106px;
-            height: 106px;
+            width: 200px;
+            height: 200px;
         }
     }
 

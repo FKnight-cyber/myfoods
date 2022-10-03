@@ -68,7 +68,6 @@ export default function Products({category,openMenu}){
                 }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
             >
                 {
                 products.map((product,index) => 
@@ -84,6 +83,31 @@ export default function Products({category,openMenu}){
                     </SwiperSlide>
                 )}
             </Swiper>
+            <Swiper
+                slidesPerView={2}
+                centeredSlides={true}
+                spaceBetween={10}
+                grabCursor={true}
+                pagination={{
+                clickable: true,
+                }}
+                modules={[Pagination]}
+            >
+                {
+                    products.map((product,index) => 
+                        <SwiperSlide key={index}>
+                            <Product 
+                                image={product.imageURL} 
+                                name={product.name}
+                                price={product.price}
+                                description={product.description}
+                                category={category}
+                                id={product.id} 
+                            />
+                        </SwiperSlide>
+                    )
+                }
+            </Swiper>
         </Container>
     )
 }
@@ -93,6 +117,25 @@ const Container = styled.div`
     width: 94%;
     height: 380px;
     background-color: #ffffff;
-    margin-top: 40px;
+    margin-top: 20px;
     border-radius: 6px;
+
+    > * {
+        &:last-child{
+            display: none;
+        }
+    }
+
+    @media (min-width: 760px){
+        height: 400px;
+        > * {
+            &:first-child{
+                display: none;
+            }
+
+            &:last-child{
+                display: flex;
+            }
+        }
+    }
 `

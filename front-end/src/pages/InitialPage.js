@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import logo from "../assets/pizza.png";
+import logo from "../assets/myfoods.png";
 import CategoriesBar from "../components/CategoriesBar";
 import CategoriesMenu from "../components/CategoriesMenu";
 import Products from "../components/Products";
@@ -135,13 +135,13 @@ const InitialPageContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-top: 40px;
+        padding-top: 20px;
         position: relative;
         width: 100%;
         
         img{
-            width: 106px;
-            height: 106px;
+            width: 200px;
+            height: 200px;
         }
 
         > * {

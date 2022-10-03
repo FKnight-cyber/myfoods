@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import "swiper/css/bundle";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
@@ -74,12 +75,17 @@ table {
   width: 100%;
   height: 100%;
   border-radius: 6px;
+
 }
 
 .swiper-slide {
   background: #fff;
   font-style: italic;
   color: #000;
+
+  @media (min-width: 760px) {
+    margin-right: 80px !important;
+  }
 }
 
 .swiper-slide img {
@@ -140,11 +146,12 @@ body {
 .communication .whatsapp-card {
   background-color: var(--light-color);
   border-radius: 10px;
-  width: 330px;
+  width: 360px;
   height: 90vh;
   overflow-y: scroll;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 0.5em;
+  
 }
 
 .communication .whatsapp-card .title {

@@ -222,7 +222,7 @@ export default function MyCart(){
                         color="#ffffff"
                         size={30}
                         onClick={() => navigate("/initialpage")}
-                        className="icon"   
+                        className="icon return"   
                     />
                     <Products product={productsInCart}>
                         {
@@ -269,13 +269,13 @@ const Container = styled.div`
         }
     }
 
-    > * {
-        &:first-child {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-        }
+    .return{
+        position: absolute;
+        top: 14px;
+        left: 14px;
+    }
 
+    > * {
         &:nth-child(3) {
             position: absolute;
             top: 14px;
@@ -335,7 +335,7 @@ const Products = styled.div`
 `
 
 const Product = styled.div`
-    height: 100px;
+    height: 140px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
@@ -351,7 +351,7 @@ const Product = styled.div`
 
         h1{
             width: 100%;
-            height: 20px;
+            height: 30px;
             display: block;
             font-size: 16px;
             font-style: italic;
@@ -371,8 +371,8 @@ const Product = styled.div`
     }
 
     img{
-        width: 160px;
-        height: 100px;
+        width: 50%;
+        height: 100%;
         object-fit: cover;
     }
 

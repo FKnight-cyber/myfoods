@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
-import logo from "../assets/pizza.png";
+import logo from "../assets/myfoods.png";
 import { Link,useNavigate } from "react-router-dom";
 import { RegisterContainer } from "./Register";
 import axios from "axios";
