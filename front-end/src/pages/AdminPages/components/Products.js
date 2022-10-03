@@ -398,6 +398,14 @@ const Container = styled.div`
         height: 340px;
         background-color: crimson;
     }
+
+    @media (min-width: 620px) {
+        background-color: #211A22;
+
+        section{
+            background-color: #211A22;
+        }
+    }
 `
 
 const CreateField = styled.form`
@@ -550,5 +558,11 @@ const Product = styled.div`
             right: 10px;
             bottom: 10px;
         }
+    }
+
+    @media (min-width: 620px) {
+        width: 600px;
+        height: 400px;
+        border: solid 6px crimson;
     }
 `
