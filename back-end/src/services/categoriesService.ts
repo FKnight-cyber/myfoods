@@ -1,5 +1,6 @@
 import { checkError } from "../middlewares/errorHandler";
 import categoriesRepository from "../repositories/categoriesRepository";
+import productsRepository from "../repositories/productsRepository";
 import { IUserData } from "../types/authTypes";
 
 async function getCategories(){
@@ -27,6 +28,8 @@ async function deleleCategoryById(id:number, user:IUserData) {
     const checkCategory = await categoriesRepository.findCategoryById(id);
 
     if(!checkCategory) throw checkError(404, "Categoria não está cadastrada!");
+
+    await productsRepository.deleteAllProductsByCategoryId(id);
 
     await categoriesRepository.remove(id);
 };

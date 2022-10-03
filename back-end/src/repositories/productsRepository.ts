@@ -59,6 +59,10 @@ async function remove(id:number) {
     await prisma.product.delete({where:{id}});
 };
 
+async function deleteAllProductsByCategoryId(categoryId:number){
+    await prisma.product.deleteMany({where:{categoryId}});
+};
+
 async function update(id:number,product:IProductDataUpdate){
     await prisma.product.update({
         where:{
@@ -76,7 +80,8 @@ const productsRepository = {
     insert,
     getAllProducts,
     remove,
-    update
+    update,
+    deleteAllProductsByCategoryId
 };
 
 export default productsRepository;
