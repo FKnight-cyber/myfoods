@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
-export default function Products({category,openMenu}){
+export default function Products({category,openMenu,setLoadFood}){
 
     const { token,setToken } = useContext(UserContext);
     const [products, setProducts] = useState([]);
@@ -22,9 +22,11 @@ export default function Products({category,openMenu}){
 
         promise.then(res => {
             setProducts(res.data);
+            setLoadFood(false);
         });
 
         promise.catch(Error => {
+            setLoadFood(false);
             let timerInterval
             Swal.fire({
             title: 'Error!',
@@ -115,7 +117,7 @@ export default function Products({category,openMenu}){
 const Container = styled.div`
     display: ${props => props.openMenu ? "none" : "value"};
     width: 94%;
-    height: 49vh;
+    height: 54vh;
     background-color: #ffffff;
     margin-top: 20px;
     border-radius: 6px;

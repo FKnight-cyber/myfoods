@@ -7,11 +7,14 @@ import Swal from "sweetalert2";
 import { FaOutdent, FaUserAlt, FaGrinWink, FaCartArrowDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import SendMessages from "../components/sendMessage/SendMessage";
+import { CartFood,RemoveFood,CleanCart } from "../components/Loaders/productLoaders";
 
 export default function MyCart(){
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState(false);
     const [total, setTotal] = useState(0);
+    const [loadRemoveFood, setLoadRemoveFood] = useState({});
+    const [loadCleanCart, setLoadCleanCart] = useState(false);
 
     const { 
         token,
@@ -48,6 +51,11 @@ export default function MyCart(){
 
         promise.then(res => {
             setTotal(formatPrice(res.data[1]));
+            const hashtable = {};
+            for(let i = 0; i < res.data.length; i++){
+                hashtable[res.data[i].id] = false;
+            }
+            setLoadRemoveFood(hashtable);
             setProducts(res.data[0]);
             setProductsInCart(res.data[0].length);
         });
@@ -80,12 +88,17 @@ export default function MyCart(){
     },[productsInCart]);
 
     function removeFromCart(productId,id,quantity){
+        const hashtable = {...loadRemoveFood};
+        hashtable[id] = true;
+        setLoadRemoveFood({...hashtable});
         const promise = 
         axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/remove?product=${productId}&item=${id}&quantity=${quantity}`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
+            hashtable[id] = false;
+            setLoadRemoveFood({...hashtable});
             setProductsInCart(productsInCart - 1);
             let timerInterval
             Swal.fire({
@@ -111,6 +124,8 @@ export default function MyCart(){
         });
 
         promise.catch(Error => {
+            hashtable[id] = false;
+            setLoadRemoveFood({...hashtable});
             let timerInterval
             Swal.fire({
                 title: 'Error!',
@@ -139,28 +154,36 @@ export default function MyCart(){
     function renderProduct(products){
         return products.map((product,index) =>
             <Product key={index}>
-                <img src={product.products.imageURL} alt="" srcset="" />
-                <div className="productInfo">
-                    <h1>{product.products.name}</h1>
-                    <h2>{formatPrice(product.products.price)}</h2>
-                    <h2>Quantidade: {product.quantity}</h2>
-                    <h1>Valor total: {formatPrice(product.products.price * product.quantity)}
-                    </h1>
-                </div>
-                <div className="remove" onClick={() => removeFromCart(product.productId,product.id,product.quantity)}>
-                    <h4>Retirar do carrinho</h4>
-                </div>
+                {
+                    loadRemoveFood[product.id] ? <RemoveFood />
+                    :
+                    <>
+                        <img src={product.products.imageURL} alt="" srcset="" />
+                        <div className="productInfo">
+                            <h1>{product.products.name}</h1>
+                            <h2>{formatPrice(product.products.price)}</h2>
+                            <h2>Quantidade: {product.quantity}</h2>
+                            <h1>Valor total: {formatPrice(product.products.price * product.quantity)}
+                            </h1>
+                        </div>
+                        <div className="remove" onClick={() => removeFromCart(product.productId,product.id,product.quantity)}>
+                            <h4>Retirar do carrinho</h4>
+                        </div>
+                    </>
+                }
             </Product>
         );
     };
 
     function cleanCart(){
+        setLoadCleanCart(true);
         const promise = 
         axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/cancel`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
+            setLoadCleanCart(false);
             setProductsInCart(0);
             let timerInterval
             Swal.fire({
@@ -186,6 +209,7 @@ export default function MyCart(){
         });
 
         promise.catch(Error => {
+            setLoadCleanCart(false);
             let timerInterval
             Swal.fire({
                 title: 'Error!',
@@ -224,18 +248,24 @@ export default function MyCart(){
                         onClick={() => navigate("/initialpage")}
                         className="icon return"   
                     />
-                    <Products product={productsInCart}>
-                        {
-                            products.length > 0 ? renderProduct(products) : ""
-                        }
-                        <div className="cleanCart">
-                            <FaCartArrowDown
-                                size={30}
-                                color="#ffffff"
-                                onClick={cleanCart}
-                            />
-                        </div>
-                    </Products>
+                    {
+                        loadCleanCart ? <CleanCart />
+                        :
+                        <>
+                            <Products product={productsInCart}>
+                                {
+                                    products.length > 0 ? renderProduct(products) : <CartFood />
+                                }
+                                <div className="cleanCart">
+                                    <FaCartArrowDown
+                                        size={30}
+                                        color="#ffffff"
+                                        onClick={cleanCart}
+                                    />
+                                </div>
+                            </Products>
+                        </>
+                    }
                     <FaUserAlt
                         color="#ffffff"
                         size={30}

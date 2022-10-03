@@ -9,10 +9,13 @@ import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { LoadFood } from "../components/Loaders/initialPageLoaders";
 
 export default function InitialPage(){
     const [category, setCategory] = useState("Pizzas");
     const [openMenu, setOpenMenu] = useState(false);
+    const [loadFood, setLoadFood] = useState(false);
+    const [loadCategory, setLoadCategory] = useState(true);
 
     const { 
         token,
@@ -32,11 +35,14 @@ export default function InitialPage(){
     }
 
     useEffect(() => {
+        setLoadFood(true);
+        setLoadCategory(true);
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/info`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
+            setLoadCategory(false);
             setName(res.data.name);
             setCEP(res.data.cep);
             setCity(res.data.city);
@@ -46,6 +52,8 @@ export default function InitialPage(){
         });
 
         promise.catch(Error => {
+            setLoadFood(false);
+            setLoadCategory(false);
             let timerInterval;
             Swal.fire({
                 title: 'Error!',
@@ -101,6 +109,7 @@ export default function InitialPage(){
                 openMenu={openMenu} 
                 setOpenMenu={setOpenMenu} 
                 className="icon"
+                loadCategory={loadCategory}
             />
             <CategoriesMenu
                 openMenu={openMenu}
@@ -109,10 +118,16 @@ export default function InitialPage(){
                 setOpenMenu={setOpenMenu}
                 className="icon" 
             />
-            <Products 
-                openMenu={openMenu} 
-                category={category}
-            />
+            {
+                loadFood ?
+                <LoadFood />
+                :
+                <Products 
+                    openMenu={openMenu} 
+                    category={category}
+                    setLoadFood={setLoadFood}
+                />
+            }
         </InitialPageContainer>
     )
 };

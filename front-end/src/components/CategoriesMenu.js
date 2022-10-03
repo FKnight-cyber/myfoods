@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import Swal from "sweetalert2";
+import { LoadCategories } from "../components/Loaders/initialPageLoaders";
 
 export default function CategoriesMenu({openMenu,setCategory,setOpenMenu,categoria}){
     const [categories, setCategories] = useState([]);
@@ -70,7 +71,7 @@ export default function CategoriesMenu({openMenu,setCategory,setOpenMenu,categor
     return(
         <Container openMenu={openMenu}>
             {
-                categories ? RenderCategories(categories) : ""
+                categories ? RenderCategories(categories) : <LoadCategories />
             }
         </Container>
     )

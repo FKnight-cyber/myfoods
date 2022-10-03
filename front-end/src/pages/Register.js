@@ -4,6 +4,7 @@ import logo from "../assets/myfoods.png";
 import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import Food from "../components/Loaders/authLoaders";
 
 export default function Register(){
     const [name,setName] = useState('');
@@ -11,11 +12,13 @@ export default function Register(){
     const [houseNumber,setHouseNumber] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [load, setLoad] = useState(false);
 
     const navigate = useNavigate();
 
     async function signUp(event){
         event.preventDefault();
+        setLoad(true);
 
         const body = {
             name,
@@ -28,10 +31,12 @@ export default function Register(){
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-up`,body);
                 
         promise.then(res => {
+            setLoad(false);
             navigate("/");
         });
                 
         promise.catch(Error => {
+            setLoad(false);
             let timerInterval
             Swal.fire({
                 title: 'Error!',
@@ -59,56 +64,63 @@ export default function Register(){
 
     return(
         <RegisterContainer>
-            <header>
-                <img src={logo} alt="pizza" srcset="" />
-            </header>
-            <form onSubmit={signUp}>
-                <input type="text"
-                    placeholder="Nome"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                 />
-                <input type="number"
-                    placeholder="CEP"
-                    onChange={e => {
-                        if(e.target.value.toString().length > 8){
-                            return;
-                        }else{
-                            setCep(e.target.value);
-                        }       
-                    }}
-                    value={cep}
-                 />
-                 <input type="number"
-                    placeholder="Número da casa"
-                    maxLength="10"
-                    value={houseNumber}
-                    onChange={e => {
-                        if(e.target.value.toString().length > 10){
-                            return;
-                        }else{
-                            setHouseNumber(e.target.value);
-                        }       
-                    }}
-                 />
-                <input type="email"
-                    placeholder="E-mail"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                 />
-                <input type="password"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                 />
-                <button type="submit">Register</button>
-            </form>
-            <Link to="/" style={{textDecoration:"none"}}>
-                <h6>Já possui uma conta?</h6>
-            </Link>
-            <Link to="/" style={{textDecoration:"none"}}>
-                <h6>Clique aqui e faça seu login!</h6> 
-            </Link>   
+            {
+                load ?
+                <Food />
+                :
+                <>
+                    <header>
+                        <img src={logo} alt="pizza" srcset="" />
+                    </header>
+                    <form onSubmit={signUp}>
+                        <input type="text"
+                            placeholder="Nome"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                        />
+                        <input type="number"
+                            placeholder="CEP"
+                            onChange={e => {
+                                if(e.target.value.toString().length > 8){
+                                    return;
+                                }else{
+                                    setCep(e.target.value);
+                                }       
+                            }}
+                            value={cep}
+                        />
+                        <input type="number"
+                            placeholder="Número da casa"
+                            maxLength="10"
+                            value={houseNumber}
+                            onChange={e => {
+                                if(e.target.value.toString().length > 10){
+                                    return;
+                                }else{
+                                    setHouseNumber(e.target.value);
+                                }       
+                            }}
+                        />
+                        <input type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                        />
+                        <input type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                        <button type="submit">Register</button>
+                    </form>
+                    <Link to="/" style={{textDecoration:"none"}}>
+                        <h6>Já possui uma conta?</h6>
+                    </Link>
+                    <Link to="/" style={{textDecoration:"none"}}>
+                        <h6>Clique aqui e faça seu login!</h6> 
+                    </Link>  
+                </>
+            } 
         </RegisterContainer>
     )
 };

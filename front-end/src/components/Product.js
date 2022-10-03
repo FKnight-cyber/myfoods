@@ -5,15 +5,17 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import UserContext from "../context/UserContext";
 import { formatPrice } from "../utils/utilityFunctions";
+import { BuyFood } from "./Loaders/productLoaders";
 
 export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
     const [selected, setSelected] = useState(false);
+    const [loadBuyFood, setLoadBuyFood] = useState(false);
 
     const { token, productsInCart ,setProductsInCart } = useContext(UserContext);
 
     function addToCart(quantity,productId){
-
+        setLoadBuyFood(true);
         const body = {
             quantity,
             productId
@@ -25,6 +27,7 @@ export default function Product({image,name,price,description,category,id}){
 
         promise.then(res => {
             setSelected(false);
+            setLoadBuyFood(false);
             setProductsInCart(productsInCart + 1);
             setQuantity(0);
             let timerInterval
@@ -51,6 +54,7 @@ export default function Product({image,name,price,description,category,id}){
         });
 
         promise.catch(Error => {
+            setLoadBuyFood(false);
             let timerInterval
             Swal.fire({
                 title: 'Error!',
@@ -87,55 +91,62 @@ export default function Product({image,name,price,description,category,id}){
                     }
                 </h1>
                 <h3>{description}</h3>
-                <div className="buttons">
-                    <div className="order">
-                        <FaMinusCircle 
-                        size={24} 
-                        color="#E45727"
-                        onClick={()=>{
-                            const control = quantity - 1;
-                            if(control === 0){
-                                setSelected(false);
-                            }
-                            if(quantity > 0){
-                                setQuantity(control);
-                                if(quantity === 0){
+                {
+                    loadBuyFood ? 
+                    <BuyFood />
+                    :
+                    <>
+                    <div className="buttons">
+                        <div className="order">
+                            <FaMinusCircle 
+                            size={24} 
+                            color="#E45727"
+                            onClick={()=>{
+                                const control = quantity - 1;
+                                if(control === 0){
                                     setSelected(false);
                                 }
-                            }
-                        }}
-                        />
-                        <input type="number"
-                        value={quantity}
-                        onChange={e => setQuantity(Number(e.target.value))}
-                        />
-                        <FaPlusCircle 
-                        size={24} 
-                        color="#65B362"
-                        onClick={()=>{
-                            const control = quantity +1;
-                            if(control > 0){
-                                if(!selected){
+                                if(quantity > 0){
+                                    setQuantity(control);
+                                    if(quantity === 0){
+                                        setSelected(false);
+                                    }
+                                }
+                            }}
+                            />
+                            <input type="number"
+                            value={quantity}
+                            onChange={e => setQuantity(Number(e.target.value))}
+                            />
+                            <FaPlusCircle 
+                            size={24} 
+                            color="#65B362"
+                            onClick={()=>{
+                                const control = quantity +1;
+                                if(control > 0){
+                                    if(!selected){
+                                        setSelected(true);
+                                    }
+                                }
+                                setQuantity(control)
+                                if(quantity > 0){
                                     setSelected(true);
                                 }
-                            }
-                            setQuantity(control)
-                            if(quantity > 0){
-                                setSelected(true);
-                            }
-                        }}
+                            }}
+                            />
+                        </div>
+                        <FaCartPlus 
+                            size={30} 
+                            color="#7ED321"
+                            display={selected ? "flex" : "none"}
+                            onClick={()=>{
+                                addToCart(quantity,id)
+                            }}
+                            className="icon" 
                         />
                     </div>
-                    <FaCartPlus 
-                        size={30} 
-                        color="#7ED321"
-                        display={selected ? "flex" : "none"}
-                        onClick={()=>{
-                            addToCart(quantity,id)
-                        }}
-                        className="icon" 
-                    />
-                </div>
+                    </>
+                }
             </div>  
         </Container> 
     )
@@ -143,10 +154,10 @@ export default function Product({image,name,price,description,category,id}){
 
 const Container = styled.div`
     width: 100%;
-    height: 40vh;
+    height: 100%;
     img{
         width: 100%;
-        height: 60%;
+        height: 216px !important;
         object-fit: cover;
     }
     h1{

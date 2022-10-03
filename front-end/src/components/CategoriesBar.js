@@ -3,8 +3,9 @@ import { FaBars,FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
+import { LoadCategory } from "../components/Loaders/initialPageLoaders";
 
-export default function CategoriesBar({category, setOpenMenu, openMenu}){
+export default function CategoriesBar({category, setOpenMenu, openMenu, loadCategory}){
     const navigate = useNavigate();
 
     const { productsInCart } = useContext(UserContext);
@@ -18,7 +19,12 @@ export default function CategoriesBar({category, setOpenMenu, openMenu}){
                     onClick={() => setOpenMenu(!openMenu)}
                     className="icon" 
                 />
-                <h2>{category}</h2>
+                {
+                    loadCategory ?
+                    <LoadCategory />
+                    :
+                    <h2>{category}</h2>
+                }   
             </div>
             <div className="cart">
                 <FaShoppingCart 

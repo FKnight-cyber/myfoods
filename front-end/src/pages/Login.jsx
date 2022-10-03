@@ -5,10 +5,12 @@ import { Link,useNavigate } from "react-router-dom";
 import { RegisterContainer } from "./Register";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import Food from "../components/Loaders/authLoaders";
 
 export default function Login(){
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [load, setLoad] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ export default function Login(){
 
     function signIn(event){
         event.preventDefault();
-
+        setLoad(true);
         const body = {
             email,
             password
@@ -31,6 +33,7 @@ export default function Login(){
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/sign-in`,body);
 
         promise.then(res => {
+            setLoad(false);
             if(res.data.redirectTo){
                 localStorage.setItem("authToken", res.data.token);
                 setToken(res.data.token);
@@ -44,6 +47,7 @@ export default function Login(){
         });
 
         promise.catch(Error => {
+            setLoad(false);
             let timerInterval
             Swal.fire({
             title: 'Error!',
@@ -70,28 +74,35 @@ export default function Login(){
     }
     return(
         <RegisterContainer>
-            <header>
-                <img src={logo} alt="pizza" srcset="" />
-            </header>
-            <form onSubmit={signIn}>
-                <input type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                 />
-                <input type="password"
-                placeholder="Senha"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                 />
-                <button type="submit">Login</button>
-            </form>
-            <Link to="/sign-up" style={{textDecoration:"none"}}>
-                <h6>Primeira vez?</h6>
-            </Link>
-            <Link to="/sign-up" style={{textDecoration:"none"}}>
-                <h6>Clique aqui e faça seu cadastro!</h6> 
-            </Link>   
+            {
+                load ?
+                <Food size={10} />
+                :
+                <>
+                    <header>
+                        <img src={logo} alt="pizza" srcset="" />
+                    </header>
+                    <form onSubmit={signIn}>
+                        <input type="email"
+                        placeholder="E-mail"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        />
+                        <input type="password"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        />
+                        <button type="submit">Login</button>
+                    </form>
+                    <Link to="/sign-up" style={{textDecoration:"none"}}>
+                        <h6>Primeira vez?</h6>
+                    </Link>
+                    <Link to="/sign-up" style={{textDecoration:"none"}}>
+                        <h6>Clique aqui e faça seu cadastro!</h6> 
+                    </Link> 
+                </>
+            }  
         </RegisterContainer>
     )
 };
