@@ -14,13 +14,7 @@ export default function Login(){
 
     const navigate = useNavigate();
 
-    const { setToken,token } = useContext(UserContext);
-
-    useEffect(()=>{
-        if(token !== ''){
-            navigate('/initialpage');
-        };
-    },[]);
+    const { setToken } = useContext(UserContext);
 
     function signIn(event){
         event.preventDefault();

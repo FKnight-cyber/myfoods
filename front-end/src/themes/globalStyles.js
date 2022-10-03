@@ -85,7 +85,33 @@ table {
   height: 40vh;
 
   @media (min-width: 760px) {
+    padding: 10px;
+    height: 50vh !important;
     margin-right: 80px !important;
+    border: solid 2px black;
+    border-radius: 12px;
+    margin-top: 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    .info{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 50%;
+    }
+
+    .buttons{
+      width: 140px;
+      height: 50px;
+
+      .order{
+        width: 140px;
+      }
+    }
+
+    input{
+      width: 60px;
+    }
   }
 }
 

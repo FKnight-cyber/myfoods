@@ -30,10 +30,6 @@ export default function InitialPage(){
 
     const navigate = useNavigate();
 
-    if(token === ""){
-        navigate('/');
-    }
-
     useEffect(() => {
         setLoadFood(true);
         setLoadCategory(true);

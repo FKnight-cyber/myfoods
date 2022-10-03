@@ -423,4 +423,14 @@ const Product = styled.div`
             }
         }
     }
+
+    @media (min-width: 760px) {
+        height: 240px;
+        justify-content: start;
+        
+        .productInfo{
+            width: 50%;
+            padding-left: 30px;
+        }
+    }
 `
