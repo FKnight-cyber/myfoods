@@ -142,9 +142,11 @@ export default function Product({image,name,price,description,category,id}){
 }
 
 const Container = styled.div`
+    width: 100%;
+    height: 40vh;
     img{
         width: 100%;
-        height: 216px !important;
+        height: 60%;
         object-fit: cover;
     }
     h1{

@@ -115,7 +115,7 @@ export default function Products({category,openMenu}){
 const Container = styled.div`
     display: ${props => props.openMenu ? "none" : "value"};
     width: 94%;
-    height: 380px;
+    height: 49vh;
     background-color: #ffffff;
     margin-top: 20px;
     border-radius: 6px;
@@ -127,7 +127,6 @@ const Container = styled.div`
     }
 
     @media (min-width: 760px){
-        height: 400px;
         > * {
             &:first-child{
                 display: none;

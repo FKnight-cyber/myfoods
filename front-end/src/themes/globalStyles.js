@@ -82,6 +82,7 @@ table {
   background: #fff;
   font-style: italic;
   color: #000;
+  height: 40vh;
 
   @media (min-width: 760px) {
     margin-right: 80px !important;
