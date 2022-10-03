@@ -1,5 +1,5 @@
 import prisma from "../database";
-import { IProductData } from "../types/productTypes";
+import { IProductData, IProductDataUpdate } from "../types/productTypes";
 
 async function insert(product:IProductData) {
     await prisma.product.create({data:product});
@@ -57,7 +57,16 @@ async function cancelOrder(id:number,amount:number) {
 
 async function remove(id:number) {
     await prisma.product.delete({where:{id}});
-}
+};
+
+async function update(id:number,product:IProductDataUpdate){
+    await prisma.product.update({
+        where:{
+            id
+        },
+        data:product
+    })
+};
 
 const productsRepository = {
     findProductsByCategoryId,
@@ -66,7 +75,8 @@ const productsRepository = {
     cancelOrder,
     insert,
     getAllProducts,
-    remove
+    remove,
+    update
 };
 
 export default productsRepository;

@@ -1,7 +1,7 @@
 import categoriesRepository from "../repositories/categoriesRepository";
 import productsRepository from "../repositories/productsRepository";
 import { checkError } from "../middlewares/errorHandler";
-import { IProductData } from "../types/productTypes";
+import { IProductData, IProductDataUpdate } from "../types/productTypes";
 
 async function getProductsByCategoryName(category:string){
     const checkCategory = await categoriesRepository.findCategoryByName(category);
@@ -45,11 +45,34 @@ async function removeProduct(id:number){
     await productsRepository.remove(id);
 };
 
+async function editProduct(name:string, 
+    image:string,  
+    description:string, 
+    quantity:number, 
+    price:number, 
+    id:number) {
+
+        const checkProduct = await productsRepository.findProductById(id);
+
+        if(!checkProduct) throw checkError(404,"Produto não registrado!");
+    
+        const product:IProductDataUpdate = {
+            imageURL:image,
+            description,
+            quantity,
+            price,
+            name
+        };
+
+        return await productsRepository.update(id,product);
+};
+
 const productServices = {
     getProductsByCategoryName,
     addProduct,
     getAll,
-    removeProduct
+    removeProduct,
+    editProduct
 };
 
 export default productServices;

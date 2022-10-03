@@ -37,5 +37,22 @@ export async function deleteProduct(req:Request, res:Response) {
 
     await productServices.removeProduct(id);
 
+    res.sendStatus(201);
+};
+
+export async function editProduct(req:Request, res:Response) {
+    const id:number = Number(req.params.id);
+
+    const { name, image, description, quantity, price } : 
+    { 
+        name:string, 
+        image:string, 
+        description:string, 
+        quantity:number, 
+        price:number 
+    } = req.body;
+
+    await productServices.editProduct(name, image, description, quantity, price, id);
+
     res.sendStatus(200);
 };
