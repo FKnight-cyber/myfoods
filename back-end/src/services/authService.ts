@@ -30,7 +30,7 @@ async function signUp(user:IUserData) {
     
         if(info.erro) throw checkError(404,"Não encontramos informação do seu CEP, verifique novamente!");
     
-        if(validAddressDelivery[info.bairro] !== true) throw checkError(401,"Infelizmente não cobrimos o seu bairro ;(");
+        if(validAddressDelivery[info.bairro] !== true) throw checkError(403,"Infelizmente não cobrimos o seu bairro ;(");
     
         user.password = encrypt(user.password);
     
