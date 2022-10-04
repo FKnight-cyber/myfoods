@@ -8,6 +8,8 @@ module.exports = {
       'test-config',
       'interfaces',
       'repositories',
+      'middlewares',
+      'testes/factories',
       'jestGlobalMocks.ts',
       'routers',
       'schemas',
