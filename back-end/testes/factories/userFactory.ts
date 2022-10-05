@@ -13,7 +13,7 @@ export async function __userFactory(){
 export async function __adminFactory(){
     return {
         name: faker.name.firstName(),
-        password: faker.lorem.word(10),
+        password: "12345678",
         cep: faker.lorem.word(8),
         houseNumber: faker.lorem.word(4),
         email: process.env.ADMIN_EMAIL

@@ -9,6 +9,7 @@ module.exports = {
       'interfaces',
       'repositories',
       'middlewares',
+      'testes/factories/',
       'jestGlobalMocks.ts',
       'routers',
       'schemas',
