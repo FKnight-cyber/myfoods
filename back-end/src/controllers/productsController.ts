@@ -10,6 +10,8 @@ export async function getProducts(req:Request, res:Response){
 };
 
 export async function addProduct(req:Request, res:Response) {
+    const { userInfo } = res.locals;
+
     const { name, image, category, description, quantity, price } : 
     { 
         name:string, 
@@ -20,7 +22,7 @@ export async function addProduct(req:Request, res:Response) {
         price:number 
     } = req.body;
 
-    await productServices.addProduct(name, image, category, description, quantity, price);
+    await productServices.addProduct(name, image, category, description, quantity, price, userInfo.data);
 
     res.sendStatus(201);
 };
@@ -33,14 +35,18 @@ export async function getAllProducts(req:Request, res:Response) {
 };
 
 export async function deleteProduct(req:Request, res:Response) {
+    const { userInfo } = res.locals;
+
     const id:number = Number(req.params.id);
 
-    await productServices.removeProduct(id);
+    await productServices.removeProduct(id, userInfo.data);
 
     res.sendStatus(201);
 };
 
 export async function editProduct(req:Request, res:Response) {
+    const { userInfo } = res.locals;
+
     const id:number = Number(req.params.id);
 
     const { name, image, description, quantity, price } : 
@@ -52,7 +58,7 @@ export async function editProduct(req:Request, res:Response) {
         price:number 
     } = req.body;
 
-    await productServices.editProduct(name, image, description, quantity, price, id);
+    await productServices.editProduct(name, image, description, quantity, price, id, userInfo.data);
 
     res.sendStatus(200);
 };

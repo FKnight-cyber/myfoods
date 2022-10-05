@@ -2,6 +2,7 @@ import categoriesRepository from "../repositories/categoriesRepository";
 import productsRepository from "../repositories/productsRepository";
 import { checkError } from "../middlewares/errorHandler";
 import { IProductData, IProductDataUpdate } from "../types/productTypes";
+import { IUserData } from "../types/authTypes";
 
 async function getProductsByCategoryName(category:string){
     const checkCategory = await categoriesRepository.findCategoryByName(category);
@@ -19,7 +20,9 @@ async function getAll() {
 
 async function addProduct(name:string, 
     image:string, category:string, 
-    description:string, quantity:number, price:number) {
+    description:string, quantity:number, price:number, user:IUserData) {
+
+        if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
         const checkCategory = await categoriesRepository.findCategoryByName(category);
 
@@ -37,7 +40,9 @@ async function addProduct(name:string,
         await productsRepository.insert(product);
 };
 
-async function removeProduct(id:number){
+async function removeProduct(id:number, user:IUserData){
+    if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
+
     const checkProduct = await productsRepository.findProductById(id);
 
     if(!checkProduct) throw checkError(404,"Produto não registrado!");
@@ -50,7 +55,9 @@ async function editProduct(name:string,
     description:string, 
     quantity:number, 
     price:number, 
-    id:number) {
+    id:number,
+    user:IUserData) {
+        if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
         const checkProduct = await productsRepository.findProductById(id);
 
