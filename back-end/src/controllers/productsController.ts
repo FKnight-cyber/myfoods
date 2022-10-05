@@ -41,7 +41,7 @@ export async function deleteProduct(req:Request, res:Response) {
 
     await productServices.removeProduct(id, userInfo.data);
 
-    res.sendStatus(201);
+    res.sendStatus(202);
 };
 
 export async function editProduct(req:Request, res:Response) {
@@ -60,5 +60,5 @@ export async function editProduct(req:Request, res:Response) {
 
     await productServices.editProduct(name, image, description, quantity, price, id, userInfo.data);
 
-    res.sendStatus(200);
+    res.sendStatus(202);
 };
