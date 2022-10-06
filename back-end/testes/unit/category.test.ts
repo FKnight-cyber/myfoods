@@ -160,7 +160,7 @@ describe("Categories service suit test", () => {
             return false
         });
 
-        const result = await categoryServices.addCategory("Pizzas", user);
+        await categoryServices.addCategory("Pizzas", user);
 
         expect(categoriesRepository.insert).toBeCalled();
     });

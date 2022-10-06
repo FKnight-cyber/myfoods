@@ -9,6 +9,7 @@ async function findUser(email:string) {
     return await prisma.user.findUnique({where:{email}});
 }
 
+
 const authRepository = {
     insert,
     findUser

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 import logo from "../assets/myfoods.png";
 import { Link,useNavigate } from "react-router-dom";
@@ -77,19 +77,23 @@ export default function Login(){
                         <img src={logo} alt="pizza" srcset="" />
                     </header>
                     <form onSubmit={signIn}>
-                        <input type="email"
-                        placeholder="E-mail"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        <input
+                            data-cy="login-email" 
+                            type="email"
+                            placeholder="E-mail"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
                         />
-                        <input type="password"
-                        placeholder="Senha"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        <input
+                            data-cy="login-pass" 
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                         />
-                        <button type="submit">Login</button>
+                        <button data-cy="submit-login" type="submit">Login</button>
                     </form>
-                    <Link to="/sign-up" style={{textDecoration:"none"}}>
+                    <Link data-cy="cy-register" to="/sign-up" style={{textDecoration:"none"}}>
                         <h6>Primeira vez?</h6>
                     </Link>
                     <Link to="/sign-up" style={{textDecoration:"none"}}>

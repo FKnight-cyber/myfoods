@@ -73,12 +73,16 @@ export default function Register(){
                         <img src={logo} alt="pizza" srcset="" />
                     </header>
                     <form onSubmit={signUp}>
-                        <input type="text"
+                        <input
+                            data-cy="cy-name" 
+                            type="text"
                             placeholder="Nome"
                             value={name}
                             onChange={e => setName(e.target.value)}
                         />
-                        <input type="number"
+                        <input
+                            data-cy="cy-cep" 
+                            type="number"
                             placeholder="CEP"
                             onChange={e => {
                                 if(e.target.value.toString().length > 8){
@@ -89,7 +93,9 @@ export default function Register(){
                             }}
                             value={cep}
                         />
-                        <input type="number"
+                        <input 
+                            type="number"
+                            data-cy="cy-house-number"
                             placeholder="Número da casa"
                             maxLength="10"
                             value={houseNumber}
@@ -101,17 +107,21 @@ export default function Register(){
                                 }       
                             }}
                         />
-                        <input type="email"
+                        <input 
+                            type="email"
+                            data-cy="cy-email"
                             placeholder="E-mail"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                         />
-                        <input type="password"
+                        <input 
+                            type="password"
+                            data-cy="cy-pass"
                             placeholder="Senha"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />
-                        <button type="submit">Register</button>
+                        <button data-cy="cy-submit-register" type="submit">Register</button>
                     </form>
                     <Link to="/" style={{textDecoration:"none"}}>
                         <h6>Já possui uma conta?</h6>

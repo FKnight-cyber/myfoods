@@ -39,4 +39,4 @@ export async function getUserInfo(req:Request, res:Response){
     const allInfo = await authServices.getUserInfo(userInfo);
 
     res.status(200).send(allInfo);
-}
+};
