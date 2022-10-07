@@ -40,15 +40,15 @@ const SendMessages = ({messageData}) => {
   const [mobileNumber, setMobileNumber] = useState('');
 
   const [message, setMessage] = useState(
-    `Nome: ${messageData.name}
-CEP: ${messageData.CEP}
-Bairro: ${messageData.district}
-Rua: ${messageData.road}
-Número da casa: ${messageData.number}\n
+    `_*Nome:*_  ${messageData.name}
+_*CEP:*_  ${messageData.CEP}
+_*Bairro:*_ ${messageData.district}
+_*Rua:*_  ${messageData.road}
+_*Número da casa:*_  ${messageData.number}\n
 ${renderOrder(messageData.products)}
-Total: ${messageData.total}\n
-PIX: ryannicholas.vieira@gmail.com
-Se fizer o pagamento por PIX envie o comprovante!
+_*Total:*_  ${messageData.total}\n
+_*PIX:*_  ryannicholas.vieira@gmail.com
+_*Se fizer o pagamento por PIX envie o comprovante!*_
 `);
 
   const { token, setProductsInCart } = useContext(UserContext);
@@ -79,7 +79,7 @@ Se fizer o pagamento por PIX envie o comprovante!
 
       let url = `https://web.whatsapp.com/send?phone=${process.env.REACT_APP_WHATSAPP_NUMBER}`;
 
-      url += `&text=${encodeURI(message + `Telefone: ${mobileNumber}`)}&app_absent=0`;
+      url += `&text=${encodeURI(message + `_*Telefone:*_  ${mobileNumber}`)}&app_absent=0`;
 
       const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`,{
             headers:{'x-access-token': `${token}`}

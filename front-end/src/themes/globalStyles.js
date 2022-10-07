@@ -88,7 +88,6 @@ table {
     padding: 10px;
     height: 50vh !important;
     width: 500px !important;
-    margin-right: 80px !important;
     border: solid 2px black;
     border-radius: 12px;
     margin-top: 4px;

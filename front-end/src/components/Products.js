@@ -86,9 +86,9 @@ export default function Products({category,openMenu,setLoadFood}){
                 )}
             </Swiper>
             <Swiper
-                slidesPerView={2}
+                slidesPerView={3}
                 centeredSlides={true}
-                spaceBetween={10}
+                spaceBetween={180}
                 grabCursor={true}
                 pagination={{
                 clickable: true,
@@ -129,6 +129,7 @@ const Container = styled.div`
     }
 
     @media (min-width: 760px){
+        width:80%;
         > * {
             &:first-child{
                 display: none;
