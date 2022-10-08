@@ -11,7 +11,6 @@ mainRouter.use(authRouter);
 mainRouter.use(productsRouter);
 mainRouter.use(categoryRouter);
 mainRouter.use(cartRouter);
-console.log(process.env.NODE_ENV)
 if(process.env.NODE_ENV === "test"){
     mainRouter.use(testRouter);
 };

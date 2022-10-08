@@ -25,12 +25,12 @@ async function signUp(user:IUserData) {
         });
     
         const validAddressDelivery = {
-            Parangaba:true
+            Fortaleza:true
         };
     
         if(info.erro) throw checkError(404,"Não encontramos informação do seu CEP, verifique novamente!");
     
-        if(validAddressDelivery[info.bairro] !== true) throw checkError(403,"Infelizmente não cobrimos o seu bairro ;(");
+        if(validAddressDelivery[info.localidade] !== true) throw checkError(403,"Infelizmente não cobrimos a sua região ;(");
     
         user.password = encrypt(user.password);
     
