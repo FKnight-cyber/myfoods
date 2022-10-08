@@ -101,35 +101,30 @@ export default function Products({selectProduct}){
                     onChange={e => {
                         product.imageURL = e.target.value
                     }}
-                    required 
                 />
                 <input type="text"
                     placeholder="Nome do produto"
                     onChange={e => {
                         product.name = e.target.value
                     }}
-                    required  
                 />
                 <input type="text"
                     placeholder="Descrição"
                     onChange={e => {
                         product.description = e.target.value
                     }}
-                    required  
                 />
                 <input type="number"
                     placeholder="Quantidade"
                     onChange={e => {
                         product.quantity = e.target.value
-                    }}
-                    required  
+                    }} 
                 />
                 <input type="number"
                     placeholder="Valor"
                     onChange={e => {
                         product.price = e.target.value
                     }}
-                    required 
                 />
                 <button className="interactable" type="submit">Edit</button>
             </EditField>
