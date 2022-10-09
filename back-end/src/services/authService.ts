@@ -24,13 +24,11 @@ async function signUp(user:IUserData) {
             throw checkError(500,"Erro na busca pelo seu CEP!");
         });
     
-        const validAddressDelivery = {
-            Fortaleza:true
-        };
+        const validAddressDelivery = process.env.DELIVERY_RANGE.split(', ');
     
         if(info.erro) throw checkError(404,"Não encontramos informação do seu CEP, verifique novamente!");
     
-        if(validAddressDelivery[info.localidade] !== true) throw checkError(403,"Infelizmente não cobrimos a sua região ;(");
+        if(validAddressDelivery.includes(info.localidade) !== true) throw checkError(403,"Infelizmente não cobrimos a sua região ;(");
     
         user.password = encrypt(user.password);
     
