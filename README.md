@@ -649,7 +649,7 @@ status: 203
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add the following environment variables to your back-.env file
 
 `DATABASE_URL = postgres://UserName:Password@Hostname:5432/DatabaseName`
 
@@ -661,7 +661,13 @@ To run this project, you will need to add the following environment variables to
 
 `NODE_ENV = string #prod by default `
 
-To test this project, you will need to add the following environment variables to your .env.test file
+front-end/.env
+
+`REACT_APP_API_BASE_URL = example: http://localhost:5000`
+
+`REACT_APP_WHATSAPP_NUMBER = string store's full phone number`
+
+To test this project, you will need to add the following environment variables to your back-end/.env.test file
 
 `DATABASE_URL = postgres://UserName:Password@Hostname:5432/DatabaseName`
 
