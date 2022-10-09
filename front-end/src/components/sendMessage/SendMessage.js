@@ -70,8 +70,6 @@ _*Se fizer o pagamento por PIX envie o comprovante!*_
         products: messageData.products.map(product => product.id)
       }
 
-      console.log(body)
-
       const promisePurchase = axios.post(`${process.env.REACT_APP_API_BASE_URL}/purchase`,body,{
         headers:{'x-access-token': `${token}`}
       });
