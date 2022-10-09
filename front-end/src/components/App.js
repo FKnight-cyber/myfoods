@@ -8,6 +8,7 @@ import Register from "../pages/Register";
 import UserPage from "../pages/UserPage";
 import MyCart from "../pages/MyCart";
 import ControlPage from "../pages/AdminPages/Control";
+import Purchases from "../pages/AdminPages/Purchases";
 
 export default function App(){
     const [token,setToken] = useState(localStorage.getItem('authToken'));
@@ -49,6 +50,7 @@ export default function App(){
                     <Route path="/user" element={<UserPage />} />
                     <Route path="/cart" element={<MyCart />} />
                     <Route path="/admin/control" element={<ControlPage />} />
+                    <Route path="/purchase/info" element={<Purchases />} />
                 </Routes>
             </UserContext.Provider>
         </BrowserRouter>

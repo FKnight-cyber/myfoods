@@ -3,6 +3,7 @@ import "swiper/css/bundle";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css";
+import 'react-calendar/dist/Calendar.css';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');

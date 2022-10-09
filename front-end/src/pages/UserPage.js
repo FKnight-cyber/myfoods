@@ -11,6 +11,43 @@ export default function UserPage(){
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/purchase/info`,{
+            headers:{'x-access-token': `${token}`}
+        });
+
+        promise.then(res => {
+            setPurchases(res.data.length);
+        });
+
+        promise.catch(Error => {
+            let timerInterval;
+            Swal.fire({
+                title: 'Error!',
+                icon: 'error',
+                html: `${Error.response.data}`,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                 return;
+            });
+            if(Error.response.status === 401){
+                localStorage.setItem('authToken', '');
+                navigate('/');
+            }
+        });
+    },[])
+
     const { 
         token,
         name,
@@ -36,11 +73,11 @@ export default function UserPage(){
             <h1>Número da casa</h1>
             <h2>{number}</h2>
             <h1>Total de pedidos: {purchases}</h1>
-            <h3>Mais x pedidos para ganhar desconto de 30 reais!</h3>
             <FaOutdent
                 size={30}
                 color="#ffffff"
                 onClick={() => navigate(-1)}
+                className="icon"
             />
         </Container>
     )
@@ -52,6 +89,12 @@ const Container = styled.div`
     background-color: #211A22;
     padding: 14px;
     position: relative;
+
+    .icon{
+        &:hover{
+            cursor: pointer;
+        }
+    }
 
     h1,h2,h3{
         color: #ffffff;

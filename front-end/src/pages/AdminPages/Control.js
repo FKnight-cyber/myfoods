@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Categories from "./components/Categories";
-import { FaSortDown, FaSortUp } from "react-icons/fa";
+import { FaSortDown, FaSortUp, FaSignOutAlt, FaInfoCircle } from "react-icons/fa";
 import Products from "./components/Products";
+import UserContext from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ControlPage(){
     const [selectCategory, setSelectCategory] = useState(false);
     const [selectProduct, setSelectProduct] = useState(false);
+
+    const { setToken } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    function signOut(){
+        localStorage.setItem('authToken', '');
+        setToken('');
+        navigate('/');
+    }
+
     return(
         <Container>
             <div className="panel" onClick={() => setSelectCategory(!selectCategory)}>
@@ -45,6 +57,18 @@ export default function ControlPage(){
             <Products 
                 selectProduct={selectProduct}
             />
+            <FaSignOutAlt 
+                className="iconOut"
+                color="crimson"
+                size={40}
+                onClick={signOut}
+            />
+            <FaInfoCircle
+                className="iconInfo"
+                color="crimson"
+                size={40}
+                onClick={() => navigate('/purchase/info')}
+            />
         </Container>
     )
 }
@@ -58,6 +82,25 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
+
+    .iconOut,.iconInfo{
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    .iconOut{
+        position: absolute;
+        left: 18px;
+        top: 18px;
+    }
+
+    .iconInfo{
+        position: absolute;
+        right: 18px;
+        top: 18px;
+    }
 
     .panel{
         display: flex;
