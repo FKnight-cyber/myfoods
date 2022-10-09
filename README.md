@@ -44,6 +44,7 @@ On this version only CEPs of the city of Fortaleza are allowed but you can easil
 
 -   Client and Admin sign-up and sign-in.
 -   Client's info page.
+-   Purchases info page.
 -   CRUD categories and products.
 -   View and remove cart products.
 -   Finish order request through WhatsApp web.
@@ -132,6 +133,107 @@ GET /user/info
   "road": "Rua Cônego de Castro",
   "city": "Fortaleza"
 }
+```
+
+#
+
+### Get user purchases info
+
+```
+https://myfoods-vieira.herokuapp.com
+GET /user/purchase/info
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+#### Response:
+
+```json
+[
+  {
+    "id": 1,
+    "userId": 2,
+    "productId": 1,
+    "createdAt": "2022-10-09T13:49:07.065Z"
+  },
+  {
+    "id": 2,
+    "userId": 2,
+    "productId": 2,
+    "createdAt": "2022-10-09T13:49:07.079Z"
+  },
+  {
+    "id": 3,
+    "userId": 2,
+    "productId": 3,
+    "createdAt": "2022-10-09T14:18:26.830Z"
+  },
+  {
+    "id": 4,
+    "userId": 2,
+    "productId": 2,
+    "createdAt": "2022-10-09T14:18:26.842Z"
+  },
+  ...
+]
+```
+
+#
+
+### Get daily purchases info
+
+```
+https://myfoods-vieira.herokuapp.com
+POST /admin/purchase/info
+```
+
+#### Request:
+
+| Headers          | Type    | Description                        |
+| :--------------- | :-------| :--------------------------------- |
+| `x-access-token` | `string`| **Required**. authentication token |
+
+###
+
+| Body                     | Type      | Description                  |
+| :----------------------- | :-------- | :--------------------------- |
+| `dateInit`               | `string`  | **Required**. target day     |
+| `dateEnd`                | `string`  | **Required**.  next day      |
+
+#### Response:
+
+```json
+[
+  {
+    "id": 1,
+    "userId": 3,
+    "productId": 1,
+    "createdAt": "2022-10-09T13:49:07.065Z"
+  },
+  {
+    "id": 2,
+    "userId": 2,
+    "productId": 1,
+    "createdAt": "2022-10-09T13:49:07.079Z"
+  },
+  {
+    "id": 3,
+    "userId": 2,
+    "productId": 3,
+    "createdAt": "2022-10-09T14:18:26.830Z"
+  },
+  {
+    "id": 4,
+    "userId": 2,
+    "productId": 2,
+    "createdAt": "2022-10-09T14:18:26.842Z"
+  },
+  ...
+]
 ```
 
 #
@@ -711,7 +813,7 @@ cd ../../myfoods/back-end
 check your .env and inform your variables.
 
 ```bash
-  run npx prisma migrate dev 
+  npm run prisma:migrate 
 ```
 
 and prisma will build the postgress database.
