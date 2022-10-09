@@ -88,7 +88,7 @@ export default function Products({category,openMenu,setLoadFood}){
             <Swiper
                 slidesPerView={3}
                 centeredSlides={true}
-                spaceBetween={180}
+                spaceBetween={60}
                 grabCursor={true}
                 pagination={{
                 clickable: true,

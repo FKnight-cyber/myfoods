@@ -66,36 +66,52 @@ _*Se fizer o pagamento por PIX envie o comprovante!*_
       setTimeout(() => setMessageEmptyError(false), 3000);
     } else {
 
-      setMessage(`Nome: ${messageData.name}
-      CEP: ${messageData.CEP}
-      Bairro: ${messageData.district}
-      Rua: ${messageData.road}
-      Número da casa: ${messageData.number}\n
-      ${renderOrder(messageData.products)}
-      Total: ${messageData.total}\n
-      PIX: ryannicholas.vieira@gmail.com
-      Se fizer o pagamento por PIX envie o comprovante!
-      `);
+      const body = {
+        products: messageData.products.map(product => product.id)
+      }
 
-      let url = `https://web.whatsapp.com/send?phone=${process.env.REACT_APP_WHATSAPP_NUMBER}`;
+      console.log(body)
 
-      url += `&text=${encodeURI(message + `_*Telefone:*_  ${mobileNumber}`)}&app_absent=0`;
+      const promisePurchase = axios.post(`${process.env.REACT_APP_API_BASE_URL}/purchase`,body,{
+        headers:{'x-access-token': `${token}`}
+      });
+  
+      promisePurchase.then(res => {
+          setMessage(`Nome: ${messageData.name}
+        CEP: ${messageData.CEP}
+        Bairro: ${messageData.district}
+        Rua: ${messageData.road}
+        Número da casa: ${messageData.number}\n
+        ${renderOrder(messageData.products)}
+        Total: ${messageData.total}\n
+        PIX: ryannicholas.vieira@gmail.com
+        Se fizer o pagamento por PIX envie o comprovante!
+        `);
 
-      const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`,{
-            headers:{'x-access-token': `${token}`}
+        let url = `https://web.whatsapp.com/send?phone=${process.env.REACT_APP_WHATSAPP_NUMBER}`;
+
+        url += `&text=${encodeURI(`_*Telefone:*_  ${mobileNumber}\n` + message)}&app_absent=0`;
+
+        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`,{
+              headers:{'x-access-token': `${token}`}
+          });
+        
+        promise.then(res => {
+          console.log("ok");
         });
-      
-      promise.then(res => {
-        console.log("ok");
+
+        promise.catch(Error => {
+          console.log(Error.response.data)
+        });
+
+        setProductsInCart(0);
+        navigate("/initialpage");
+        window.open(url);
       });
 
-      promise.catch(Error => {
+      promisePurchase.catch(Error => {
         console.log(Error.response.data)
       });
-
-      setProductsInCart(0);
-      navigate("/initialpage");
-      window.open(url);
     }
   };
 
