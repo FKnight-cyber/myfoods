@@ -30,7 +30,7 @@ export default function Products({selectProduct}){
                 hashtable[res.data[i].id] = false;
             }
             setEditProducts(hashtable);
-            setProducts(res.data);
+            setProducts(res.data.reverse());
         });
 
         promise.catch(Error => {

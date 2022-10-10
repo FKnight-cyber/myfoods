@@ -18,7 +18,7 @@ export default function Categories({selectCategory}){
         });
 
         promise.then(res => {
-            setCategories(res.data);
+            setCategories(res.data.reverse());
         });
 
         promise.catch(Error => {
