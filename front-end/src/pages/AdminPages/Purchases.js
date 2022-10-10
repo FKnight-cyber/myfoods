@@ -107,6 +107,10 @@ const Container = styled.div`
         position: absolute;
         left: 18px;
         top: 18px;
+
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     h1{
@@ -133,6 +137,10 @@ const Container = styled.div`
         color: #ffffff;
         font-size: 24px;
         border-radius: 12px;
+        
+        &:hover{
+            cursor: pointer;
+        }
     }
 `
 

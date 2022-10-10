@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { LoadFood } from "../components/Loaders/initialPageLoaders";
 
 export default function InitialPage(){
-    const [category, setCategory] = useState("Pizzas");
+    const [category, setCategory] = useState("Menu");
     const [openMenu, setOpenMenu] = useState(false);
     const [loadFood, setLoadFood] = useState(false);
     const [loadCategory, setLoadCategory] = useState(true);
@@ -77,7 +77,7 @@ export default function InitialPage(){
             }
         });
 
-    },[]);
+    },[category]);
 
     return(
         <InitialPageContainer>
@@ -115,7 +115,7 @@ export default function InitialPage(){
                 className="icon" 
             />
             {
-                loadFood ?
+                (loadFood || category) == "Menu" ?
                 <LoadFood />
                 :
                 <Products 

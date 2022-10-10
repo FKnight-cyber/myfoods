@@ -13,6 +13,7 @@ export default function CategoriesMenu({openMenu,setCategory,setOpenMenu,categor
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log(1)
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/categories`,{
             headers:{'x-access-token': `${token}`}
         });

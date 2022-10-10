@@ -26,6 +26,10 @@ export default function Products({category,openMenu,setLoadFood}){
         });
 
         promise.catch(Error => {
+            if(Error.response.status === 404){
+                setLoadFood(false);
+                return;
+            }
             setLoadFood(false);
             let timerInterval
             Swal.fire({
