@@ -763,6 +763,10 @@ To run this project, you will need to add the following environment variables to
 
 `NODE_ENV = string #prod by default `
 
+`DELIVERY_RANGE = string default Fortaleza, does accept list of cities format example: Fortaleza, Caucaia, Maracanaú, ... `
+
+
+
 front-end/.env
 
 `REACT_APP_API_BASE_URL = example: http://localhost:5000`
