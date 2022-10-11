@@ -130,7 +130,7 @@ export default function InitialPage(){
 
 const InitialPageContainer = styled.div`
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     background-color: #211A22;
     display: flex;
     flex-direction: column;
@@ -150,10 +150,12 @@ const InitialPageContainer = styled.div`
         padding-top: 20px;
         position: relative;
         width: 100%;
-        
+        height: 180px;
         img{
-            width: 200px;
-            height: 200px;
+            min-width: 100px;
+            max-width: 200px;
+            min-height: 100px;
+            max-height: 200px;
         }
 
         > * {

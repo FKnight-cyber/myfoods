@@ -403,7 +403,6 @@ const Product = styled.div`
     img{
         width: 50%;
         height: 100%;
-        object-fit: cover;
     }
 
     > * {
@@ -425,12 +424,12 @@ const Product = styled.div`
     }
 
     @media (min-width: 760px) {
-        height: 240px;
+        height: 30vh;
         justify-content: start;
         
         .productInfo{
             width: 50%;
-            padding-left: 30px;
+            padding: 30px;
         }
     }
 `

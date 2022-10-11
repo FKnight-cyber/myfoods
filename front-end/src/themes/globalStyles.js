@@ -76,18 +76,16 @@ table {
   width: 100%;
   height: 100%;
   border-radius: 6px;
-
 }
 
 .swiper-slide {
   background: #fff;
   font-style: italic;
   color: #000;
-  height: 40vh;
+  max-height: 50vh !important;
 
   @media (min-width: 760px) {
     padding: 10px;
-    height: 50vh !important;
     width: 500px !important;
     border: solid 2px black;
     border-radius: 12px;

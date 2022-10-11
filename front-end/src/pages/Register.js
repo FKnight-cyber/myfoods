@@ -137,7 +137,8 @@ export default function Register(){
 
 export const RegisterContainer = styled.div`
     width: 100%;
-    min-height: 100vh;
+    min-height: 636px;
+    height: 100vh;
     background-color: #211A22;
     padding: 40px 20px;
     display: flex;
@@ -147,7 +148,8 @@ export const RegisterContainer = styled.div`
 
     header{
         width: 100%;
-        height: 20vh;
+        min-height: 200px;
+        max-height: 20vh;
         display: flex;
         justify-content: center;
         margin-bottom: 5vh;

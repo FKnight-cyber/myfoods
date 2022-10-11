@@ -91,13 +91,14 @@ export default function Products({category,openMenu,setLoadFood}){
             </Swiper>
             <Swiper
                 slidesPerView={3}
-                centeredSlides={true}
+                slidesPerGroup={2}
+                loop={true}
                 spaceBetween={60}
                 grabCursor={true}
                 pagination={{
                 clickable: true,
                 }}
-                modules={[Pagination]}
+                modules={[Pagination, Navigation]}
             >
                 {
                     products.map((product,index) => 
@@ -121,10 +122,11 @@ export default function Products({category,openMenu,setLoadFood}){
 const Container = styled.div`
     display: ${props => props.openMenu ? "none" : "value"};
     width: 94%;
-    height: 54vh;
+    height: 56vh !important;
     background-color: #ffffff;
     margin-top: 20px;
     border-radius: 6px;
+    overflow-y: scroll;
 
     > * {
         &:last-child{

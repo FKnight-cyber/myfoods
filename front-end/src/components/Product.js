@@ -154,17 +154,17 @@ export default function Product({image,name,price,description,category,id}){
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: 96%;
     overflow-y: scroll;
     
     img{
         width: 100%;
-        height: 216px !important;
+        height: 26vh !important;
         object-fit: cover;
     }
     h1{
         font-weight: 700;
-        font-size: 20px;
+        font-size: 3vh;
         margin-top: 8px;
         margin-left: 6px;
     }
@@ -172,7 +172,7 @@ const Container = styled.div`
     h3{
         margin-top: 10px;
         margin-left: 6px;
-        height: 50px;
+        height: 6vh;
         word-break: break-all;
         overflow-y: scroll;
         padding: 4px;
