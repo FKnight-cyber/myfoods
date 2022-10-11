@@ -137,18 +137,20 @@ export default function Register(){
 
 export const RegisterContainer = styled.div`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #211A22;
     padding: 40px 20px;
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow-y: scroll;
 
     header{
         width: 100%;
         height: 20vh;
         display: flex;
         justify-content: center;
+        margin-bottom: 5vh;
 
         img{
             width: 200px;
@@ -164,7 +166,7 @@ export const RegisterContainer = styled.div`
 
     form{
         width: 90%;
-        height: 50vh;
+        height: 400px;
         flex-direction: column;
 
         input, select, textarea{

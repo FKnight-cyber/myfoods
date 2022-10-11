@@ -130,11 +130,12 @@ export default function InitialPage(){
 
 const InitialPageContainer = styled.div`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #211A22;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 
     .icon{
         &:hover{
