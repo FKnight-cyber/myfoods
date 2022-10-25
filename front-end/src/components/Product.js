@@ -155,7 +155,6 @@ export default function Product({image,name,price,description,category,id}){
 const Container = styled.div`
     width: 100%;
     height: 96%;
-    overflow-y: scroll;
     
     img{
         width: 100%;

@@ -254,7 +254,13 @@ export default function MyCart(){
                         <>
                             <Products product={productsInCart}>
                                 {
-                                    products.length > 0 ? renderProduct(products) : <CartFood />
+                                    products.length > 0 ? renderProduct(products) 
+                                    :
+                                    <>
+                                        <CartFood />
+                                        <h1 className="empty">Seu carrinho está vazio!</h1>
+                                    </> 
+                                    
                                 }
                                 <div className="cleanCart">
                                     <FaCartArrowDown
@@ -292,6 +298,12 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    .empty{
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+    }
 
     .icon{
         &:hover{
@@ -339,6 +351,7 @@ const Container = styled.div`
 
 const Products = styled.div`
     width: 100%;
+    max-width: 600px;
     height: 80vh;
     background-color: #ffffff;
     margin-top: 60px;
@@ -375,7 +388,7 @@ const Product = styled.div`
     .productInfo{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         width: 166px;
         padding: 6px;
 
@@ -396,7 +409,8 @@ const Product = styled.div`
             font-weight: 200;
             text-overflow:hidden;
             white-space: nowrap;
-            overflow: hidden
+            overflow: hidden;
+            margin-bottom: 8px;
         }
     }
 
