@@ -76,8 +76,10 @@ table {
   width: 100%;
   height: 100%;
   border-radius: 6px;
-  padding-left: 20px;
-  overflow-x: scroll;
+
+  @media (min-width: 760px){
+    padding-left: 20px;
+  }
 }
 
 .swiper-slide {
