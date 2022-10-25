@@ -68,3 +68,11 @@ model Cart {
 
   @@map("carts")
 }
+
+model Regions {
+  id Int @id @default(autoincrement())
+  name String @unique
+  createdAt   DateTime   @default(now())
+
+  @@map("regions")
+}

@@ -3,12 +3,14 @@ import styled from "styled-components";
 import Categories from "./components/Categories";
 import { FaSortDown, FaSortUp, FaSignOutAlt, FaInfoCircle } from "react-icons/fa";
 import Products from "./components/Products";
+import DeliveryDistricts from "./components/DeliveryArea";
 import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function ControlPage(){
     const [selectCategory, setSelectCategory] = useState(false);
     const [selectProduct, setSelectProduct] = useState(false);
+    const [selectDistrict, setSelectDistrict] = useState(false);
 
     const { setToken } = useContext(UserContext);
     const navigate = useNavigate();
@@ -21,6 +23,7 @@ export default function ControlPage(){
 
     return(
         <Container>
+            <div className="section">
             <div className="panel" onClick={() => setSelectCategory(!selectCategory)}>
                 <h1>Categorias</h1>
                 {
@@ -57,6 +60,25 @@ export default function ControlPage(){
             <Products 
                 selectProduct={selectProduct}
             />
+            <div className="panel" onClick={() => setSelectDistrict(!selectDistrict)}>
+                <h1>Regiões/Bairros</h1>
+                {
+                    selectDistrict ? 
+                        <FaSortUp
+                            size={30}
+                            color="#ffffff"
+                        />
+                    :
+                        <FaSortDown
+                            size={30}
+                            color="#ffffff"
+                        />
+                }   
+            </div>
+            <DeliveryDistricts
+                selectDistrict={selectDistrict}
+            />
+            </div>
             <FaSignOutAlt 
                 className="iconOut"
                 color="crimson"
@@ -76,13 +98,22 @@ export default function ControlPage(){
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-    overflow-y: scroll;
     background-color: #211A22;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     position: relative;
+
+    .section{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow-y: scroll;
+        width: 100%;
+        margin-top: 60px;
+    }
 
     .iconOut,.iconInfo{
         &:hover{

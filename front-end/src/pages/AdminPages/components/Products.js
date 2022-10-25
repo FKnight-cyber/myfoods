@@ -556,7 +556,7 @@ const Product = styled.div`
     }
 
     @media (min-width: 620px) {
-        width: 600px;
+        max-width: 600px;
         height: 400px;
         border: solid 6px crimson;
     }
