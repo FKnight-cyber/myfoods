@@ -80,6 +80,7 @@ status: 201
 ```
 
 `the sign-up system can be adjusted to register users in a specific region by validating their CEP` 
+`For testing purposes use CEP 60720096`
 
 #
 
