@@ -1,5 +1,6 @@
 import { IUserData, IUserLoginData, IUserInfo } from "../types/authTypes";
 import authRepository from "../repositories/authRepository";
+import districtsRepository from "../repositories/districtRepository";
 import { generateUserToken, encrypt, decrypt } from "../utils/authUtils";
 import { checkError } from "../middlewares/errorHandler";
 import axios from "axios";
@@ -24,11 +25,12 @@ async function signUp(user:IUserData) {
             throw checkError(500,"Erro na busca pelo seu CEP!");
         });
     
-        const validAddressDelivery = process.env.DELIVERY_RANGE.split(', ');
+        const regions = await districtsRepository.getRegions();
+        const validAddressDelivery = regions.map(region => region.name);
     
         if(info.erro) throw checkError(404,"Não encontramos informação do seu CEP, verifique novamente!");
     
-        if(validAddressDelivery.includes(info.localidade) !== true) throw checkError(403,"Infelizmente não cobrimos a sua região ;(");
+        if(validAddressDelivery.includes(info.bairro) !== true) throw checkError(403,"Infelizmente não cobrimos a sua região ;(");
     
         user.password = encrypt(user.password);
     
