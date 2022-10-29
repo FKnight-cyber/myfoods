@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && npx prisma generate && npx prisma migrate deploy",
+    "build": "tsc && npx prisma generate && npx prisma db seed && npx prisma migrate deploy",
     "start": "node ./dist/src/server.js",
     "dev": "dotenv -e .env.test nodemon ./src/server.ts",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest -- -i --coverage",
     "test:integration": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest -- -i --coverage --testPathPattern=/testes/integration",
     "test:unit": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest --verbose false -- -i --coverage --testPathPattern=/testes/unit",
-    "prisma:migrate": "dotenv -e .env.test prisma migrate dev",
+    "prisma:migrate": "dotenv -e .env.test npx prisma migrate dev && dotenv -e .env.test npx prisma db seed",
     "prisma:studio": "dotenv -e .env.test prisma studio"
+  },
+  "prisma":{
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
