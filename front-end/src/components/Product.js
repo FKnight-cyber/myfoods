@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import UserContext from "../context/UserContext";
 import { formatPrice } from "../utils/utilityFunctions";
 import { BuyFood } from "./Loaders/productLoaders";
+import Checkbox from "./Checkbox";
 
 export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
@@ -90,6 +91,7 @@ export default function Product({image,name,price,description,category,id}){
                         quantity <= 1 ? formatPrice(price) : formatPrice(price * Number(quantity))
                     }
                 </h1>
+                <Checkbox />
                 <h3>{description}</h3>
                 {
                     loadBuyFood ? 
@@ -159,12 +161,13 @@ const Container = styled.div`
     img{
         width: 100%;
         height: 26vh !important;
-        object-fit: cover;
     }
+
     h1{
         font-weight: 700;
         font-size: 3vh;
-        margin-top: 8px;
+        margin-top: 2px;
+        margin-bottom: 4px;
         margin-left: 6px;
     }
 

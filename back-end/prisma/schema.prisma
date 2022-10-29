@@ -40,11 +40,20 @@ model Product {
   createdAt   DateTime   @default(now())
   quantity    Int        @default(0)
   imageURL    String     @default("")
+  hasEdge     Boolean?   @default(false)
   categories  Category   @relation(fields: [categoryId], references: [id])
   purchases   Purchase[]
   Cart        Cart[]
 
   @@map("products")
+}
+
+model PizzaEdges {
+  id          Int        @id @default(autoincrement())
+  name        String
+  price       Int        @default(0)
+
+  @@map("edges")
 }
 
 model Purchase {

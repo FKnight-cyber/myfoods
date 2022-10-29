@@ -151,6 +151,7 @@ const InitialPageContainer = styled.div`
         position: relative;
         width: 100%;
         height: 180px;
+
         img{
             min-width: 100px;
             max-width: 200px;
