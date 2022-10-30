@@ -4,21 +4,23 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import UserContext from "../../../context/UserContext";
 import { FaEdit, FaRegMinusSquare } from "react-icons/fa";
+import { formatPrice } from "../../../utils/utilityFunctions";
 
-export default function DeliveryDistricts({selectDistrict}){
-    const [districts, setDistricts] = useState([]);
+export default function PizzaEdges({selectEdge}){
+    const [edges, setEdges] = useState([]);
     const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
     const [callUseEffect, setCallUseEffect] = useState(0);
 
     const { token } = useContext(UserContext);
 
     useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/districts`,{
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/edges`,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
-            setDistricts(res.data);
+            setEdges(res.data);
         });
 
         promise.catch(Error => {
@@ -48,25 +50,26 @@ export default function DeliveryDistricts({selectDistrict}){
 
     },[callUseEffect]);
 
-    function addDistrict(event){
+    function createEdge(event){
         event.preventDefault();
 
         const body = {
             name
         };
 
-        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/districts/add`,body,{
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/edges/create`,body,{
             headers:{'x-access-token': `${token}`}
         });
 
         promise.then(res => {
             setName('');
+            setPrice('');
             setCallUseEffect(callUseEffect + 1);
 
             let timerInterval
             Swal.fire({
                 icon: 'success',
-                html: `Nova região adicionada`,
+                html: `Borda adicionada`,
                 timer: 1000,
                 timerProgressBar: true,
                 didOpen: () => {
@@ -112,12 +115,13 @@ export default function DeliveryDistricts({selectDistrict}){
         });
     }
 
-    function editDistrict(name,id){
+    function editEdge(price, name, id){
         const body = {
+            price,
             name
         };
 
-        const promise = axios.patch(`${process.env.REACT_APP_API_BASE_URL}/districts/${id}`,body,{
+        const promise = axios.patch(`${process.env.REACT_APP_API_BASE_URL}/edges/${id}`,body,{
             headers:{'x-access-token': `${token}`}
         });
 
@@ -127,7 +131,7 @@ export default function DeliveryDistricts({selectDistrict}){
             let timerInterval
             Swal.fire({
                 icon: 'success',
-                html: `Região atualizada!`,
+                html: `Borda alterada!`,
                 timer: 1000,
                 timerProgressBar: true,
                 didOpen: () => {
@@ -173,8 +177,8 @@ export default function DeliveryDistricts({selectDistrict}){
         });
     }
 
-    function removeDistrict(id){
-        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/districts/delete/${id}`,{
+    function deleteEdge(id){
+        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/edges/delete/${id}`,{
             headers:{'x-access-token': `${token}`}
         });
 
@@ -184,7 +188,7 @@ export default function DeliveryDistricts({selectDistrict}){
             let timerInterval
             Swal.fire({
                 icon: 'success',
-                html: `Região removida!`,
+                html: `Categoria deletada!`,
                 timer: 1000,
                 timerProgressBar: true,
                 didOpen: () => {
@@ -230,18 +234,34 @@ export default function DeliveryDistricts({selectDistrict}){
         });
     }
     
-    function renderDistricts(districts){
-        return districts.map((district,index) => 
+    function renderEdges(edges){
+        return edges.map((edge,index) => 
             <div className="category" key={index}>
                 <div className="categoryName">
-                    <h1>{district.name}</h1>
+                    <div className="edgeInfo">
+                        <h1>{edge.name}</h1>
+                        <h1>{formatPrice(edge.price)}</h1>
+                    </div>
                     <input type="text"
+                        placeholder="Nome da borda"
                         onChange={e => {
-                            district.name = e.target.value
+                            edge.name = e.target.value
                        }}
                         onKeyDown={e => {
                             if(e.key === 'Enter'){
-                                editDistrict(district.name,district.id);
+                                editEdge(edge.price, edge.name, edge.id);
+                            }
+                         }}
+                        required 
+                    />
+                    <input type="number"
+                        placeholder="Preço da borda"
+                        onChange={e => {
+                            edge.price = e.target.value
+                       }}
+                        onKeyDown={e => {
+                            if(e.key === 'Enter'){
+                                editEdge(edge.price, edge.name, edge.id);
                             }
                          }}
                         required 
@@ -250,13 +270,13 @@ export default function DeliveryDistricts({selectDistrict}){
                 <div className="buttons">
                     <FaEdit 
                         size={24}
-                        onClick={() => editDistrict(district.name,district.id)}
+                        onClick={() => editEdge(edge.price, edge.name, edge.id)}
                         className="icon" 
                     />
                     <FaRegMinusSquare 
                         size={24}
                         className="icon"
-                        onClick={() => removeDistrict(district.id)}  
+                        onClick={() => deleteEdge(edge.id)}  
                     />
                 </div>
             </div>
@@ -264,20 +284,20 @@ export default function DeliveryDistricts({selectDistrict}){
     }
 
     return(
-        <Container selected={selectDistrict}>
-            <form onSubmit={addDistrict}>
+        <Container selected={selectEdge}>
+            <form onSubmit={createEdge}>
                 <input 
                     type="text"
-                    placeholder="Nome do bairro"
+                    placeholder="Nome da borda"
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
-                <button className="icon" type="submit" onClick={addDistrict}>
+                <button className="icon" type="submit" onClick={createEdge}>
                     +
                 </button>
             </form>
             {
-                districts.length > 0 ? renderDistricts(districts) : ""
+                edges.length > 0 ? renderEdges(edges) : ""
             }
         </Container>
     )

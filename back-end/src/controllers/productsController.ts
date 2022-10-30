@@ -12,17 +12,22 @@ export async function getProducts(req:Request, res:Response){
 export async function addProduct(req:Request, res:Response) {
     const { userInfo } = res.locals;
 
-    const { name, image, category, description, quantity, price } : 
+    const { name, image, category, description, quantity, price, hasEdge } : 
     { 
         name:string, 
         image:string, 
         category:string, 
         description:string, 
         quantity:number, 
-        price:number 
+        price:number,
+        hasEdge:boolean, 
     } = req.body;
 
-    await productServices.addProduct(name, image, category, description, quantity, price, userInfo.data);
+    await productServices.addProduct(name, 
+        image, 
+        category, 
+        description, 
+        quantity, price, hasEdge, userInfo.data);
 
     res.sendStatus(201);
 };
@@ -49,16 +54,17 @@ export async function editProduct(req:Request, res:Response) {
 
     const id:number = Number(req.params.id);
 
-    const { name, image, description, quantity, price } : 
+    const { name, image, description, quantity, price, hasEdge } : 
     { 
         name:string, 
         image:string, 
         description:string, 
         quantity:number, 
-        price:number 
+        price:number,
+        hasEdge:boolean 
     } = req.body;
 
-    await productServices.editProduct(name, image, description, quantity, price, id, userInfo.data);
+    await productServices.editProduct(name, image, description, quantity, price, id, hasEdge, userInfo.data);
 
     res.sendStatus(202);
 };

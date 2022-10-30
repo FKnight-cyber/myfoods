@@ -20,7 +20,7 @@ async function getAll() {
 
 async function addProduct(name:string, 
     image:string, category:string, 
-    description:string, quantity:number, price:number, user:IUserData) {
+    description:string, quantity:number, price:number, hasEdge:boolean, user:IUserData) {
 
         if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
@@ -34,6 +34,7 @@ async function addProduct(name:string,
             description,
             quantity,
             price,
+            hasEdge,
             categoryId: checkCategory.id
         }
     
@@ -56,6 +57,7 @@ async function editProduct(name:string,
     quantity:number, 
     price:number, 
     id:number,
+    hasEdge:boolean,
     user:IUserData) {
         if(user.email !== process.env.ADMIN_EMAIL) throw checkError(401, "You shall not pass!!!");
 
@@ -68,6 +70,7 @@ async function editProduct(name:string,
             description,
             quantity,
             price,
+            hasEdge,
             name
         };
 

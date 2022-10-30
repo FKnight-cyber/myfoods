@@ -8,7 +8,7 @@ async function insert(product:IProductData) {
 async function getAllProducts() {
     return prisma.product.findMany({
         orderBy:{
-            categoryId: 'desc'
+            id: 'asc'
         }
     })
 }

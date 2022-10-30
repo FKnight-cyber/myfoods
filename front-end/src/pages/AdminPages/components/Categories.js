@@ -283,7 +283,7 @@ export default function Categories({selectCategory}){
     )
 }
 
-const Container = styled.div`
+export const Container = styled.div`
     display: ${props => props.selected ? "flex" : "none"};
     flex-direction: column;
     padding: 12px;
@@ -314,6 +314,7 @@ const Container = styled.div`
         height: 26px;
         border: none;
         padding-left: 6px;
+        margin-bottom: 8px;
     }
 
     button{
@@ -326,6 +327,14 @@ const Container = styled.div`
         background-color: crimson;
         font-size: 30px;
         color:#ffffff;
+    }
+
+    .edgeInfo{
+        display: flex;
+        h1{
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
     }
 
     .categoryName{
