@@ -38,7 +38,6 @@ async function createProducts() {
                 description: 'Mussarela, calabresa, cebola e molho de tomate especial!',
                 categoryId:1,
                 quantity:10,
-                hasEdge:true,
                 imageURL: 'https://t2.rg.ltmcdn.com/pt/posts/9/8/3/pizza_calabresa_e_mussarela_4389_600.jpg'
             },
             {
@@ -47,7 +46,6 @@ async function createProducts() {
                 description: 'Bastante mussarela!',
                 categoryId:1,
                 quantity:7,
-                hasEdge:true,
                 imageURL: 'https://www.receiteria.com.br/wp-content/uploads/receitas-de-pizza-de-mussarela-1.jpg'
             },
             {
@@ -56,7 +54,6 @@ async function createProducts() {
                 description: 'Mussarela, chocolate, morango e leite condensado!',
                 categoryId:1,
                 quantity:13,
-                hasEdge:true,
                 imageURL: 'https://xtudoreceitas.com/wp-content/uploads/Pizza-de-Chocolate-com-Morango.jpg'
             },
             {
@@ -65,7 +62,6 @@ async function createProducts() {
                 description: 'Mussarela com abacaxi caramelizado!',
                 categoryId:1,
                 quantity:15,
-                hasEdge:true,
                 imageURL: 'https://www.manollopizzaria.com.br/wp-content/uploads/2015/02/abacaxi-e1427244937949.jpg'
             },
             {
@@ -74,7 +70,6 @@ async function createProducts() {
                 description: 'Blend bovino, cebola, pimenta biquinho e molho especial!',
                 categoryId:1,
                 quantity:16,
-                hasEdge:true,
                 imageURL: 'https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/18631-hamburger-caramelized-onion-pizza-600x600.jpg?ext=.jpg'
             },
             {

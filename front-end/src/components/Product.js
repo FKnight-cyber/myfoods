@@ -10,6 +10,8 @@ import Checkbox from "./Checkbox";
 
 export default function Product({image,name,price,description,category,id}){
     const [quantity, setQuantity] = useState(0);
+    const [edgeValue, setEdgeValue] = useState(0);
+    const [edgeId, setEdgeId] = useState(0);
     const [selected, setSelected] = useState(false);
     const [loadBuyFood, setLoadBuyFood] = useState(false);
 
@@ -17,9 +19,11 @@ export default function Product({image,name,price,description,category,id}){
 
     function addToCart(quantity,productId){
         setLoadBuyFood(true);
+        
         const body = {
             quantity,
-            productId
+            productId,
+            edgeId
         };
 
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/cart/add`,body,{
@@ -88,10 +92,12 @@ export default function Product({image,name,price,description,category,id}){
                 <h1>{name}</h1>
                 <h1>
                     {
-                        quantity <= 1 ? formatPrice(price) : formatPrice(price * Number(quantity))
+                        quantity <= 1 ? formatPrice(price + edgeValue) : formatPrice(price * Number(quantity) + edgeValue)
                     }
                 </h1>
-                <Checkbox />
+                {
+                    category === 'Pizzas' ? <Checkbox setEdgeValue={setEdgeValue} setEdgeId={setEdgeId} id={id} /> : ''
+                }
                 <h3>{description}</h3>
                 {
                     loadBuyFood ? 
