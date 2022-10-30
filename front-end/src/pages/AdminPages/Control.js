@@ -4,6 +4,7 @@ import Categories from "./components/Categories";
 import { FaSortDown, FaSortUp, FaSignOutAlt, FaInfoCircle } from "react-icons/fa";
 import Products from "./components/Products";
 import DeliveryDistricts from "./components/DeliveryArea";
+import PizzaEdges from "./components/PizzaEdges";
 import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +12,7 @@ export default function ControlPage(){
     const [selectCategory, setSelectCategory] = useState(false);
     const [selectProduct, setSelectProduct] = useState(false);
     const [selectDistrict, setSelectDistrict] = useState(false);
+    const [selectEdge, setSelectEdge] = useState(false);
 
     const { setToken } = useContext(UserContext);
     const navigate = useNavigate();
@@ -59,6 +61,24 @@ export default function ControlPage(){
             </div>
             <Products 
                 selectProduct={selectProduct}
+            />
+             <div className="panel" onClick={() => setSelectEdge(!selectEdge)}>
+                <h1>Bordas</h1>
+                {
+                    selectEdge ? 
+                        <FaSortUp
+                            size={30}
+                            color="#ffffff"
+                        />
+                    :
+                        <FaSortDown
+                            size={30}
+                            color="#ffffff"
+                        />
+                }   
+            </div>
+            <PizzaEdges
+                selectEdge={selectEdge}
             />
             <div className="panel" onClick={() => setSelectDistrict(!selectDistrict)}>
                 <h1>Regiões/Bairros</h1>
