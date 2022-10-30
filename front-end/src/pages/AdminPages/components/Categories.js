@@ -306,7 +306,14 @@ export const Container = styled.div`
         display: flex;
         justify-content: center; 
         align-items: center;
+        flex-direction: column;
         margin-bottom: 12px;
+        position: relative;
+
+        button{
+            position: absolute;
+            right: -6px;
+        }
     }
 
     input{
@@ -338,7 +345,7 @@ export const Container = styled.div`
     }
 
     .categoryName{
-         width: 60%;
+         width: 80%;
 
          h1{
             overflow-x: hidden;

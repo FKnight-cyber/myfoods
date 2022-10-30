@@ -54,7 +54,8 @@ export default function PizzaEdges({selectEdge}){
         event.preventDefault();
 
         const body = {
-            name
+            name,
+            price
         };
 
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/edges/create`,body,{
@@ -126,6 +127,8 @@ export default function PizzaEdges({selectEdge}){
         });
 
         promise.then(res => {
+            setName('');
+            setPrice('');
             setCallUseEffect(callUseEffect + 1);
 
             let timerInterval
@@ -291,6 +294,12 @@ export default function PizzaEdges({selectEdge}){
                     placeholder="Nome da borda"
                     value={name}
                     onChange={e => setName(e.target.value)}
+                />
+                <input 
+                    type="number"
+                    placeholder="Preço da borda"
+                    value={price}
+                    onChange={e => setPrice(e.target.value)}
                 />
                 <button className="icon" type="submit" onClick={createEdge}>
                     +

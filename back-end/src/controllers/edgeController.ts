@@ -14,7 +14,7 @@ export async function editEdge(req:Request, res:Response){
 
     const id:number = Number(req.params.id);
     const name:string = req.body.name;
-    const price:number = req.body.price;
+    const price:number = Number(req.body.price);
 
     const edgeUpdated:PizzaEdges = {
         id,
@@ -41,7 +41,7 @@ export async function createEdge(req:Request, res:Response) {
     const { userInfo } = res.locals;
 
     const name:string = req.body.name;
-    const price:number = req.body.price;
+    const price:number = Number(req.body.price);
 
     const edge:IEdgeData = {
         name,

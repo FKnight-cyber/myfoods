@@ -9,7 +9,7 @@ async function findCategoryById(id:number) {
 };
 
 async function getCategories(){
-    return await prisma.category.findMany();
+    return await prisma.category.findMany({orderBy:{id:'asc'}});
 };
 
 async function insert(name:string){
