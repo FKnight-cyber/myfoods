@@ -3,7 +3,7 @@ import { IEdgeData } from "../types/edgeTypes";
 import { PizzaEdges } from "@prisma/client";
 
 async function getEdges() {
-    return await prisma.pizzaEdges.findMany({});
+    return await prisma.pizzaEdges.findMany({orderBy:{id:'asc'}});
 };
 
 async function insert(edge:IEdgeData){
