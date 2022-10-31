@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { LoadFood } from "../components/Loaders/initialPageLoaders";
 
 export default function InitialPage(){
-    const [category, setCategory] = useState("Menu");
+    const [category, setCategory] = useState("Promoções");
     const [openMenu, setOpenMenu] = useState(false);
     const [loadFood, setLoadFood] = useState(false);
     const [loadCategory, setLoadCategory] = useState(true);
@@ -115,7 +115,7 @@ export default function InitialPage(){
                 className="icon" 
             />
             {
-                (loadFood || category) == "Menu" ?
+                loadFood ?
                 <LoadFood />
                 :
                 <Products 

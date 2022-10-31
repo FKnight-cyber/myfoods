@@ -14,7 +14,8 @@ async function createCategories() {
     await prisma.category.createMany({
         data:[
             {id:1, name: 'Pizzas'},
-            {id:2, name: 'Bebidas'}
+            {id:2, name: 'Bebidas'},
+            {id:3, name: 'Promoções'}
         ]
     });
 };
@@ -95,6 +96,30 @@ async function createProducts() {
                 categoryId:2,
                 quantity:30,
                 imageURL: 'http://2.bp.blogspot.com/-d5A0Vb2PNr0/VXYHTTS7euI/AAAAAAAAA50/3toPIoMtOtE/s1600/maca.JPG'
+            },
+            {
+                name:'Pizza Mussarela', 
+                price:2200, 
+                description: 'Bastante mussarela!',
+                categoryId:3,
+                quantity:7,
+                imageURL: 'https://www.receiteria.com.br/wp-content/uploads/receitas-de-pizza-de-mussarela-1.jpg'
+            },
+            {
+                name:'Fanta maçã verde', 
+                price:1000, 
+                description: 'refrigerante',
+                categoryId:3,
+                quantity:5,
+                imageURL: 'http://2.bp.blogspot.com/-d5A0Vb2PNr0/VXYHTTS7euI/AAAAAAAAA50/3toPIoMtOtE/s1600/maca.JPG'
+            },
+            {
+                name:'Pizza de Abacaxi', 
+                price:2250, 
+                description: 'Mussarela com abacaxi caramelizado!',
+                categoryId:3,
+                quantity:15,
+                imageURL: 'https://www.manollopizzaria.com.br/wp-content/uploads/2015/02/abacaxi-e1427244937949.jpg'
             }
         ]
     })
