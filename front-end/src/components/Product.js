@@ -92,7 +92,7 @@ export default function Product({image,name,price,description,category,id}){
                 <h1>{name}</h1>
                 <h1>
                     {
-                        quantity <= 1 ? formatPrice(price + edgeValue) : formatPrice(price * Number(quantity) + edgeValue)
+                        quantity <= 1 ? formatPrice(price + edgeValue) : formatPrice((price + edgeValue) * Number(quantity))
                     }
                 </h1>
                 {

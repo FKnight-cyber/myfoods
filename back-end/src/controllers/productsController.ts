@@ -54,17 +54,16 @@ export async function editProduct(req:Request, res:Response) {
 
     const id:number = Number(req.params.id);
 
-    const { name, image, description, quantity, price, hasEdge } : 
+    const { name, image, description, quantity, price } : 
     { 
         name:string, 
         image:string, 
         description:string, 
         quantity:number, 
-        price:number,
-        hasEdge:boolean 
+        price:number
     } = req.body;
 
-    await productServices.editProduct(name, image, description, quantity, price, id, hasEdge, userInfo.data);
+    await productServices.editProduct(name, image, description, quantity, price, id, userInfo.data);
 
     res.sendStatus(202);
 };

@@ -40,7 +40,6 @@ model Product {
   createdAt   DateTime   @default(now())
   quantity    Int        @default(0)
   imageURL    String     @default("")
-  hasEdge     Boolean    @default(false)
   categories  Category   @relation(fields: [categoryId], references: [id])
   purchases   Purchase[]
   Cart        Cart[]
@@ -52,7 +51,6 @@ model PizzaEdges {
   id          Int        @id @default(autoincrement())
   name        String
   price       Int        @default(0)
-  purchase    Purchase[]
 
   @@map("edges")
 }
@@ -61,11 +59,9 @@ model Purchase {
   id        Int      @id @default(autoincrement())
   userId    Int
   productId Int
-  edgeId    Int
   createdAt DateTime @default(now())
   products  Product  @relation(fields: [productId], references: [id])
   users     User     @relation(fields: [userId], references: [id])
-  edge      PizzaEdges     @relation(fields: [edgeId], references: [id])
 
   @@map("purchases")
 }
@@ -75,6 +71,7 @@ model Cart {
   userId    Int
   productId Int
   quantity  Int
+  edgeId    Int     @default(0)
   products  Product @relation(fields: [productId], references: [id])
   users     User    @relation(fields: [userId], references: [id])
 

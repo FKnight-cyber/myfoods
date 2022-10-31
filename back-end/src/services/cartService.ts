@@ -2,6 +2,7 @@ import { ICartData } from "../types/cartTypes";
 import cartRepository from "../repositories/cartRepository";
 import productRepository from "../repositories/productsRepository";
 import { checkError } from "../middlewares/errorHandler";
+import edgesRepository from "../repositories/edgeRepository";
 
 async function addToCart(cart:ICartData){
 
@@ -17,14 +18,19 @@ async function addToCart(cart:ICartData){
 
 async function listProducts(userId:number){
     const products = await cartRepository.getProductsByUserId(userId);
-
+    
     let sum = 0;
 
-    products.forEach(product => {
-        sum += product.products.price;
-    });
+    for(const product of products){
+        if(product.edgeId > 0){
+            const edge = await edgesRepository.findEdgeById(product.edgeId);
+            product.products.price += edge.price;
+            product.products.name += ` com borda de ${edge.name}`
+        }
+        sum += product.products.price * product.quantity;
+    }
 
-    return [products,sum];
+    return [products, sum];
 };
 
 async function removeFromCart(productId:number, itemId:number, quantity:number) {

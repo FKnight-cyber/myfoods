@@ -50,6 +50,7 @@ export default function MyCart(){
         });
 
         promise.then(res => {
+            console.log(res.data[0])
             setTotal(formatPrice(res.data[1]));
             const hashtable = {};
             for(let i = 0; i < res.data.length; i++){
@@ -400,6 +401,7 @@ const Product = styled.div`
             font-style: italic;
             font-weight: 700;
             overflow-y: scroll;
+            margin-bottom: 8px;
         }
 
         h2{

@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import cartServices from "../services/cartService";
 
 export async function addToCart(req:Request, res:Response) {
-    const { productId, quantity } : 
+    const { productId, quantity, edgeId } : 
     {  
         productId:number, 
-        quantity:number 
+        quantity:number,
+        edgeId:number 
     } = req.body
 
     const { userInfo } = res.locals;
@@ -15,7 +16,8 @@ export async function addToCart(req:Request, res:Response) {
     await cartServices.addToCart({
         userId,
         productId,
-        quantity
+        quantity, 
+        edgeId
     });
 
     res.sendStatus(201);
