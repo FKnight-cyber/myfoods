@@ -28,15 +28,15 @@ MyFoods targets small business food delivery service, it allows product and clie
 
 # Description
 
-The idea of this project was to build something of my own, it might not be the most original one but represents something that i use almost everyday,
-and so i choose to create my small version of a food delivery app, i took inspiration on iFood.
+The idea of this project was to build something of my own, it might not be the most original but represents something that I use almost everyday,
+and so I choose to create my small version of a food delivery app, I've took inspiration on iFood.
 
 The site has two parts, one for the admin, there he can manage all categories and products whole CRUD logic.
 The second part deal with the consumers, here the client can check products ordered by category, he can also add products to cart before finish his purchase and see his address info on user page.
 On cart page he can remove a single product or clean it.
 When finish purchase a pop-up will appear with all purchase and delivery information, the consumer will add his number on a field-box and then confirm, it will redirect the message to WhatsApp Web and send to the store.
 
-On this version only CEPs of the city of Fortaleza are allowed but you can easily add/remove out of delivery range areas through .env .
+To register an account you must inform a valid CEP, you can add a new valid CEP on admin page or use default CEP that comes within the database seed.
 
 </br>
 
@@ -764,15 +764,11 @@ To run this project, you will need to add the following environment variables to
 
 `NODE_ENV = string #prod by default `
 
-`DELIVERY_RANGE = string default Fortaleza, does accept list of cities format example: Fortaleza, Caucaia, Maracanaú, ... `
-
-
-
 front-end/.env
 
 `REACT_APP_API_BASE_URL = example: http://localhost:5000`
 
-`REACT_APP_WHATSAPP_NUMBER = string store's full phone number`
+`REACT_APP_WHATSAPP_NUMBER = string store's full phone number example: 5585997154567`
 
 To test this project, you will need to add the following environment variables to your back-end/.env.test file
 
@@ -799,23 +795,17 @@ Go to the project directory
   cd https://github.com/FKnight-cyber/myfoods/back-end
 ```
 
-```bash
-  cd https://github.com/FKnight-cyber/myfoods/front-end
-```
-
 Install dependencies
 
 ```bash
-  npm install
+  npm install -f
 ```
 
 Create database
 
 The application is currently deployed on Heroku, but if you want to run it locally...
 
-cd ../../myfoods/back-end
-
-check your .env and inform your variables.
+check your .env.test and inform your variables.
 
 ```bash
   npm run prisma:migrate 
@@ -847,34 +837,40 @@ Run unit tests
   npm run test:unit
 ```
 
-Run cypress tests
+prisma will use .env.test for test purposes.
+
+Front-end
 
 ```bash
-  cd ../../myfoods/front-end
+  cd https://github.com/FKnight-cyber/myfoods/front-end
 ```
+
+Install dependencies
+
+```bash
+  npm install -f
+```
+
+Start server: check your .env
+
+```bash
+  npm start
+```
+
+Run cypress tests
 
 ```bash
   npx cypress open
 ```
-
-prisma will build another postgress database for test purposes.
 </br>
 
 ## Lessons Learned
 
 In this project i've improved my skills, like tests were more easier and fast, i've also used new and cool libs like @mui/material and learnt about social media APIs.
 
-</br>
-
-## Acknowledgements
-
--   [Awesome Badges](https://github.com/Envoy-VC/awesome-badges)
-
-</br>
-
 ## Authors
 
--   Ryan Nicholas is a student at Driven Education and is putting effort into it to become a Dev.
+-   Ryan Nicholas a full-stack developer looking for new challenges!.
 <br/>
 
 #
