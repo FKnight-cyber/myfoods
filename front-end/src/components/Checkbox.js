@@ -4,9 +4,8 @@ import { formatPrice } from "../utils/utilityFunctions";
 import axios from "axios";
 import UserContext from "../context/UserContext";
 
-export default function Checkbox({setEdgeValue, setEdgeId, id}) {
+export default function Checkbox({setEdgeValue, setEdgeId, id, isChecked, setIsChecked}) {
     const [edges, setEdges] = useState([]);
-    const [isChecked, setIsChecked] = useState(false);
 
     const { token } = useContext(UserContext);
 
@@ -65,24 +64,6 @@ export default function Checkbox({setEdgeValue, setEdgeId, id}) {
             renderEdges(edges)
             :
             ''
-        }
-        {
-            isChecked ?
-            <label>
-                <input 
-                    type="checkbox"
-                    onChange={() => {
-                        setEdgeValue(0);
-                        setEdgeId(0);
-                        setIsChecked(!isChecked)
-                     }
-                    }
-                 />
-                <span>Sem borda</span>
-            </label>
-            :
-            ''
-            
         }
       </Container>
     );

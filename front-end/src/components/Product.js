@@ -14,6 +14,7 @@ export default function Product({image,name,price,description,category,id}){
     const [edgeId, setEdgeId] = useState(0);
     const [selected, setSelected] = useState(false);
     const [loadBuyFood, setLoadBuyFood] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
     const { token, productsInCart ,setProductsInCart } = useContext(UserContext);
 
@@ -90,13 +91,38 @@ export default function Product({image,name,price,description,category,id}){
             <img src={image} alt={category} srcset="" />
             <div className="info">
                 <h1>{name}</h1>
+                {
+                    isChecked ?
+                    <label className="unmark">
+                        <input 
+                            type="checkbox"
+                            onChange={() => {
+                                setEdgeValue(0);
+                                setEdgeId(0);
+                                setIsChecked(false);
+                            }
+                            }
+                        />
+                        <span>Sem borda</span>
+                    </label>
+                    :
+                    ''
+                    
+                }
                 <h1>
                     {
                         quantity <= 1 ? formatPrice(price + edgeValue) : formatPrice((price + edgeValue) * Number(quantity))
                     }
                 </h1>
                 {
-                    category === 'Pizzas' ? <Checkbox setEdgeValue={setEdgeValue} setEdgeId={setEdgeId} id={id} /> : ''
+                    category === 'Pizzas' ? 
+                    <Checkbox 
+                        setEdgeValue={setEdgeValue} 
+                        setEdgeId={setEdgeId} 
+                        id={id}
+                        isChecked={isChecked}
+                        setIsChecked={setIsChecked} 
+                    /> : ''
                 }
                 <h3>{description}</h3>
                 {
@@ -163,6 +189,19 @@ export default function Product({image,name,price,description,category,id}){
 const Container = styled.div`
     width: 100%;
     height: 96%;
+
+    .info{
+        position: relative;
+    }
+
+    .unmark{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 4px;
+    }
     
     img{
         width: 100%;

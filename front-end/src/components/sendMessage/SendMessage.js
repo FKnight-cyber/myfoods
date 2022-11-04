@@ -171,6 +171,7 @@ _*Se fizer o pagamento por PIX envie o comprovante!*_
               style: {
                 width: "230px",
                 height: "40vh",
+                overflowY: "scroll",
               },
               maxLength: CHARACTER_LIMIT,
             }}

@@ -95,7 +95,7 @@ async function createProducts() {
                 description: 'refrigerante',
                 categoryId:2,
                 quantity:30,
-                imageURL: 'http://2.bp.blogspot.com/-d5A0Vb2PNr0/VXYHTTS7euI/AAAAAAAAA50/3toPIoMtOtE/s1600/maca.JPG'
+                imageURL: 'https://d3o3bdzeq5san1.cloudfront.net/4/3004.jpg'
             },
             {
                 name:'Pizza Mussarela', 
@@ -111,7 +111,7 @@ async function createProducts() {
                 description: 'refrigerante',
                 categoryId:3,
                 quantity:5,
-                imageURL: 'http://2.bp.blogspot.com/-d5A0Vb2PNr0/VXYHTTS7euI/AAAAAAAAA50/3toPIoMtOtE/s1600/maca.JPG'
+                imageURL: 'https://d3o3bdzeq5san1.cloudfront.net/4/3004.jpg'
             },
             {
                 name:'Pizza de Abacaxi', 
