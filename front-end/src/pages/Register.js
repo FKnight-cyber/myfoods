@@ -83,7 +83,7 @@ export default function Register(){
                         <input
                             data-cy="cy-cep" 
                             type="number"
-                            placeholder="CEP"
+                            placeholder="Valid CEP, Example: 60720096"
                             onChange={e => {
                                 if(e.target.value.toString().length > 8){
                                     return;
