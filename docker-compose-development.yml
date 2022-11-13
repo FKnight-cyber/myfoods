@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    container_name: myfoods_db
+    ports:
+      - 5555:5432
+    env_file:
+      - back-end/.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  node_app:
+    container_name: myfoods_node
+    build: ./back-end
+    ports:
+      - 5000:5000
+    env_file:
+      - back-end/.env.development
+    depends_on:
+      - db
+  
+  react_app:
+    container_name: myfoods_react
+    build: ./front-end
+    env_file:
+      - front-end/.env.development
+    volumes:
+      - build_react:/var/www/html
+
+  nginx_app:
+    container_name: myfoods_nginx
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - build_react:/var/www/html
+    depends_on:
+      - db
+      - node_app
+      - react_app
+
+volumes:
+  postgres:
+  build_react:
