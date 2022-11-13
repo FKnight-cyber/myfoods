@@ -80,7 +80,7 @@ describe("Authenticaton service suit test", () => {
 
         expect(result).rejects.toEqual({
             status:403,
-            message: "Infelizmente não cobrimos o seu bairro ;("
+            message: "Infelizmente não cobrimos a sua região ;("
         });
     });
 
@@ -214,4 +214,9 @@ describe("Authenticaton service suit test", () => {
 
         expect(result).toStrictEqual(["admintoken","admin"]);
     });
+});
+
+afterAll(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
 });

@@ -4,7 +4,7 @@ import categoriesRepository from "../../src/repositories/categoriesRepository";
 import productsRepository from "../../src/repositories/productsRepository";
 import { __adminFactory, __userFactory } from "../factories/userFactory";
 
-jest.mock("../../src/repositories/categoriesRepository.ts")
+jest.mock("../../src/repositories/categoriesRepository.ts");
 
 beforeEach(() => {
     jest.resetAllMocks();
@@ -164,4 +164,9 @@ describe("Categories service suit test", () => {
 
         expect(categoriesRepository.insert).toBeCalled();
     });
+});
+
+afterAll(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
 });
