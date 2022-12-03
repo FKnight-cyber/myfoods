@@ -13,8 +13,8 @@ services:
 
   node_app:
     container_name: myfoods_node
-    # build: ./back-end
-    image: ryannicholas/myfoods_node:v1
+    build: ./back-end
+    #image: ryannicholas/myfoods_node:v2
     ports:
       - 5000:5000
     env_file:
@@ -24,8 +24,8 @@ services:
   
   react_app:
     container_name: myfoods_react
-    # build: ./front-end
-    image: ryannicholas/myfoods_react:v1
+    build: ./front-end
+    #image: ryannicholas/myfoods_react:v2
     env_file:
       - front-end/.env
     volumes:
@@ -33,8 +33,8 @@ services:
 
   nginx_app:
     container_name: myfoods_nginx
-    # build: ./nginx
-    image: ryannicholas/myfoods_nginx
+    build: ./nginx
+    #image: ryannicholas/myfoods_nginx
     ports:
       - 80:80
     volumes:
