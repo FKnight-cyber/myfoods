@@ -32,7 +32,7 @@
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.1",
     "jsonwebtoken": "^8.5.1",
-    "node": "^18.12.1",
+    "node": "^16.10.0",
     "prisma": "^4.4.0",
     "ts-node": "^10.9.1",
     "vercel": "^28.7.2"
