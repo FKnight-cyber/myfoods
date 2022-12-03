@@ -1,17 +1,15 @@
 {
-    "name": "myfoods-node",
     "version": 2,
-    "public": true,
     "builds": [
-      {
-        "src": "src/server.ts",
-        "use": "@vercel/node"
-      }
+        {
+            "src": "./dist/src/server.js",
+            "use": "@vercel/node"
+        }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/src/server.ts"
-      }
+        {
+            "src": "/(.*)",
+            "dest": "/dist/src/server.js"
+        }
     ]
-  }
+}
