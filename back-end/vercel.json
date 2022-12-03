@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "myfoods_node",
+    "name": "myfoods-node",
     "builds": [
        { "src": "server.ts", "use": "@vercel/node" }
     ],
