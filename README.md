@@ -59,7 +59,7 @@ requesting only the CEP.
 ### User Sign Up
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 POST /sign-up
 ```
 
@@ -87,7 +87,7 @@ status: 201
 ### User Sign In
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 POST /sign-in
 ```
 
@@ -111,7 +111,7 @@ POST /sign-in
 ### Get user info
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 GET /user/info
 ```
 
@@ -141,7 +141,7 @@ GET /user/info
 ### Get user purchases info
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 GET /user/purchase/info
 ```
 
@@ -188,7 +188,7 @@ GET /user/purchase/info
 ### Get daily purchases info
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 POST /admin/purchase/info
 ```
 
@@ -242,7 +242,7 @@ POST /admin/purchase/info
 ### Create a new category
 
 ```
-https://myfoods-vieira.herokuapp.com/
+https://myfoods-node.vercel.app
 POST /categories/create
 ```
 
@@ -276,7 +276,7 @@ status: 201
 ### View categories.
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 GET /categories
 ```
 
@@ -315,7 +315,7 @@ GET /categories
 ### Edit category
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 PATCH /categories/:id
 ```
 
@@ -353,7 +353,7 @@ PATCH /categories/:id
 ### Delete category
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 DELETE /categories/delete/:id
 ```
 
@@ -381,7 +381,7 @@ status: 202
 ### View products by category
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 GET /products?category=
 ```
 
@@ -431,7 +431,7 @@ GET /products?category=
 ### View all products
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 GET /products/all
 ```
 
@@ -477,7 +477,7 @@ GET /products/all
 ### Create new product
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 POST /products/create
 ```
 
@@ -510,7 +510,7 @@ status: 201
 ### Edit product
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 PATCH /products/edit/:id
 ```
 
@@ -549,7 +549,7 @@ status: 202
 ### Delete product
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 DELETE /products/delete/:id
 ```
 
@@ -577,7 +577,7 @@ status: 202
 ### Add to cart
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 POST /cart/add
 ```
 
@@ -605,7 +605,7 @@ status: 201
 ### View cart products
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 GET /cart/list
 ```
 
@@ -659,7 +659,7 @@ GET /cart/list
 ### Remove product from cart
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 DELETE /cart/remove?product=${productId}&item=${id}&quantity=${quantity}
 ```
 
@@ -688,7 +688,7 @@ status: 200
 ### Remove all products from cart
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 DELETE /cart/cancel
 ```
 
@@ -711,7 +711,7 @@ status: 200
 ### Clean cart after purchase
 
 ```
-https://myfoods-vieira.herokuapp.com
+https://myfoods-node.vercel.app
 DELETE /cart/clean
 ```
 
