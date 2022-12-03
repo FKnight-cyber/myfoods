@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "npx prisma migrate deploy && npx prisma db seed && node ./dist/src/server.js",
     "dev": "dotenv -e .env.test nodemon ./src/server.ts",
