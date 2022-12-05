@@ -801,6 +801,10 @@ Install dependencies
   npm install -f
 ```
 
+In back-end, add the build script to package.json
+"build": "tsc"
+had to remove it due vercel build script for deploy.
+
 Create database
 
 The application is currently deployed on Heroku, but if you want to run it locally...
