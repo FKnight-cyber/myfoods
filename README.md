@@ -782,9 +782,10 @@ To run this project, you will need to add the following environment variables to
 
 `JWT_SECRET = string `
 
-`ADMIN_EMAIL = email used to access administrative area `
+`ADMIN_EMAIL = admin@test.com `
+`On deploy admin is aready registered and the password is 1234`
 
-`NODE_ENV = string #prod by default `
+`NODE_ENV = string #production by default `
 
 front-end/.env
 
@@ -795,8 +796,6 @@ front-end/.env
 To test this project, you will need to add the following environment variables to your back-end/.env.test file
 
 `DATABASE_URL = postgres://UserName:Password@Hostname:5432/DatabaseName`
-
-`ADMIN_EMAIL = email used to access administrative area `
 
 `NODE_ENV = string test `
 
