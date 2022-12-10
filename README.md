@@ -40,6 +40,22 @@ To register an account you must inform a valid CEP, you can add a new valid CEP 
 
 </br>
 
+#
+
+
+https://user-images.githubusercontent.com/74775032/206869598-750e3aea-d836-4f8a-95f4-6781e9505432.mp4
+
+
+#
+
+# Admin
+
+
+https://user-images.githubusercontent.com/74775032/206869717-fd5443fd-f61c-4553-a0b5-98d7c1ee8291.mp4
+
+
+#
+
 ## Features
 
 -   Client and Admin sign-up and sign-in.
@@ -135,6 +151,12 @@ GET /user/info
   "city": "Fortaleza"
 }
 ```
+
+#
+
+
+https://user-images.githubusercontent.com/74775032/206869320-8a3edf49-6de1-4b87-a7e6-589b2996f87a.mp4
+
 
 #
 
@@ -801,10 +823,6 @@ Install dependencies
   npm install -f
 ```
 
-In back-end, add the build script to package.json
-"build": "tsc"
-had to remove it due vercel build script for deploy.
-
 Create database
 
 The application is currently deployed on Heroku, but if you want to run it locally...
@@ -867,6 +885,18 @@ Run cypress tests
   npx cypress open
 ```
 </br>
+
+Docker
+
+In back-end, add the build script to package.json
+"build": "tsc"
+had to remove it due vercel build script for deploy.
+
+then on root folder run
+
+```bash
+  docker-compose up --build
+```
 
 ## Lessons Learned
 
