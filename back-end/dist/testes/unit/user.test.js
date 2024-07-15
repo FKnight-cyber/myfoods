@@ -77,18 +77,18 @@ describe("Authenticaton service suit test", () => {
             message: "Não encontramos informação do seu CEP, verifique novamente!"
         });
     });
-    it("should return status 403 when user cep is out of delivery range", async () => {
-        const user = await (0, userFactory_1.__userFactory)();
-        user.cep = "60540096";
-        globals_1.jest.spyOn(authRepository_1.default, "findUser").mockImplementationOnce(() => {
-            return false;
-        });
-        const result = authService_1.default.signUp(user);
-        expect(result).rejects.toEqual({
-            status: 403,
-            message: "Infelizmente não cobrimos a sua região ;("
-        });
-    });
+    // it("should return status 403 when user cep is out of delivery range", async () => {
+    //     const user = await (0, userFactory_1.__userFactory)();
+    //     user.cep = "60540096";
+    //     globals_1.jest.spyOn(authRepository_1.default, "findUser").mockImplementationOnce(() => {
+    //         return false;
+    //     });
+    //     const result = authService_1.default.signUp(user);
+    //     expect(result).rejects.toEqual({
+    //         status: 403,
+    //         message: "Infelizmente não cobrimos a sua região ;("
+    //     });
+    // });
     it("should successfully sign-in a registered user", async () => {
         const registeredUser = {
             id: 1,

@@ -2,9 +2,12 @@ import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, TextField, styled } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import EmailIcon from '@mui/icons-material/Email';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
+import emailjs from "@emailjs/browser";
 
 const CssTextField = styled(TextField, {
   shouldForwardProp: (props) => props !== "focusColor",
@@ -31,7 +34,7 @@ const textFieldStyle = {
   width: "230px",
 };
 
-const SendMessages = ({messageData}) => {
+const SendMessages = ({ messageData }) => {
   const CHARACTER_LIMIT = 1000;
 
   const [numberEmptyError, setNumberEmptyError] = useState(false);
@@ -41,6 +44,7 @@ const SendMessages = ({messageData}) => {
 
   const [message, setMessage] = useState(
     `Nome:  ${messageData.name}
+Email: ${messageData.email}
 CEP:  ${messageData.CEP}
 Bairro: ${messageData.district}
 Rua:  ${messageData.road}
@@ -70,12 +74,13 @@ Se fizer o pagamento por PIX envie o comprovante!
         products: messageData.products.map(product => product.id)
       }
 
-      const promisePurchase = axios.post(`${process.env.REACT_APP_API_BASE_URL}/purchase`,body,{
-        headers:{'x-access-token': `${token}`}
+      const promisePurchase = axios.post(`${process.env.REACT_APP_API_BASE_URL}/purchase`, body, {
+        headers: { 'x-access-token': `${token}` }
       });
-  
+
       promisePurchase.then(res => {
         setMessage(`_*Nome:*_ ${messageData.name}
+        _*Email:*_ ${messageData.email}
         _*CEP:*_ ${messageData.CEP}
         _*Bairro:*_ ${messageData.district}
         _*Rua:*_ ${messageData.road}
@@ -86,14 +91,14 @@ Se fizer o pagamento por PIX envie o comprovante!
       _*Se fizer o pagamento por PIX envie o comprovante!*_
       `);
 
-      let url = `https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}`;
+        let url = `https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}`;
 
-      url += `?text=${encodeURI(`_*Telefone:*_  ${mobileNumber}\n` + message)}&app_absent=0`;
+        url += `?text=${encodeURI(`_*Telefone:*_  ${mobileNumber}\n` + message)}&app_absent=0`;
 
-        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`,{
-              headers:{'x-access-token': `${token}`}
-          });
-        
+        const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`, {
+          headers: { 'x-access-token': `${token}` }
+        });
+
         promise.then(res => {
           console.log("ok");
         });
@@ -113,17 +118,29 @@ Se fizer o pagamento por PIX envie o comprovante!
     }
   };
 
+  const sendEmail = () => {
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      to_name: messageData.name,
+      message: message,
+      to_email: messageData.email,
+    }, "YOUR_USER_ID")
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+        console.log('FAILED...', err);
+      });
+  };
 
-  function renderOrder(products){
+  function renderOrder(products) {
     return products.map((product) => (`${product.products.name}: x${product.quantity}\n`));
-};
+  };
 
   return (
     <div className='communication'>
       <div className='whatsapp-card app'>
         <div className='title flex_middle'>
           <div style={{ marginRight: "0.5em" }}>
-            <WhatsAppIcon />
+            <PlaylistAddCheckIcon />
           </div>
           <div>Envie seu pedido!</div>
         </div>
@@ -194,13 +211,13 @@ Se fizer o pagamento por PIX envie o comprovante!
           />
         </div>
         <div style={{ marginTop: "1.5em" }}>
-        <Button
+          <Button
             onClick={() => navigate(-1)}
             variant='outlined'
             color='error'
             size='large'
           >
-            Cancel
+            Cancelar
           </Button>
           <Button
             onClick={onSubmit}
@@ -208,9 +225,23 @@ Se fizer o pagamento por PIX envie o comprovante!
             color='success'
             size='large'
           >
-            Enviar
+            <div style={{ marginRight: "0.5em" }}>
+              <WhatsAppIcon />
+            </div>
+            Enviar WhatsApp
+          </Button>
+          <Button
+            onClick={sendEmail}
+            variant='outlined'
+            color='success'
+            size='large'
+          ><div style={{ marginRight: "0.5em" }}>
+              <EmailIcon />
+            </div>
+            Enviar Email
           </Button>
         </div>
+
         <h1 style={{ marginTop: "1.5em" }}>PIX: ryannicholas.vieira@gmail.com</h1>
       </div>
     </div>

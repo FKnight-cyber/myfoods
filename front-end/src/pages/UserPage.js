@@ -6,14 +6,30 @@ import UserContext from "../context/UserContext";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export default function UserPage(){
+export default function UserPage() {
     const [purchases, setPurchases] = useState(0);
 
     const navigate = useNavigate();
 
+    const { 
+        token,
+        name,
+        email,
+        CEP,
+        city,
+        district,
+        road,
+        number 
+    } = useContext(UserContext);
+
     useEffect(() => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/purchase/info`,{
-            headers:{'x-access-token': `${token}`}
+        if (!token) {
+            navigate('/');
+            return;
+        }
+
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/purchase/info`, {
+            headers: { 'x-access-token': `${token}` }
         });
 
         promise.then(res => {
@@ -39,39 +55,31 @@ export default function UserPage(){
                     clearInterval(timerInterval)
                 }
             }).then((result) => {
-                 return;
+                return;
             });
-            if(Error.response.status === 401){
+            if (Error.response.status === 401) {
                 localStorage.setItem('authToken', '');
                 navigate('/');
             }
         });
-    },[])
+    }, [token, navigate]);
 
-    const { 
-        token,
-        name,
-        CEP,
-        city,
-        district,
-        road,
-        number 
-    } = useContext(UserContext);
-
-    return(
+    return (
         <Container>
             <h1>Nome</h1>
-            <h2>{name}</h2>
+            <h2>{name || 'N/A'}</h2>
+            <h1>Email</h1>
+            <h2>{email || 'N/A'}</h2>
             <h1>CEP</h1>
-            <h2>{CEP}</h2>
+            <h2>{CEP || 'N/A'}</h2>
             <h1>Cidade</h1>
-            <h2>{city}</h2>
+            <h2>{city || 'N/A'}</h2>
             <h1>Bairro</h1>
-            <h2>{district}</h2>
+            <h2>{district || 'N/A'}</h2>
             <h1>Rua</h1>
-            <h2>{road}</h2>
+            <h2>{road || 'N/A'}</h2>
             <h1>Número da casa</h1>
-            <h2>{number}</h2>
+            <h2>{number || 'N/A'}</h2>
             <h1>Total de pedidos: {purchases}</h1>
             <FaOutdent
                 size={30}
@@ -80,8 +88,8 @@ export default function UserPage(){
                 className="icon"
             />
         </Container>
-    )
-};
+    );
+}
 
 const Container = styled.div`
     width: 100%;

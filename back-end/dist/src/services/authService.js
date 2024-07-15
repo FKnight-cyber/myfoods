@@ -30,8 +30,8 @@ async function signUp(user) {
         const validAddressDelivery = regions.map(region => region.name);
         if (info.erro)
             throw (0, errorHandler_1.checkError)(404, "Não encontramos informação do seu CEP, verifique novamente!");
-        if (validAddressDelivery.includes(info.bairro) !== true)
-            throw (0, errorHandler_1.checkError)(403, "Infelizmente não cobrimos a sua região ;(");
+        // if (validAddressDelivery.includes(info.bairro) !== true)
+        //     throw (0, errorHandler_1.checkError)(403, "Infelizmente não cobrimos a sua região ;(");
         user.password = (0, authUtils_1.encrypt)(user.password);
         await authRepository_1.default.insert(user);
     }

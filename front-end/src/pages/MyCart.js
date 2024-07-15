@@ -19,6 +19,7 @@ export default function MyCart(){
     const { 
         token,
         name,
+        email,
         CEP,
         district,
         road,
@@ -29,6 +30,7 @@ export default function MyCart(){
 
     const myRequest = {
         name,
+        email,
         CEP,
         district,
         road,
@@ -283,6 +285,7 @@ export default function MyCart(){
                         <h5>Finalizar Pedido</h5>
                         <FaGrinWink size={30} />
                     </div>
+                    
                 </>
             }
         </Container>
