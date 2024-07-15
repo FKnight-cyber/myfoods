@@ -21,6 +21,7 @@ export default function InitialPage(){
         token,
         setToken,
         setName,
+        setEmail,
         setCEP,
         setCity,
         setDistrict,
@@ -40,6 +41,7 @@ export default function InitialPage(){
         promise.then(res => {
             setLoadCategory(false);
             setName(res.data.name);
+            setEmail(res.data.email);
             setCEP(res.data.cep);
             setCity(res.data.city);
             setDistrict(res.data.district);

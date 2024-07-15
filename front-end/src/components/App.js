@@ -13,6 +13,7 @@ import Purchases from "../pages/AdminPages/Purchases";
 export default function App(){
     const [token,setToken] = useState(localStorage.getItem('authToken'));
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [CEP, setCEP] = useState('');
     const [city, setCity] = useState('');
     const [district, setDistrict] = useState('');
@@ -25,6 +26,8 @@ export default function App(){
         setToken,
         name,
         setName,
+        email,
+        setEmail,
         CEP,
         setCEP,
         city,
