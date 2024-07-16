@@ -9,6 +9,8 @@ import axios from "axios";
 import UserContext from "../../context/UserContext";
 import emailjs from "@emailjs/browser";
 
+emailjs.init("9bqlCfVElk4SxnOxK");
+
 const CssTextField = styled(TextField, {
   shouldForwardProp: (props) => props !== "focusColor",
 })((p) => ({
@@ -119,16 +121,32 @@ Se fizer o pagamento por PIX envie o comprovante!
   };
 
   const sendEmail = () => {
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-      to_name: messageData.name,
+    const serviceID = 'service_57e0f7u';
+    const templateID = 'template_zbqpi2g';
+    const templateParams = {
+      from_name: messageData.name,
+      to_name: "host",
       message: message,
-      to_email: messageData.email,
-    }, "YOUR_USER_ID")
-      .then((response) => {
-        console.log('SUCCESS!', response.status, response.text);
+    };
+
+    emailjs.send(serviceID, templateID, templateParams)
+      .then(() => {
+        alert('Pedido Enviado!');
       }, (err) => {
-        console.log('FAILED...', err);
+        alert(JSON.stringify(err));
       });
+
+    const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/cart/clean`, {
+      headers: { 'x-access-token': `${token}` }
+    });
+    promise.then(res => {
+      console.log("ok");
+    });
+    promise.catch(Error => {
+      console.log(Error.response.data)
+    });
+    setProductsInCart(0);
+    navigate("/initialpage");
   };
 
   function renderOrder(products) {
