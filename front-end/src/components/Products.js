@@ -62,22 +62,10 @@ export default function Products({category,openMenu,setLoadFood}){
 
     return(
         <Container openMenu={openMenu}>
-            <Swiper
-                spaceBetween={30}
-                centeredSlides={true}
-                autoplay={{
-                delay: 30000,
-                disableOnInteraction: true,
-                }}
-                pagination={{
-                clickable: true,
-                }}
-                navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
-            >
-                {
-                products.map((product,index) => 
-                    <SwiperSlide key={index}>
+        <FlexContainer>
+            {
+                products.map((product, index) => 
+                    <ProductWrapper key={index}>
                         <Product 
                             image={product.imageURL} 
                             name={product.name}
@@ -86,39 +74,16 @@ export default function Products({category,openMenu,setLoadFood}){
                             category={category}
                             id={product.id} 
                         />
-                    </SwiperSlide>
-                )}
-            </Swiper>
-            <Swiper
-                slidesPerView={3}
-                spaceBetween={30}
-                grabCursor={true}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
-            >
-                {
-                    products.map((product,index) => 
-                        <SwiperSlide key={index}>
-                            <Product 
-                                image={product.imageURL} 
-                                name={product.name}
-                                price={product.price}
-                                description={product.description}
-                                category={category}
-                                id={product.id} 
-                            />
-                        </SwiperSlide>
-                    )
-                }
-            </Swiper>
-        </Container>
+                    </ProductWrapper>
+                )
+            }
+        </FlexContainer>
+    </Container>
     )
 }
 
 const Container = styled.div`
-    display: ${props => props.openMenu ? "none" : "value"};
+    display: ${props => props.openMenu ? "none" : "block"};
     width: 94%;
     height: 56vh !important;
     background-color: #ffffff;
@@ -126,22 +91,18 @@ const Container = styled.div`
     border-radius: 6px;
     overflow-y: scroll;
 
-    > * {
-        &:last-child{
-            display: none;
-        }
-    }
-
     @media (min-width: 760px){
-        width:90%;
-        > * {
-            &:first-child{
-                display: none;
-            }
-
-            &:last-child{
-                display: flex;
-            }
-        }
+        width: 98%;
     }
-`
+`;
+
+const FlexContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 12px;
+`;
+
+const ProductWrapper = styled.div`/* Adjust this value to control the number of items per row */
+    box-sizing: border-box;
+`;

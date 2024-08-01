@@ -228,35 +228,40 @@ Se fizer o pagamento por PIX envie o comprovante!
             }
           />
         </div>
-        <div style={{ marginTop: "1.5em" }}>
-          <Button
-            onClick={() => navigate(-1)}
-            variant='outlined'
-            color='error'
-            size='large'
-          >
-            Cancelar
-          </Button>
+        <div style={{ marginTop: "1.5em" , display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
           <Button
             onClick={onSubmit}
             variant='outlined'
             color='success'
             size='large'
+            style={{borderRadius: "12px", marginBottom:"6px"}}
           >
             <div style={{ marginRight: "0.5em" }}>
               <WhatsAppIcon />
             </div>
             Enviar WhatsApp
           </Button>
+
           <Button
             onClick={sendEmail}
             variant='outlined'
             color='success'
             size='large'
+            style={{borderRadius: "12px", marginBottom:"6px"}}
           ><div style={{ marginRight: "0.5em" }}>
               <EmailIcon />
             </div>
             Enviar Email
+          </Button>
+
+          <Button
+            onClick={() => navigate(-1)}
+            variant='outlined'
+            color='error'
+            size='large'
+            style={{borderRadius: "12px"}}
+          >
+            Cancelar
           </Button>
         </div>
 

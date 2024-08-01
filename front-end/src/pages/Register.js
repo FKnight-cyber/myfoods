@@ -218,6 +218,10 @@ export const RegisterContainer = styled.div`
                 cursor: pointer;
             }
         }
+
+        @media (min-width: 760px){
+            width: 24%;
+        }
     }
 
     h6{

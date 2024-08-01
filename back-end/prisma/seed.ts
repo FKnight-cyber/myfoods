@@ -49,10 +49,10 @@ const products = [
         id:3,
         name:'Pizza de Chocolate', 
         price:4100, 
-        description: 'Mussarela, chocolate, morango e leite condensado!',
+        description: 'Mussarela, chocolate e leite condensado!',
         categoryId:1,
         quantity:13,
-        imageURL: 'https://xtudoreceitas.com/wp-content/uploads/Pizza-de-Chocolate-com-Morango.jpg'
+        imageURL: 'https://cdn0.tudoreceitas.com/pt/posts/1/7/6/pizza_doce_de_chocolate_7671_600.webp'
     },
     {
         id:4,

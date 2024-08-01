@@ -109,11 +109,6 @@ export default function Product({image,name,price,description,category,id}){
                     ''
                     
                 }
-                <h1>
-                    {
-                        quantity <= 1 ? formatPrice(price + edgeValue) : formatPrice((price + edgeValue) * Number(quantity))
-                    }
-                </h1>
                 {
                     category === 'Pizzas' ? 
                     <Checkbox 
@@ -125,6 +120,11 @@ export default function Product({image,name,price,description,category,id}){
                     /> : ''
                 }
                 <h3>{description}</h3>
+                <h1>
+                    {
+                        quantity <= 1 ? formatPrice(price + edgeValue) : formatPrice((price + edgeValue) * Number(quantity))
+                    }
+                </h1>
                 {
                     loadBuyFood ? 
                     <BuyFood />
@@ -187,8 +187,18 @@ export default function Product({image,name,price,description,category,id}){
 }
 
 const Container = styled.div`
-    width: 100%;
-    height: 96%;
+    width: 314px;
+    height: 100%;
+    padding-bottom: 2px;
+    border: solid 2px gray;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
     .info{
         position: relative;
@@ -217,7 +227,7 @@ const Container = styled.div`
     }
 
     h3{
-        margin-top: 10px;
+        margin-top: 4px;
         margin-left: 6px;
         height: 6vh;
         word-break: break-all;
@@ -259,5 +269,9 @@ const Container = styled.div`
         height: 24px;
         padding-left: 8px;
         border: none;
+    }
+
+    @media (min-width: 760px){
+        width: 320px;
     }
 `
