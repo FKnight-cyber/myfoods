@@ -86,7 +86,6 @@ const Container = styled.div`
     display: ${props => props.openMenu ? "none" : "block"};
     width: 94%;
     height: 56vh !important;
-    background-color: #ffffff;
     margin-top: 20px;
     border-radius: 6px;
     overflow-y: scroll;

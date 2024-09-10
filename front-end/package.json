@@ -50,6 +50,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^22.5.0",
     "cypress": "^10.9.0"
   }
 }

@@ -9,7 +9,8 @@ import axios from "axios";
 import UserContext from "../../context/UserContext";
 import emailjs from "@emailjs/browser";
 
-emailjs.init("9bqlCfVElk4SxnOxK");
+// emailjs.init("9bqlCfVElk4SxnOxK");
+emailjs.init("");
 
 const CssTextField = styled(TextField, {
   shouldForwardProp: (props) => props !== "focusColor",
@@ -121,8 +122,10 @@ Se fizer o pagamento por PIX envie o comprovante!
   };
 
   const sendEmail = () => {
-    const serviceID = 'service_57e0f7u';
-    const templateID = 'template_zbqpi2g';
+    // const serviceID = 'service_57e0f7u';
+    // const templateID = 'template_zbqpi2g';
+    const serviceID = '';
+    const templateID = '';
     const templateParams = {
       from_name: messageData.name,
       to_name: "host",
