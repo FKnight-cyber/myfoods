@@ -20,6 +20,7 @@ async function signUp(user:IUserData) {
         });
 
         console.log(user)
+        console.log(1)
 
         return;
     }else{
