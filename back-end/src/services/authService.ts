@@ -19,6 +19,8 @@ async function signUp(user:IUserData) {
             name: `Admin ${user.name}`
         });
 
+        console.log(user)
+
         return;
     }else{
         const { data:info } = await axios.get(`http://viacep.com.br/ws/${user.cep}/json/`).catch(()=>{
