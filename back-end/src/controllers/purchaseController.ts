@@ -1,16 +1,19 @@
 import { Request, Response } from "express";
 import purchaseServices from "../services/purchaseService";
 
-export async function finishOrder(req:Request, res:Response){
-    const { userInfo } = res.locals;
+export async function finishOrder(req: Request, res: Response) {
+    try {
+        const { userInfo } = res.locals;
+        const userId = userInfo.data.id;
+        const { products }: { products: number[] } = req.body;
 
-    const userId = userInfo.data.id
+        await purchaseServices.purchase(userId, products);
 
-    const { products } : { products:number[] } = req.body;
-
-    await purchaseServices.purchase(userId,products);
-
-    res.sendStatus(201);
+        res.sendStatus(201);
+    } catch (error) {
+        console.error("Erro ao finalizar pedido:", error);
+        res.status(500).json({ message: "Erro interno no servidor" });
+    }
 };
 
 export async function getUserPurchases(req:Request, res:Response) {

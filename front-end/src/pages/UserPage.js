@@ -47,9 +47,6 @@ export default function UserPage() {
                 didOpen: () => {
                     Swal.showLoading()
                     const b = Swal.getHtmlContainer().querySelector('b')
-                    timerInterval = setInterval(() => {
-                        b.textContent = Swal.getTimerLeft()
-                    }, 100);
                 },
                 willClose: () => {
                     clearInterval(timerInterval)
