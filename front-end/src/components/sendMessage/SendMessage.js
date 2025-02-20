@@ -9,7 +9,6 @@ import axios from "axios";
 import UserContext from "../../context/UserContext";
 import emailjs from "@emailjs/browser";
 
-// emailjs.init("9bqlCfVElk4SxnOxK");
 emailjs.init("");
 
 const CssTextField = styled(TextField, {
@@ -122,8 +121,6 @@ Se fizer o pagamento por PIX envie o comprovante!
   };
 
   const sendEmail = () => {
-    // const serviceID = 'service_57e0f7u';
-    // const templateID = 'template_zbqpi2g';
     const serviceID = '';
     const templateID = '';
     const templateParams = {
@@ -245,7 +242,7 @@ Se fizer o pagamento por PIX envie o comprovante!
             Enviar WhatsApp
           </Button>
 
-          <Button
+          {/* <Button
             onClick={sendEmail}
             variant='outlined'
             color='success'
@@ -255,7 +252,7 @@ Se fizer o pagamento por PIX envie o comprovante!
               <EmailIcon />
             </div>
             Enviar Email
-          </Button>
+          </Button> */}
 
           <Button
             onClick={() => navigate(-1)}
