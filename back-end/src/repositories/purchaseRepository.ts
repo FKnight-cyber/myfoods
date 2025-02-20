@@ -1,11 +1,9 @@
 import prisma from "../database";
 
 async function insert(userId:number, productId:number) {
-    console.log(userId)
-    console.log(productId)
     await prisma.purchase.create({data:{
         userId,
-        productId: productId - 1
+        productId: productId
     }});
 };
 
