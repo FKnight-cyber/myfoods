@@ -73,7 +73,7 @@ Se fizer o pagamento por PIX envie o comprovante!
     } else {
 
       const body = {
-        products: messageData.products.map(product => product.id)
+        products: messageData.products.map(product => product.productId)
       }
 
       const promisePurchase = axios.post(`${process.env.REACT_APP_API_BASE_URL}/purchase`, body, {
